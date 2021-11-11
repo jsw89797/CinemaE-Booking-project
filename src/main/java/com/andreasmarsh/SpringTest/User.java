@@ -1,6 +1,5 @@
 package com.andreasmarsh.SpringTest;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.LeafPropertyXsiLoader;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
