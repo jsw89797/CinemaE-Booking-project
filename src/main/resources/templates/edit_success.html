@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Edit Success</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+  <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Cinema E-Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/}">Home</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/register}">Register</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" th:href="@{/profile}">Logout</a>
+        </div>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      </form>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</header>
+<div class="container text-center">
+  <h3>Your Account has been edited!</h3>
+  <p>Please check your email to find a validation email.</p>
+  <h4><a th:href="@{/}">Click here to return Home</a></h4>
+</div>
+
+</body>
+</html>
