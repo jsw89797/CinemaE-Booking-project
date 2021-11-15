@@ -167,6 +167,14 @@ public class AppController {
         return "profile";
     }
 
+    @GetMapping("/admin-portal")
+    public String showAdminPortal(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = (User) repo.findByEmail(currentUser.getUsername());
+        model.addAttribute("currentUser", user);
+
+        return "admin-portal";
+    }
+
     @GetMapping("/update-info")
     public String showEditForm() {
         return "update-info";
