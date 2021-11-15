@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="styleguide.css">
-        <link rel="icon" type="image/png" href="img/fav.png">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/styleguide.css}">
+        <link rel="icon" type="image/png" href="css/img/fav.png">
     </head>
     <body id="manage-movies">
         <header>
@@ -17,7 +18,9 @@
                     <h3 class="nav">Login/Register</h3>
                     <span class="cart-area">
                         <h3 class="nav">Cart</h3>
-                        <img src="img/cart-black.png" id="cart">
+                      <!--  <img src="css/img/cart-black.png" id="cart"> -->
+                        <img th:src="@{/css/img/cart-black.png}" >
+
                     </span>
                 </div>
             </div>
@@ -33,10 +36,12 @@
             </div>
 
             <div class="addMovie">
+                <form id="add-movie">
                 <h1>Add Movie</h1>
                 <br>
                 <input style="height:40px; float:left;" type="text" class="regsize" placeholder="Movie Title">
                 <button  type="button" class="addMButton">Add Movie</button>
+                </form>
             </div>
         </div>
     </body>

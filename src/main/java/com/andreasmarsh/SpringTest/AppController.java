@@ -207,6 +207,13 @@ public class AppController {
         return "edit_form";
     }
 
+    //controller for the add movie page
+    @GetMapping("/manage-movies")
+    public String showManageMoviesPage() {
+        return "manage-movies";
+    }
+
+
     @GetMapping("/edit-profile-failure")
     public String showEditProfileFormFailure(User user, Model model) {
         model.addAttribute("user", user);
