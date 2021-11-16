@@ -80,8 +80,8 @@
       <tbody>
       <tr th:each="movie: ${listMovies}">
         <td th:text="${movie.title}">Movie Title</td>
-        <td th:href="@{/edit-movie}">Update</td>
-        <td th:href="@{/delte-movie}">Add Movie</td>
+        <td><a th:href="@{/edit-movie}">Update</a></td>
+        <td><a th:href="@{/delete-movie}">Delete</a></td>
       </tr>
       </tbody>
     </table>

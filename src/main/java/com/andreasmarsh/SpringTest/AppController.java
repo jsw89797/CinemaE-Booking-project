@@ -175,18 +175,16 @@ public class AppController {
         return "admin-portal";
     }
 
-/**
     @GetMapping("/manage-movies")
     public String listMovies(Model model) {
         List<Movie> listMovies = movieRepo.findAll();
         model.addAttribute("listMovies", listMovies);
 
-        return "movie-form";
+        return "manage-movies";
     }
- */
 
-    @GetMapping("/manage-movies")
-    public String listMovies(Model model) {
+    @GetMapping("/movie-form")
+    public String movieForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("user", new User());
@@ -194,8 +192,6 @@ public class AppController {
             model.addAttribute("creditcard", new CreditCard());
             return "movie-form";
         //}
-
-
     }
 
     @GetMapping("/update-info")
