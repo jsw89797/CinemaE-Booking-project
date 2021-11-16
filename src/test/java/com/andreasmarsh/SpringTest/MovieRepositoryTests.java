@@ -40,6 +40,7 @@ public class MovieRepositoryTests {
         MovieShowing showing = new MovieShowing();
         Date date = new Date();
         showing.setMovie(movie);
+        showing.setTheaterID(1L);
         showing.setDate(date);
         showing.setTime(date);
 
