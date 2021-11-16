@@ -1,50 +1,95 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-            xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/styleguide.css}">
-        <link rel="icon" type="image/png" href="css/img/fav.png">
-    </head>
-    <body id="manage-movies">
-        <header>
-            <div class="navbar">
-                <span id="theater"><h1>Your Theater</h1></span>
-                <div class="flex">
-                    <input type="text" name="search" id="search" placeholder="Movie Title, Genre, or Showtime...">
-                    <label for="search"><button type="button" id="search-input">Search</button></label>
-                    <h3 class="nav">Home</h3>
-                    <h3 class="nav">Categories</h3>
-                    <h3 class="nav">Login/Register</h3>
-                    <span class="cart-area">
-                        <h3 class="nav">Cart</h3>
-                      <!--  <img src="css/img/cart-black.png" id="cart"> -->
-                        <img th:src="@{/css/img/cart-black.png}" >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Admin Portal</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Cinema E-Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-                    </span>
-                </div>
-            </div>
-         </header>
-        <div class="mMovies">
-            <h1>Manage Schedule</h1>
-            <div class="movieNames">
-                <h2>Current Movies</h2>
-                <br>
-                <h2>Shang-Chi</h2>
-                <h2>Black Widow</h2>
-                <h2>Venom</h2>
-            </div>
-
-            <div class="addMovie">
-                <form id="add-movie">
-                <h1>Add Movie</h1>
-                <br>
-                <input style="height:40px; float:left;" type="text" class="regsize" placeholder="Movie Title">
-                <button  type="button" class="addMButton">Add Movie</button>
-                </form>
-            </div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/}">Home</a>
         </div>
-    </body>
 
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+        </div>
 
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/register}">Register</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMIN')">
+          <a class="btn btn-success" th:href="@{/admin-portal}">Admin Portal</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+        </div>
+
+        <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+          <input type="submit" value="Logout" />
+        </form>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      </form>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</header>
+<div class="container text-center">
+  <div>
+    <h1>List of Movies</h1>
+  </div>
+
+  <h5><a th:href="@{/movie-form}">Add Movie</a></h5>
+
+  <div>
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Movie Title</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="movie: ${listMovies}">
+        <td th:text="${movie.title}">Movie Title</td>
+        <td th:text="${movie.title}">Date</td>
+        <td th:text="${movie.title}">Time</td>
+        <td th:href="@{/edit-movie}">Update</td>
+        <td th:href="@{/delte-movie}">Add Movie</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
 </html>

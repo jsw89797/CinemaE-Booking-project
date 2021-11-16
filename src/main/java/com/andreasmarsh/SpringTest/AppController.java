@@ -29,7 +29,7 @@ public class AppController {
     private UserRepository repo;
 
     @Autowired
-    private AddressRepository repo2;
+    private MovieRepository movieRepo;
 
     @Autowired
     private UserServices service;
@@ -173,6 +173,14 @@ public class AppController {
         model.addAttribute("currentUser", user);
 
         return "admin-portal";
+    }
+
+    @GetMapping("/manage-movies")
+    public String listMovies(Model model) {
+        List<Movie> listMovies = movieRepo.findAll();
+        model.addAttribute("listMovies", listMovies);
+
+        return "manage-movies";
     }
 
     @GetMapping("/update-info")
