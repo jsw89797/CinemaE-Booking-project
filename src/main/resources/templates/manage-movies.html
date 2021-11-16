@@ -75,15 +75,11 @@
       <thead class="thead-dark">
       <tr>
         <th>Movie Title</th>
-        <th>Date</th>
-        <th>Time</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="movie: ${listMovies}">
         <td th:text="${movie.title}">Movie Title</td>
-        <td th:text="${movie.title}">Date</td>
-        <td th:text="${movie.title}">Time</td>
         <td th:href="@{/edit-movie}">Update</td>
         <td th:href="@{/delte-movie}">Add Movie</td>
       </tr>
