@@ -175,12 +175,27 @@ public class AppController {
         return "admin-portal";
     }
 
+/**
     @GetMapping("/manage-movies")
     public String listMovies(Model model) {
         List<Movie> listMovies = movieRepo.findAll();
         model.addAttribute("listMovies", listMovies);
 
-        return "manage-movies";
+        return "movie-form";
+    }
+ */
+
+    @GetMapping("/manage-movies")
+    public String listMovies(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("user", new User());
+            model.addAttribute("address", new Address());
+            model.addAttribute("creditcard", new CreditCard());
+            return "movie-form";
+        //}
+
+
     }
 
     @GetMapping("/update-info")
