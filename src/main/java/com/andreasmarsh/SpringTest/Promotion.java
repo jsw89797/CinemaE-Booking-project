@@ -14,6 +14,9 @@ public class Promotion {
     @Column(nullable = false, name = "percentage", length = 2)
     private Long percentage;
 
+    @Column(nullable = false, length = 64, unique = true)
+    private String code;
+
     @Temporal(TemporalType.DATE)
     private java.util.Date startDate;
 
@@ -30,21 +33,23 @@ public class Promotion {
 
     }
 
-    public Promotion(Long promotionID, Long percentage, Date startDate, Date startTime, Date endDate, Date endTime) {
+    public Promotion(Long promotionID, Long percentage, Date startDate, Date startTime, Date endDate, Date endTime,  String code) {
         this.promotionID = promotionID;
         this.percentage = percentage;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.code = code;
     }
 
-    public Promotion(Long percentage, Date startDate, Date startTime, Date endDate, Date endTime) {
+    public Promotion(Long percentage, Date startDate, Date startTime, Date endDate, Date endTime, String code) {
         this.percentage = percentage;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.code = code;
     }
 
     public Long getPromotionID() {
@@ -93,5 +98,13 @@ public class Promotion {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

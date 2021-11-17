@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Delete Promotion - Cinema E-Booking</title>
+    <title>Delete Promotion</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
@@ -67,7 +67,7 @@
 </header>
 <div class="container text-center">
     <div>
-        <h3 th:text="'Are you sure you want to delete Promotion #' + ${promo.promotionID}  + '?'">Are you sure you want to delete Promotion?</h3>
+        <h3 th:text="'Are you sure you want to delete Promotion #' + ${promo.promotionID}  + ' with code ' + ${promo.code} + '?'">Are you sure you want to delete Promotion?</h3>
     </div>
     <form th:action="@{/process_delete_promotion}"
           method="post" style="max-width: 600px; margin: 0 auto;">

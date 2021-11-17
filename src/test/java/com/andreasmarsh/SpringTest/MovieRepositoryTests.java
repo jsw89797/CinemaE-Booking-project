@@ -27,7 +27,7 @@ public class MovieRepositoryTests {
 
     // test methods go below
     @Test
-    public void testCreateUser() {
+    public void testCreateMovie() {
         Movie movie = new Movie();
         movie.setTitle("Shang-Chi");
         movie.setCast("Simu Liu, Awkwafina, Tony Chiu-Wai Leung");
@@ -36,6 +36,7 @@ public class MovieRepositoryTests {
         movie.setProducer("Jonathan Schwartz");
         movie.setSynopsis("Shang-Chi and the Legend of the Ten Rings is a 2021 American superhero film based on Marvel Comics featuring the character Shang-Chi.");
         movie.setRating("PG-13");
+        movie.setNowShowing(true);
 
         MovieShowing showing = new MovieShowing();
         Date date = new Date();
@@ -60,13 +61,13 @@ public class MovieRepositoryTests {
 
         movie.setReviews(reviews);
 
-        Category category = new Category();
-        category.setCategory("Action");
+        Category category = repo2.findByCategory("Action");
 
-        repo2.save(category);
+        Category category2 = repo2.findByCategory("Superhero");
 
         Set<Category> categories = new HashSet<Category>();
         categories.add(category);
+        categories.add(category2);
 
         movie.setCategories(categories);
 

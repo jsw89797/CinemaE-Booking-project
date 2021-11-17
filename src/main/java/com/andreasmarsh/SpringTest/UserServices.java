@@ -31,6 +31,12 @@ public class UserServices {
     private PromotionRepository promotionRepo;
 
     @Autowired
+    private MovieRepository movieRepo;
+
+    @Autowired
+    private MovieShowingRepository movieShowingRepo;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -217,5 +223,11 @@ public class UserServices {
 
     public void deletePromotion(Promotion promotion) {
         promotionRepo.deleteById(promotion.getPromotionID());
+    }
+
+    public void deleteMovie(Movie movie) {
+        // movieShowingRepo.findByMovie(movie.getMovieID())
+        movieShowingRepo.deleteAll(movieShowingRepo.findByMovie(movie));
+        movieRepo.deleteById(movie.getMovieID());
     }
 }

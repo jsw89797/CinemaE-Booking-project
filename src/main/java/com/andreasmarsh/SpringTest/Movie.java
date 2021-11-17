@@ -38,6 +38,8 @@ public class Movie {
     @Column(nullable = false, name = "rating", length = 5)
     private String rating;
 
+    private boolean nowShowing;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Review> reviews = new ArrayList<>();
@@ -146,5 +148,13 @@ public class Movie {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public boolean isNowShowing() {
+        return nowShowing;
+    }
+
+    public void setNowShowing(boolean nowShowing) {
+        this.nowShowing = nowShowing;
     }
 }

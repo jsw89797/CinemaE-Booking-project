@@ -261,6 +261,22 @@ public class AppController {
         return "redirect:/manage-promotions";
     }
 
+    @GetMapping("/delete-movie/{id}")
+    public String showDeleteMovieForm(@PathVariable("id") Integer id, Model model) {
+        //System.out.println(id);
+        Movie movie = movieRepo.findById(Long.valueOf(id)).get();
+        model.addAttribute("movie", movie);
+
+        return "delete-movie";
+    }
+
+    @PostMapping("/process_delete_movie")
+    public String processDeleteMovie(Movie movie) {
+        //System.out.println(promotion.getPromotionID());
+        service.deleteMovie(movie);
+        return "redirect:/manage-movies";
+    }
+
     @GetMapping("/edit-profile-failure")
     public String showEditProfileFormFailure(User user, Model model) {
         model.addAttribute("user", user);

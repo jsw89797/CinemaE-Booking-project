@@ -7,8 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,7 +26,8 @@ public class PromotionRepositoryTests {
     @Test
     public void testCreatePromotion() {
         Promotion promo = new Promotion();
-        promo.setPercentage(20L);
+        promo.setPercentage(50L);
+        promo.setCode("Save50");
 
         Date date = new Date();
         promo.setStartTime(date);
