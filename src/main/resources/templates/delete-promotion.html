@@ -67,22 +67,24 @@
 </header>
 <div class="container text-center">
     <div>
-        <h3 th:text="'Are you sure you want to delete Promotion' + ${promo.promotionID}  + '?'">Are you sure you want to delete Promotion?</h3>
+        <h3 th:text="'Are you sure you want to delete Promotion #' + ${promo.promotionID}  + '?'">Are you sure you want to delete Promotion?</h3>
     </div>
     <form th:action="@{/process_delete_promotion}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <form class="m-3">
-            <div class="form-group row">
-                <label class="col-4 col-form-label"></label>
-                <input type="hidden" th:value="${promo.promotionID}" th:name="promotionID" th:id="promotionID" class="form-control"/>
-                <div class="col-4">
-                    <div sec:authorize="isAuthenticated()">
+            <input type="hidden" th:value="${promo.promotionID}" th:name="promotionID" th:id="promotionID" class="form-control"/>
+            <div class="row">
+                <!-- panel-footer -->
+                <div class="col-6 text-left">
+                    <div class="previous">
                         <a class="btn btn-secondary" th:href="@{/manage-promotions}">Cancel</a>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div>
-                        <button type="submit" class="btn btn-danger">Confirm</button>
+                <div class="col-6 text-right">
+                    <div class="next">
+                        <button type="submit" class="btn btn-danger">Confirm
+                            <span class=""></span>
+                        </button>
                     </div>
                 </div>
             </div>
