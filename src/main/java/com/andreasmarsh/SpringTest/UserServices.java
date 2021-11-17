@@ -28,6 +28,9 @@ public class UserServices {
     private CreditCardRepository repo3;
 
     @Autowired
+    private PromotionRepository promotionRepo;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -212,4 +215,7 @@ public class UserServices {
 
     }
 
+    public void deletePromotion(Promotion promotion) {
+        promotionRepo.deleteById(promotion.getPromotionID());
+    }
 }

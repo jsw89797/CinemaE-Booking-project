@@ -245,6 +245,22 @@ public class AppController {
         return "edit_form";
     }
 
+    @GetMapping("/delete-promotion/{id}")
+    public String showDeletePromotionForm(@PathVariable("id") Integer id, Model model) {
+        //System.out.println(id);
+        Promotion promo = promoRepo.findById(Long.valueOf(id)).get();
+        model.addAttribute("promo", promo);
+
+        return "delete-promotion";
+    }
+
+    @PostMapping("/process_delete_promotion")
+    public String processDeletePromotion(Promotion promotion) {
+        //System.out.println(promotion.getPromotionID());
+        service.deletePromotion(promotion);
+        return "redirect:/manage-promotions";
+    }
+
     @GetMapping("/edit-profile-failure")
     public String showEditProfileFormFailure(User user, Model model) {
         model.addAttribute("user", user);
