@@ -32,6 +32,9 @@ public class AppController {
     private MovieRepository movieRepo;
 
     @Autowired
+    private PromotionRepository promoRepo;
+
+    @Autowired
     private UserServices service;
 
     @Autowired
@@ -181,6 +184,14 @@ public class AppController {
         model.addAttribute("listMovies", listMovies);
 
         return "manage-movies";
+    }
+
+    @GetMapping("/manage-promotions")
+    public String listPromotions(Model model) {
+        List<Promotion> listPromotions = promoRepo.findAll();
+        model.addAttribute("listPromotions", listPromotions);
+
+        return "manage-promotions";
     }
 
     @GetMapping("/movie-form")
