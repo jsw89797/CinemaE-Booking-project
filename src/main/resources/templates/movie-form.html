@@ -77,24 +77,24 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Movie Title* : </label>
                 <div class="col-8">
-                    <input type="email" th:value="${user.email}" th:name="email" th:id="email" class="form-control"
-                           required/>
+                    <input type="text" th:value="${movie.title}" th:name="title" th:id="title" class="form-control"
+                           />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Director* : </label>
                 <div class="col-8">
-                    <input type="password" th:value="${user.password}" th:name="password" th:id="password"
+                    <input type="text" th:value="${movie.director}" th:name="director" th:id="director"
                            class="form-control"
-                           required minlength="6" maxlength="10"/>
+                           required minlength="2" maxlength="20"/>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Producer* : </label>
                 <div class="col-8">
-                    <input type="text" th:value="${user.firstName}" th:name="firstName" th:id="firstName"
+                    <input type="text" th:value="${movie.producer}" th:name="producer" th:id="producer"
                            class="form-control"
                            required minlength="2" maxlength="20"/>
                 </div>
@@ -106,21 +106,17 @@
 
             <div class="form-group row">
                 <div class="form-group col-6">
-                    <label for="inputCity" class="col-4 col-form-label">Day: </label>
-                    <input type="text" th:value="${address.city}" th:name="city" th:id="city" class="form-control"
+                    <label for="inputCity" class="col-4 col-form-label">Date: </label>
+                    <input type="text" th:value="${movieshowing.date}" th:name="date" th:id="date" class="form-control"
                            id="inputCity">
                 </div>
                 <div class="form-group col-4">
                     <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="text" th:value="${address.state}" th:name="state" th:id="state" class="form-control"
+                    <input type="text" th:value="${movieshowing.time}" th:name="time" th:id="time" class="form-control"
                            id="inputState"
                            minlength="2" maxlength="2"/>
                 </div>
-                <div class="form-group col-2">
-                    <label for="inputZip" class="col-4 col-form-label">Room:</label>
-                    <input type="tel" th:value="${address.zipCode}" th:name="zipCode" th:id="zipCode"
-                           class="form-control" id="inputZip">
-                </div>
+
             </div>
 
             <br><br>
@@ -132,7 +128,7 @@
                     <div class="form-group row">
                         <label class="col-4 col-form-label">Final score:</label>
                         <div class="col-8">
-                            <select class="col-4 form-control" name="cardType">
+                            <select class="col-4 form-control" name="rating"> <!-- cardType-->
                                 <option selected></option>
                                 <option>1/5</option>
                                 <option>2/5</option>
@@ -151,7 +147,7 @@
                                        title="Input 16 digits with no spaces or -'s found on front of card">Critic's thoughts
                                     :</label>
                                 <div class="input-group">
-                                    <input type="tel" name="cardNumber"
+                                    <input type="tel" name="review"
                                            placeholder="General impressions of the movie" class="form-control"
                                            minlength="16" maxlength="16">
 

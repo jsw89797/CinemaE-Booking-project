@@ -38,6 +38,9 @@ public class AppController {
     private UserServices service;
 
     @Autowired
+    private MovieServices movieService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/process_register")
@@ -198,11 +201,54 @@ public class AppController {
     public String movieForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("user", new User());
-            model.addAttribute("address", new Address());
-            model.addAttribute("creditcard", new CreditCard());
-            return "movie-form";
+        model.addAttribute("user", new User());
+        model.addAttribute("address", new Address());
+        model.addAttribute("creditcard", new CreditCard());
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("movieshowing", new MovieShowing());
+
+        return "movie-form";
         //}
+    }
+
+
+    @PostMapping("/process_addMovie")
+    public String processRegister(Movie movie, Review review, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+
+
+        //String[] reviewIDs = request.getParameterValues("cardID");
+        String[] ratings = request.getParameterValues("rating"); //rating - critic's score
+        String[] reviews = request.getParameterValues("review"); //review - written review
+
+        /**
+        System.out.println(cardNumbers.length + " cards");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(cardNumbers[i]);
+            if (!cardNumbers[i].equals("")) {
+                user.addCreditCard(cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), Long.parseLong(cardCvvs[i]));
+            } else {
+                user.addCreditCard(null, null, null, null, null);
+            }
+        }
+        */
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+
+            //if the movie does not already exist in the db
+            if(movieRepo.doesMovieExist(movie.getTitle()) == BigInteger.valueOf(0)) {
+                movieService.addMovie(movie, review, getSiteURL(request));
+            } else {
+                return "user_exists";
+            }
+
+            return "register_success";
+        } else {
+            //System.out.println(user.getId());
+            //service.update(user, address, getSiteURL(request));
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/update-info")
