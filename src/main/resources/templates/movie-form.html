@@ -133,7 +133,7 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Rating:</label>
                 <div class="col-8">
-                    <select class="col-4 form-control" name="ratingsystem">
+                    <select class="col-4 form-control" name="parentalguidancerating">
                         <option selected></option>
                         <option>G</option>
                         <option>PG</option>
@@ -155,26 +155,26 @@
 
                            id="inputCity">
                 </div>
-                <!--
+
                 <div class="form-group col-4">
                     <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="time" th:value="${movieshowing.time}" th:name="time" th:id="time" class="form-control"
+                    <input type="time" th:value="${movieshowing.stringTime}" th:name="stringTime" th:id="stringTime" class="form-control"
                            id="inputState"
                            minlength="2" maxlength="2"/>
                 </div>
-            -->
+
             </div>
 
+            <!--
             <br><br>
             <form role="form">
                 <th:block th:if="${user.id == null}">
-                    <!-- Credit card form content -->
                     <h3>Review </h3>
 
                     <div class="form-group row">
                         <label class="col-4 col-form-label">Final score:</label>
                         <div class="col-8">
-                            <select class="col-4 form-control" name="rating"> <!-- cardType-->
+                            <select class="col-4 form-control" name="rating">
                                 <option selected></option>
                                 <option>1/5</option>
                                 <option>2/5</option>
@@ -186,7 +186,6 @@
                     </div>
 
                     <div class="tab-content">
-                        <!-- credit card info-->
                         <div class="tab-pane fade show active pt-3">
                             <div class="form-group">
                                 <label data-toggle="tooltip"
@@ -201,7 +200,7 @@
                                 <br>
                             </div>
                         </div>
-                    </div> <!-- End -->
+                    </div>     -->         <!-- End -->
 
                 </th:block>
 

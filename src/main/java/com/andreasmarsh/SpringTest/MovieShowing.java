@@ -20,6 +20,7 @@ public class MovieShowing {
 
 
     private String stringDate; //originally, it's stored as a string, then converted to Date
+    private String stringTime;
 
     @Temporal(TemporalType.DATE)
     private java.util.Date date;
@@ -92,6 +93,14 @@ public class MovieShowing {
 
     public void setStringDate(String date) {
         this.stringDate = date;
+    }
+
+    public String getStringTime() {
+        return this.stringTime;
+    }
+
+    public void setStringTime(String time) {
+        this.stringTime = time;
     }
 }
 
