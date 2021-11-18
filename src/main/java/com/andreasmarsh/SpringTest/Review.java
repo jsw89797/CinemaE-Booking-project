@@ -14,13 +14,13 @@ public class Review {
     @JoinColumn(name = "movieID")
     private Movie movie;
 
-    @Column(nullable = false, name = "reviewer")
+    @Column(nullable = true, name = "reviewer")
     private String reviewer;
 
-    @Column(nullable = false, name = "rating", length = 3)
+    @Column(nullable = true, name = "rating", length = 3)
     private Long rating;
 
-    @Column(nullable = false, name = "review", length = 8000)
+    @Column(nullable = true, name = "review", length = 8000)
     private String review;
 
     public Review() {
