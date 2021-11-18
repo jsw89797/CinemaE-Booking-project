@@ -203,7 +203,15 @@ public class AppController {
         List<Promotion> listPromotions = promoRepo.findAll();
         model.addAttribute("listPromotions", listPromotions);
 
-        return "manage-promotions";
+        return "promo-sent";
+    }
+
+    @GetMapping("/promo-sent")
+    public String listPromotions2(Model model) {
+        List<Promotion> listPromotions = promoRepo.findAll();
+        model.addAttribute("listPromotions", listPromotions);
+
+        return "promo-sent";
     }
 
     @GetMapping("/movie-form")
@@ -327,6 +335,23 @@ public class AppController {
         //System.out.println(promotion.getPromotionID());
         service.deletePromotion(promotion);
         return "redirect:/manage-promotions";
+    }
+
+    @GetMapping("/send-promotion/{id}")
+    public String showSendPromotionForm(@PathVariable("id") Integer id, Model model) {
+        //System.out.println(id);
+        Promotion promo = promoRepo.findById(Long.valueOf(id)).get();
+        model.addAttribute("promo", promo);
+
+        return "send-promo";
+    }
+
+    @PostMapping("/process_send_promotion")
+    public String processSendPromotion(Promotion promotion,  HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        //System.out.println(promotion.getPromotionID());
+        promotion = promoRepo.getById(promotion.getPromotionID());
+        service.sendPromotion(promotion, getSiteURL(request));
+        return "redirect:/promo-sent";
     }
 
     @GetMapping("/delete-movie/{id}")

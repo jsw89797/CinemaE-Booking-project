@@ -174,6 +174,57 @@ public class UserServices {
         System.out.println("Email has been sent");
     }
 
+    public void sendPromotion(Promotion promotion, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        List<User> signedUpUsers = repo.findByPromotions(true);
+
+        signedUpUsers.forEach((user) -> {
+            try {
+                sendPromoEmail(user, promotion, siteURL);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void sendPromoEmail(User user, Promotion promotion, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "CinemaE-Booking@gmail.com";
+        String senderName = "Cinema E-Booking";
+        String subject = "New Promo";
+        String content = "Dear [[name]],<br><br>"
+                + "[[description]]<br><br>"
+                + "Try out Code:<br>"
+                + "<h3>[[code]]</h3>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">Login</a></h3>"
+                + "Thank you,<br>"
+                + "Team A6 Cinema E-Booking System.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getFullName());
+        content = content.replace("[[description]]", promotion.getDescription());
+        content = content.replace("[[code]]", promotion.getCode());
+
+        String loginURL = siteURL + "/login";
+
+        content = content.replace("[[URL]]", loginURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+        System.out.println("Email has been sent");
+    }
+
     private void sendEditEmail(User user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
