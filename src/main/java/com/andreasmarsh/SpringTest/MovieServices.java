@@ -1,7 +1,7 @@
 package com.andreasmarsh.SpringTest;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.util.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,8 +30,50 @@ public class MovieServices {
     }
      */
 
-    public void addMovie(Movie movie, Review review, String siteURL)
+    public void addMovie(Movie movie, MovieShowing showing, Review rev, String siteURL)
             throws UnsupportedEncodingException, MessagingException {
+
+
+        movie.setNowShowing(true);
+
+        //MovieShowing showing = new MovieShowing();
+        //Date date = new Date();
+        showing.setMovie(movie);
+        showing.setTheaterID(1L);
+        //showing.setDate(date);
+        //showing.setTime(date);
+
+        List<MovieShowing> showings = new ArrayList<>();
+        showings.add(showing);
+
+        movie.setMovieShowings(showings);
+
+        Review review = new Review();
+        review.setMovie(movie);
+        review.setReview("A good film. Would recommend!");
+        review.setRating(95L);
+        review.setReviewer("Andreas Marsh");
+
+        List<Review> reviews = new ArrayList<>();
+        reviews.add(review);
+
+        movie.setReviews(reviews);
+
+     //   Category category = repo2.findByCategory("Action");
+
+    //    Category category2 = repo2.findByCategory("Superhero");
+
+      //  Set<Category> categories = new HashSet<Category>();
+       // categories.add(category);
+       // categories.add(category2);
+
+      //  movie.setCategories(categories);
+
+        Movie savedMovie = repo.save(movie);
+
+       // Movie existMovie = entityManager.find(Movie.class, savedMovie.getMovieID());
+
+      //  assertThat(movie.getTitle()).isEqualTo(existMovie.getTitle());
 
         //save the movies to the database
         repo.save(movie);

@@ -71,7 +71,7 @@
         <p>* fields are required</p>
         <h3>General Movie Info</h3>
     </div>
-    <form th:action="@{/process_register}"
+    <form th:action="@{/process_addMovie}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <form class="m-3">
             <div class="form-group row">
@@ -79,6 +79,15 @@
                 <div class="col-8">
                     <input type="text" th:value="${movie.title}" th:name="title" th:id="title" class="form-control"
                            />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Cast* : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${movie.cast}" th:name="cast" th:id="cast"
+                           class="form-control"
+                           required minlength="2"/>
                 </div>
             </div>
 
@@ -100,6 +109,41 @@
                 </div>
             </div>
 
+            <!-- form for the trailer link -->
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Trailer link* : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${movie.trailer}" th:name="trailer" th:id="trailer"
+                           class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <!-- form for the movie's sypnosis -->
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Synopsis* : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${movie.synopsis}" th:name="synopsis" th:id="synopsis"
+                           class="form-control"
+                           required minlength="2"/>
+                </div>
+            </div>
+
+            <!-- Setting the rating form: PG, PG-13, R etc.-->
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Rating:</label>
+                <div class="col-8">
+                    <select class="col-4 form-control" name="ratingsystem">
+                        <option selected></option>
+                        <option>G</option>
+                        <option>PG</option>
+                        <option>PG-13</option>
+                        <option>R</option>
+
+                    </select>
+                </div>
+            </div>
+
             <br>
             <h3>Showing info</h3>
 
@@ -107,16 +151,18 @@
             <div class="form-group row">
                 <div class="form-group col-6">
                     <label for="inputCity" class="col-4 col-form-label">Date: </label>
-                    <input type="text" th:value="${movieshowing.date}" th:name="date" th:id="date" class="form-control"
+                    <input type="date" th:value="${movieshowing.stringDate}" th:name="stringDate" th:id="stringDate" class="form-control"
+
                            id="inputCity">
                 </div>
+                <!--
                 <div class="form-group col-4">
                     <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="text" th:value="${movieshowing.time}" th:name="time" th:id="time" class="form-control"
+                    <input type="time" th:value="${movieshowing.time}" th:name="time" th:id="time" class="form-control"
                            id="inputState"
                            minlength="2" maxlength="2"/>
                 </div>
-
+            -->
             </div>
 
             <br><br>

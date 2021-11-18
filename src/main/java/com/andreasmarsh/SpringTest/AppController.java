@@ -20,6 +20,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -218,13 +222,14 @@ public class AppController {
 
 
     @PostMapping("/process_addMovie")
-    public String processRegister(Movie movie, Review review, HttpServletRequest request)
-            throws UnsupportedEncodingException, MessagingException {
+    public String processRegister(Movie movie, MovieShowing showing, Review review, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException, ParseException {
 
-
+/** this will be for review
         //String[] reviewIDs = request.getParameterValues("cardID");
         String[] ratings = request.getParameterValues("rating"); //rating - critic's score
         String[] reviews = request.getParameterValues("review"); //review - written review
+ */
 
         /**
         System.out.println(cardNumbers.length + " cards");
@@ -238,12 +243,15 @@ public class AppController {
         }
         */
 
+        //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(showing.getStringDate());
+        //showing.setDate(date1);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 
             //if the movie does not already exist in the db
             if(movieRepo.doesMovieExist(movie.getTitle()) == BigInteger.valueOf(0)) {
-                movieService.addMovie(movie, review, getSiteURL(request));
+                movieService.addMovie(movie, showing, review, getSiteURL(request));
             } else {
                 return "user_exists";
             }
@@ -253,6 +261,7 @@ public class AppController {
             //System.out.println(user.getId());
             //service.update(user, address, getSiteURL(request));
         }
+        movieService.addMovie(movie, showing, review, getSiteURL(request));
         return "redirect:/";
     }
 
