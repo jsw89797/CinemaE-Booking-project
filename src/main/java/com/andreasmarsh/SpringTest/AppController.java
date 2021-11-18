@@ -257,20 +257,9 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 
-            //if the movie does not already exist in the db
-            if(movieRepo.doesMovieExist(movie.getTitle()) == BigInteger.valueOf(0)) {
-                movieService.addMovie(movie, showing, review, getSiteURL(request));
-            } else {
-                return "user_exists";
-            }
-
-            return "register_success";
-        } else {
-            //System.out.println(user.getId());
-            //service.update(user, address, getSiteURL(request));
         }
         movieService.addMovie(movie, showing, review, getSiteURL(request));
-        return "redirect:/";
+        return "redirect:/manage-movies";
     }
 
     @GetMapping("/update-info")
