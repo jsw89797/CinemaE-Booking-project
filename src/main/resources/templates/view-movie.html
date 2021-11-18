@@ -2,15 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Home - Cinema E-Booking</title>
-    <link rel="stylesheet" type="text/css" href="styleguide.css"/>
-    <link rel="icon" type="image/png" href="img/fav.png">
+    <meta charset="ISO-8859-1">
+    <title th:text="${movie.title}"></title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <style>.iframe-embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        border: 0;
+    }
+    .iframe-embed-wrapper {
+        position: relative;
+        display: block;
+        padding: 0;
+        overflow: hidden;
+    }
+    .iframe-embed-responsive-16by9 {
+        padding-bottom: 56.25%;
+    }</style>
 </head>
-<body id="homepage">
+<body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Cinema E-Booking</a>
@@ -21,7 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <div sec:authorize="isAuthenticated() || isAnonymous()">
-                    <a class="btn btn-success" th:href="@{/}">Home</a>
+                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated() || isAnonymous()">
@@ -45,7 +59,7 @@
                 </div>
 
                 <div sec:authorize="hasAuthority('ADMIN')">
-                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                    <a class="btn btn-success" th:href="@{/admin-portal}">Admin Portal</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated()">
@@ -67,47 +81,30 @@
         </div>
     </nav>
 </header>
-<main>
-
-    <div class="now-showing text-center">
-        <h1 class="header">Now Showing</h1>
-        <p></p>
-        <div class="container text-center testimonial-group" style="justify-content: center; display: flex;">
-            <th:block th:each="movie: ${listMoviesNowShowing}">
-                <div class="row text-center">
-                    <div class="card" style="width:240px">
-                        <iframe th:src="@{https://www.youtube.com/embed/{url}(url=${movie.trailer})}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${movie.title}"></h5>
-                            <p class="card-text" th:text="${movie.rating}"></p>
-                            <a th:href="@{'/view-movie/' + ${movie.movieID}}" class="btn btn-primary">Info/Book</a>
-                        </div>
-                    </div>
-                </div>
-            </th:block>
-        </div>
+<div class="container">
+    <div>
+        <h1 th:text="${movie.title}"></h1>
     </div>
 
-    <div class="coming-soon text-center">
-        <h1 class="header">Coming Soon</h1>
-        <p></p>
-        <div class="container text-center testimonial-group" style="justify-content: center; display: flex;">
-        <th:block th:each="movie: ${listMoviesComingSoon}">
-            <div class="row text-center">
-                <div class="card" style="width:240px">
-                    <iframe th:src="@{https://www.youtube.com/embed/{url}(url=${movie.trailer})}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${movie.title}"></h5>
-                        <p class="card-text" th:text="${movie.rating}"></p>
-                        <a th:href="@{'/view-movie/' + ${movie.movieID}}" class="btn btn-primary">Info/Book</a>
-                    </div>
-                </div>
-            </div>
-        </th:block>
-        </div>
+    <h3> </h3>
+
+    <div class="iframe-embed-wrapper iframe-embed-responsive-16by9">
+        <iframe class="iframe-embed" th:src="@{https://www.youtube.com/embed/{url}(url=${movie.trailer})}" width="560" height="315" frameborder="0" allowfullscreen="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
     </div>
-    </div>
-    </div>
-</main>
+
+    <h3> </h3>
+    <h3 th:text="'Synopsis: ' + ${movie.synopsis}"></h3>
+    <h3> </h3>
+    <h3 th:text="'Rating: ' + ${movie.rating}"></h3>
+    <h3>Reviews</h3>
+    <h3> </h3>
+    <th:block th:each="review, status : ${movie.reviews}">
+        <h3 th:text="'Reviewer: ' + ${review.reviewer}"></h3>
+        <h3 th:text="'Rating: ' + ${review.rating}"></h3>
+        <h3 th:text="'Review: ' + ${review.review}"></h3>
+    </th:block>
+    <h3 th:text="'Director: ' + ${movie.director}"></h3>
+
+</div>
 </body>
 </html>

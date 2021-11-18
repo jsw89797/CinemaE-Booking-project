@@ -29,9 +29,9 @@ public class MovieRepositoryTests {
     @Test
     public void testCreateMovie() {
         Movie movie = new Movie();
-        movie.setTitle("Shang-Chi");
+        movie.setTitle("Shang-Chi 2");
         movie.setCast("Simu Liu, Awkwafina, Tony Chiu-Wai Leung");
-        movie.setTrailer("https://www.youtube.com/watch?v=8YjFbMbfXaQ");
+        movie.setTrailer("8YjFbMbfXaQ");
         movie.setDirector("Destin Daniel Cretton");
         movie.setProducer("Jonathan Schwartz");
         movie.setSynopsis("Shang-Chi and the Legend of the Ten Rings is a 2021 American superhero film based on Marvel Comics featuring the character Shang-Chi.");

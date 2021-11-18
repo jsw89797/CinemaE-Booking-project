@@ -156,7 +156,12 @@ public class AppController {
     private UserRepository userRepo;
 
     @GetMapping("")
-    public String viewHomePage() {
+    public String viewHomePage(Model model) {
+        List<Movie> listMoviesNowShowing = movieRepo.findByNowShowing(true);
+        List<Movie> listMoviesComingSoon = movieRepo.findByNowShowing(false);
+
+        model.addAttribute("listMoviesNowShowing", listMoviesNowShowing);
+        model.addAttribute("listMoviesComingSoon", listMoviesComingSoon);
         return "homepage";
     }
 
@@ -278,6 +283,14 @@ public class AppController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/view-movie/{id}")
+    public String showMovieDetails(@PathVariable("id") Integer id, Model model) {
+        Movie movie = movieRepo.findById(Long.valueOf(id)).get();
+        model.addAttribute("movie", movie);
+
+        return "view-movie";
     }
 
     @GetMapping("/edit-profile/{id}")
