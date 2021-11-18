@@ -17,6 +17,9 @@ public class Promotion {
     @Column(nullable = false, length = 64, unique = true)
     private String code;
 
+    @Column(nullable = true, name = "description", length = 8000)
+    private String description;
+
     @Temporal(TemporalType.DATE)
     private java.util.Date startDate;
 
@@ -33,7 +36,7 @@ public class Promotion {
 
     }
 
-    public Promotion(Long promotionID, Long percentage, Date startDate, Date startTime, Date endDate, Date endTime,  String code) {
+    public Promotion(Long promotionID, Long percentage, Date startDate, Date startTime, Date endDate, Date endTime,  String code, String description) {
         this.promotionID = promotionID;
         this.percentage = percentage;
         this.startDate = startDate;
@@ -41,15 +44,25 @@ public class Promotion {
         this.endDate = endDate;
         this.endTime = endTime;
         this.code = code;
+        this.description = description;
     }
 
-    public Promotion(Long percentage, Date startDate, Date startTime, Date endDate, Date endTime, String code) {
+    public Promotion(Long percentage, Date startDate, Date startTime, Date endDate, Date endTime, String code, String description) {
         this.percentage = percentage;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
         this.code = code;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getPromotionID() {

@@ -82,6 +82,7 @@
                 <th>End Time</th>
                 <th>End Date</th>
                 <th>Update Promotion</th>
+                <th>Send Promo</th>
                 <th>Delete Promotion</th>
             </tr>
             </thead>
@@ -95,6 +96,7 @@
                 <td th:text="${promotion.endTime}">End Time</td>
                 <td th:text="${promotion.endDate}">End Date</td>
                 <td><a th:href="@{'/edit-promotion/' + ${promotion.promotionID}}">Update</a></td>
+                <td><a th:href="@{'/send-promotion/' + ${promotion.promotionID}}">Send Promo</a></td>
                 <td><a th:href="@{'/delete-promotion/' + ${promotion.promotionID}}">Delete</a></td>
             </tr>
             </tbody>
