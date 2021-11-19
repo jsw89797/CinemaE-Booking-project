@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-#homepage, #movie-info, #admin-home, #login, #register, #seat-selection, #purchase-history, #promotions, #manage-movies, #manage-schedule{
+#homepage, #movie-info, #admin-home, #login, #register, #seat-selection, #purchase-history, #promotions, #manage-movies, #manage-schedule, #background{
     background-color: #353d3f;
 }
 
@@ -16,7 +16,19 @@ main {
 h1, h2, h3, p, label, .titleSU, .reqEx, .a {
     font-family: sans-serif;
 }
+#background{
+    color: #d5d6d2;
+}
+.vertical-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+}
 
+.text-color{
+    color: #d5d6d2;
+}
 h1 {
     color: #d5d6d2;
 }

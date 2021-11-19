@@ -5,6 +5,7 @@
     <meta charset="ISO-8859-1">
     <title th:text="${movie.title}"></title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css"/>
     <style>.iframe-embed {
         position: absolute;
         top: 0;
@@ -24,7 +25,7 @@
         padding-bottom: 56.25%;
     }</style>
 </head>
-<body>
+<body id="background">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Cinema E-Booking</a>
@@ -72,13 +73,13 @@
             </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0 vertical-center">
                 <div style="float:left;">
                     <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
                            id="inputSearch" placeholder="Search">
                 </div>
                 <div style="float:left;">
-                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0 vertical-center">Search</button>
                 </div>
             </form>
         </div>

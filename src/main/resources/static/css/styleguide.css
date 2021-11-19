@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-#homepage, #movie-info, #admin-home, #login, #register, #seat-selection, #purchase-history, #promotions, #manage-movies, #manage-schedule{
+#homepage, #movie-info, #admin-home, #login, #register, #seat-selection, #purchase-history, #promotions, #manage-movies, #manage-schedule, #background{
     background-color: #353d3f;
 }
 
@@ -92,7 +92,7 @@ h1 {
 }
 
 .header {
-    font-size: 6em;
+    font-size: 3em;
     margin-bottom: 30px;
     text-decoration: underline;
     text-underline-offset: 5px;
@@ -102,6 +102,19 @@ h1 {
     display: flex;
     align-items: center;
     gap: 30px;
+}
+.vertical-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+}
+#background{
+    color: #d5d6d2;
+}
+
+.text-color{
+    color: #d5d6d2;
 }
 
 .card {
