@@ -416,10 +416,17 @@ public class AppController {
                 Category categoryPicked = categoryRepo.findByCategory(category[0]);
                 categories.add(categoryPicked);
             } else {
-                Category categoryPicked = new Category((long)(categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category[0]);
-                categoryRepo.save(categoryPicked);
-                categoryPicked = categoryRepo.findByCategory(category[0]);
-                categories.add(categoryPicked);
+                if (categoryRepo.findAll().size() == 0){
+                    Category categoryPicked = new Category((long)(1), category[0]);
+                    categoryRepo.save(categoryPicked);
+                    categoryPicked = categoryRepo.findByCategory(category[0]);
+                    categories.add(categoryPicked);
+                } else {
+                    Category categoryPicked = new Category((long) (categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category[0]);
+                    categoryRepo.save(categoryPicked);
+                    categoryPicked = categoryRepo.findByCategory(category[0]);
+                    categories.add(categoryPicked);
+                }
             }
         }
 
@@ -428,10 +435,17 @@ public class AppController {
                 Category categoryPicked = categoryRepo.findByCategory(category2[0]);
                 categories.add(categoryPicked);
             } else {
-                Category categoryPicked = new Category((long)(categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category2[0]);
-                categoryRepo.save(categoryPicked);
-                categoryPicked = categoryRepo.findByCategory(category2[0]);
-                categories.add(categoryPicked);
+                if (categoryRepo.findAll().size() == 0){
+                    Category categoryPicked = new Category((long)(1), category2[0]);
+                    categoryRepo.save(categoryPicked);
+                    categoryPicked = categoryRepo.findByCategory(category2[0]);
+                    categories.add(categoryPicked);
+                } else {
+                    Category categoryPicked = new Category((long) (categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category2[0]);
+                    categoryRepo.save(categoryPicked);
+                    categoryPicked = categoryRepo.findByCategory(category2[0]);
+                    categories.add(categoryPicked);
+                }
             }
         }
 

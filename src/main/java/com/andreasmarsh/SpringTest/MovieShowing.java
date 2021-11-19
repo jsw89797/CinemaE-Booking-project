@@ -18,10 +18,6 @@ public class MovieShowing {
     @Column(name = "theaterID", length = 11)
     private Long theaterID;
 
-
-    private String stringDate; //originally, it's stored as a string, then converted to Date
-    private String stringTime;
-
     @Temporal(TemporalType.DATE)
     private java.util.Date date;
 
@@ -85,22 +81,6 @@ public class MovieShowing {
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public String getStringDate() {
-        return this.stringDate;
-    }
-
-    public void setStringDate(String date) {
-        this.stringDate = date;
-    }
-
-    public String getStringTime() {
-        return this.stringTime;
-    }
-
-    public void setStringTime(String time) {
-        this.stringTime = time;
     }
 }
 
