@@ -138,16 +138,23 @@
             <br>
             <br>
             <h3 th:text="'Rating: ' + ${movie.rating}"></h3>
-            <h3>Reviews</h3>
             <br>
+            <br>
+            <h3>Categories:</h3>
+            <th:block th:each="category, status : ${movie.categories}">
+                <h3 th:text="${category.category}"></h3>
+            </th:block>
+            <br>
+            <br>
+            <h3>Reviews: </h3>
             <br>
             <th:block th:each="review, status : ${movie.reviews}">
                 <h3 th:text="'Reviewer: ' + ${review.reviewer}"></h3>
                 <h3 th:text="'Rating: ' + ${review.rating}"></h3>
                 <h3 th:text="'Review: ' + ${review.review}"></h3>
+                <br>
+                <br>
             </th:block>
-            <br>
-            <br>
             <h3 th:text="'Director: ' + ${movie.director}"></h3>
             <br>
             <br>

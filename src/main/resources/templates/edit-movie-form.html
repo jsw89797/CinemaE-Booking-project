@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Add Movie - Cinema E-Booking</title>
+    <title>Edit Movie - Cinema E-Booking</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
@@ -71,12 +71,12 @@
 <div class="container text-center">
     <div>
         <br>
-        <h1>Manage Movies - Add Movie</h1>
+        <h1>Manage Movies - Edit Movie</h1>
         <p>* fields are required</p>
         <br>
         <h3>General Movie Info</h3>
     </div>
-    <form th:action="@{/process_addMovie}"
+    <form th:action="@{/process_editMovie}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <form class="m-3">
             <div class="form-group row">
@@ -159,115 +159,70 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Category:</label>
-                <div class="col-8">
-                    <select class="col-4 form-control" name="category">
-                        <option selected></option>
-                        <option>Action</option>
-                        <option>Comedy</option>
-                        <option>Drama</option>
-                        <option>Fantasy</option>
-                        <option>Horror</option>
-                        <option>Mystery</option>
-                        <option>Romance</option>
-                        <option>Superhero</option>
-                        <option>Thriller</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Category:</label>
-                <div class="col-8">
-                    <select class="col-4 form-control" name="category2">
-                        <option selected></option>
-                        <option>Action</option>
-                        <option>Comedy</option>
-                        <option>Drama</option>
-                        <option>Fantasy</option>
-                        <option>Horror</option>
-                        <option>Mystery</option>
-                        <option>Romance</option>
-                        <option>Superhero</option>
-                        <option>Thriller</option>
-                    </select>
-                </div>
-            </div>
-
             <br>
-            <h3>Showing Info 1</h3>
+
+            <th:block th:each="category, status : ${movie.categories}">
+                <h3>Category #[[${status.count}]]</h3>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Category:</label>
+                    <div class="col-8">
+                        <select class="col-4 form-control" name="category">
+                            <option selected th:text="${category.category}"></option>
+                            <option>Action</option>
+                            <option>Comedy</option>
+                            <option>Drama</option>
+                            <option>Fantasy</option>
+                            <option>Horror</option>
+                            <option>Mystery</option>
+                            <option>Romance</option>
+                            <option>Superhero</option>
+                            <option>Thriller</option>
+                        </select>
+                    </div>
+                </div>
+
+            </th:block>
+
+            <th:block th:each="showing, status : ${showings}">
+                <input type="hidden" name="showID" th:value="${showing.showID}"/>
+                <input type="hidden" name="movieID" th:value="${movie.movieID}"/>
+            <br>
+            <h3>Showing Info #[[${status.count}]]</h3>
             <div class="form-group row">
                 <label class="col-4 col-form-label">TheaterID : </label>
                 <div class="col-8">
                     <input type="number" name="theaterID" placeholder="Theater Number (ie. 12)"
-                           class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
+                           th:value="${showing.theaterID}" class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="form-group col-8">
                     <label for="inputCity" class="col-4 col-form-label">Date: </label>
-                    <input type="date" name="date" class="form-control"
+                    <input type="date" name="date" class="form-control" th:value="${showing.date}"
 
                            id="inputCity">
                 </div>
                 <div class="form-group col-4">
                     <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="time" name="time" class="form-control"
+                    <input type="time" name="time" class="form-control" th:value="${showing.time}"
                            id="inputState"
                            minlength="2" maxlength="2"/>
                 </div>
             </div>
             <br>
-            <h3>Showing Info 2</h3>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">TheaterID : </label>
-                <div class="col-8">
-                    <input type="number" name="theaterID" placeholder="Theater Number (ie. 12)"
-                           class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-group col-8">
-                    <label for="inputCity" class="col-4 col-form-label">Date: </label>
-                    <input type="date" name="date" class="form-control">
-                </div>
-                <div class="form-group col-4">
-                    <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="time" name="time" class="form-control"
-                           minlength="2" maxlength="2"/>
-                </div>
-            </div>
-            <br>
-            <h3>Showing Info 3</h3>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">TheaterID : </label>
-                <div class="col-8">
-                    <input type="number" name="theaterID" placeholder="Theater Number (ie. 12)"
-                           class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-group col-8">
-                    <label for="inputCity" class="col-4 col-form-label">Date: </label>
-                    <input type="date" name="date" class="form-control">
-                </div>
+            </th:block>
 
-                <div class="form-group col-4">
-                    <label for="inputState" class="col-4 col-form-label">Hour: </label>
-                    <input type="time" name="time" class="form-control"
-                           minlength="2" maxlength="2"/>
-                </div>
-            </div>
-            <br>
 
-            <h3>Review Info 1</h3>
+            <th:block th:each="review, status : ${reviews}">
+                <input type="hidden" name="showID" th:value="${review.reviewID}"/>
+                <br>
+            <h3>Review Info #[[${status.count}]]</h3>
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Reviewer : </label>
                 <div class="col-8">
                     <input type="text" name="reviewer" placeholder="John Doe"
-                           class="form-control"
+                           class="form-control" th:value="${review.reviewer}"
                            minlength="2" maxlength="35"/>
                 </div>
             </div>
@@ -275,7 +230,7 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Rating : </label>
                 <div class="col-8">
-                    <input type="number" name="rating" placeholder="Number out of 100 (ie. 85)"
+                    <input type="number" name="rating" placeholder="Number out of 100 (ie. 85)" th:value="${review.rating}"
                            class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
                 </div>
             </div>
@@ -283,73 +238,17 @@
             <div class="form-group">
                 <label data-toggle="tooltip">Review :</label>
                 <div class="input-group">
-                    <input type="text" name="review"
+                    <input type="text" name="review" th:value="${review.review}"
                            placeholder="A smash hit!" class="form-control"
                            minlength="8" maxlength="8000">
                 </div>
             </div>
-            <br>
+            </th:block>
 
-            <h3>Review Info 2</h3>
-
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Reviewer : </label>
-                <div class="col-8">
-                    <input type="text" name="reviewer" placeholder="John Doe"
-                           class="form-control"
-                           minlength="2" maxlength="35"/>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Rating : </label>
-                <div class="col-8">
-                    <input type="number" name="rating" placeholder="Number out of 100 (ie. 85)"
-                           class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label data-toggle="tooltip">Review :</label>
-                <div class="input-group">
-                    <input type="text" name="review"
-                           placeholder="A smash hit!" class="form-control"
-                           minlength="8" maxlength="8000">
-                </div>
-            </div>
-            <br>
-
-            <h3>Review Info 3</h3>
-
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Reviewer : </label>
-                <div class="col-8">
-                    <input type="text" name="reviewer" placeholder="John Doe"
-                           class="form-control"
-                           minlength="2" maxlength="35"/>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Rating : </label>
-                <div class="col-8">
-                    <input type="number" name="rating" placeholder="Number out of 100 (ie. 85)"
-                           class="form-control" minlength="1" maxlength="2" min="1" max="100"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label data-toggle="tooltip">Review :</label>
-                <div class="input-group">
-                    <input type="text" name="review"
-                           placeholder="A smash hit!" class="form-control"
-                           minlength="8" maxlength="8000">
-                </div>
-            </div>
             <br>
             <br>
             <div>
-                <button type="submit" class="btn btn-primary">Add Movie</button>
+                <button type="submit" class="btn btn-primary">Update Movie</button>
             </div>
             <br>
             <br>

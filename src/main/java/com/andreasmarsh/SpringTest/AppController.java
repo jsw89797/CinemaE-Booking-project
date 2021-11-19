@@ -336,9 +336,7 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
         model.addAttribute("movie", new Movie());
-        model.addAttribute("movieshowing", new MovieShowing());
-        model.addAttribute("movieshowing2", new MovieShowing());
-        model.addAttribute("movieshowing3", new MovieShowing());
+
         String search = "";
         model.addAttribute("search", search);
 
@@ -346,6 +344,20 @@ public class AppController {
         //}
     }
 
+    @GetMapping("/edit-movie/{id}")
+    public String showEditMovieForm(@PathVariable("id") Integer id, Model model) {
+        System.out.println(id);
+        Movie movie = movieRepo.findById(Long.valueOf(id)).get();
+        model.addAttribute("movie", movie);
+        List<MovieShowing> showings = movie.getMovieShowings();
+        model.addAttribute("showings", showings);
+        List<Review> reviews = movie.getReviews();
+        model.addAttribute("reviews", reviews);
+        String search = "";
+        model.addAttribute("search", search);
+
+        return "edit-movie-form";
+    }
 
     @PostMapping("/process_addMovie")
     public String processRegisterMovie(Movie movie, HttpServletRequest request)

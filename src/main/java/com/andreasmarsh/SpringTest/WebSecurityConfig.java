@@ -68,6 +68,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/manage-promotions").hasAuthority("ADMIN")
                 .antMatchers("/add-promotion").hasAuthority("ADMIN")
                 .antMatchers("/delete-promotion").hasAuthority("ADMIN")
+                .antMatchers("/edit-movie").hasAuthority("ADMIN")
+                .antMatchers("/edit-promotion").hasAuthority("ADMIN")
+                .antMatchers("/send-promotion").hasAuthority("ADMIN")
+
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
