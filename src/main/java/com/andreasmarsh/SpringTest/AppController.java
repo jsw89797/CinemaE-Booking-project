@@ -23,9 +23,7 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class AppController {
@@ -218,7 +216,7 @@ public class AppController {
 
     @GetMapping("/profile")
     public String showProfilePage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        User user = (User) repo.findByEmail(currentUser.getUsername());
+        User user = repo.findByEmail(currentUser.getUsername());
         model.addAttribute("currentUser", user);
         String search = "";
         model.addAttribute("search", search);
@@ -337,11 +335,10 @@ public class AppController {
     public String movieForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-        model.addAttribute("user", new User());
-        model.addAttribute("address", new Address());
-        model.addAttribute("creditcard", new CreditCard());
         model.addAttribute("movie", new Movie());
         model.addAttribute("movieshowing", new MovieShowing());
+        model.addAttribute("movieshowing2", new MovieShowing());
+        model.addAttribute("movieshowing3", new MovieShowing());
         String search = "";
         model.addAttribute("search", search);
 
@@ -351,40 +348,100 @@ public class AppController {
 
 
     @PostMapping("/process_addMovie")
-    public String processRegisterMovie(Movie movie, MovieShowing showing, Review review, HttpServletRequest request)
+    public String processRegisterMovie(Movie movie, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException, ParseException {
 
-/** this will be for review
-        //String[] reviewIDs = request.getParameterValues("cardID");
-        String[] ratings = request.getParameterValues("rating"); //rating - critic's score
-        String[] reviews = request.getParameterValues("review"); //review - written review
- */
+        String[] rating = request.getParameterValues("parentalguidancerating");
+        movie.setRating(rating[0]);
 
-        /**
-        System.out.println(cardNumbers.length + " cards");
+        // set showings
+        String[] theaterIDS = request.getParameterValues("theaterID");
+        System.out.println("here");
+        String[] dates = request.getParameterValues("date");
+        String[] times = request.getParameterValues("time");
+
+        List<MovieShowing> showings = new ArrayList<>();
+
+        System.out.println(dates[1]);
+        System.out.println(times[1]);
+
         for (int i = 0; i < 3; i++) {
-            System.out.println(cardNumbers[i]);
-            if (!cardNumbers[i].equals("")) {
-                user.addCreditCard(cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), Long.parseLong(cardCvvs[i]));
-            } else {
-                user.addCreditCard(null, null, null, null, null);
+            if (!theaterIDS[i].equals("") && !dates[i].equals("") && !times[i].equals("")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dates[i]);
+                Date date2 = new SimpleDateFormat("HH:mm").parse(times[i]);
+
+                MovieShowing movieShowing = new MovieShowing();
+
+                movieShowing.setTheaterID(Long.parseLong(theaterIDS[i]));
+                movieShowing.setDate(date);
+                movieShowing.setTime(date2);
+                movieShowing.setMovie(movie);
+
+                showings.add(movieShowing);
             }
         }
-        */
 
-        //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(showing.getStringDate());
-        //showing.setDate(date1);
-        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(showing.getStringDate());
-        Date date2=new SimpleDateFormat("HH:mm").parse(showing.getStringTime());
-        //promo.setStartTime(date);
-        showing.setDate(date);
-        showing.setTime(date2);
+        movie.setMovieShowings(showings);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        // set reviews
 
+        String[] reviewers = request.getParameterValues("reviewer");
+        String[] ratings = request.getParameterValues("rating");
+        String[] reviews = request.getParameterValues("review");
+
+        List<Review> reviewList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            if (!reviews[i].equals("") && !ratings[i].equals("") && !reviewers[i].equals("")) {
+                Review review = new Review();
+                review.setReviewer(reviewers[i]);
+                review.setRating(Long.parseLong(ratings[i]));
+                review.setReview(reviews[i]);
+                review.setMovie(movie);
+                reviewList.add(review);
+            }
         }
-        movieService.addMovie(movie, showing, review, getSiteURL(request));
+
+        if (reviewList.size() != 0){
+            movie.setReviews(reviewList);
+        }
+
+        // set categories
+        String[] category = request.getParameterValues("category");
+        String[] category2 = request.getParameterValues("category2");
+
+        Set<Category> categories = new HashSet<Category>();
+
+        if (!category[0].equals("")) {
+            if (categoryRepo.findByCategory(category[0]) != null) {
+                Category categoryPicked = categoryRepo.findByCategory(category[0]);
+                categories.add(categoryPicked);
+            } else {
+                Category categoryPicked = new Category((long)(categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category[0]);
+                categoryRepo.save(categoryPicked);
+                categoryPicked = categoryRepo.findByCategory(category[0]);
+                categories.add(categoryPicked);
+            }
+        }
+
+        if (!category2[0].equals("")) {
+            if (categoryRepo.findByCategory(category2[0]) != null) {
+                Category categoryPicked = categoryRepo.findByCategory(category2[0]);
+                categories.add(categoryPicked);
+            } else {
+                Category categoryPicked = new Category((long)(categoryRepo.findAll().get(categoryRepo.findAll().size() - 1).getCategoryID() + 1), category2[0]);
+                categoryRepo.save(categoryPicked);
+                categoryPicked = categoryRepo.findByCategory(category2[0]);
+                categories.add(categoryPicked);
+            }
+        }
+
+        movie.setCategories(categories);
+
+        System.out.println(categoryRepo.findByCategory(category2[0]));
+        System.out.println(movie.getCategories().toString());
+        // save movie
+        Movie saved = movieRepo.save(movie);
+
         return "redirect:/manage-movies";
     }
 
