@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,9 @@ public class AppController {
 
     @Autowired
     private PromotionRepository promoRepo;
+
+    @Autowired
+    private MovieShowingRepository showingRepo;
 
     @Autowired
     private UserServices service;
@@ -330,6 +334,51 @@ public class AppController {
 
         }
         movieService.addMovie(movie, showing, review, getSiteURL(request));
+        return "redirect:/manage-movies";
+    }
+
+    @GetMapping("/edit-movie/{id}")
+    public String showEditMovieForm(@PathVariable("id") Integer id, Model model) {
+        System.out.println(id);
+        Movie movie = movieRepo.findById(Long.valueOf(id)).get(); //get the movie
+        MovieShowing showing = showingRepo.getByMovie(movie);
+
+        //model.addAttribute("promotion", promo);
+        model.addAttribute("movie", movie);
+        model.addAttribute("showing", showing);
+
+
+
+
+        System.out.println("here");
+
+        return "edit-movie-page";
+    }
+
+    @PostMapping("/edit-movie-process")
+    public String processEditMovies(Movie movie, MovieShowing showing, HttpServletRequest request, Model model)
+            throws UnsupportedEncodingException, MessagingException, ParseException {
+
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(showing.getStringDate());
+        Date date2=new SimpleDateFormat("HH:mm").parse(showing.getStringTime());
+        //promo.setStartTime(date);
+        showing.setDate(date);
+        showing.setTime(date2);
+
+        //movie.setRating("PG-13");
+
+        showing.setMovie(movie);
+        showing.setTheaterID(1L);
+
+        List<MovieShowing> movieShowings = movie.getMovieShowings();
+        movieShowings.add(showing);
+        movie.setMovieShowings(movieShowings);
+
+        movieRepo.save(movie);
+
+
+
+
         return "redirect:/manage-movies";
     }
 

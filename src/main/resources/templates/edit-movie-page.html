@@ -67,83 +67,107 @@
 </header>
 <div class="container text-center">
   <div>
-    <h3>Edit promotion</h3>
+    <h3>Edit Movie Details</h3>
   </div>
-  <form th:action="@{/edit-promotion-process}"
+  <form th:action="@{/edit-movie-process}"
         method="post" style="max-width: 600px; margin: 0 auto;">
     <form class="m-3">
       <div class="form-group row">
         <label class="col-4 col-form-label"> </label>
         <div class="col-8">
-          <input type="hidden" th:value="${promotion.promotionID}" th:name="promotionID" th:id="promotionID" class="form-control"
+          <input type="hidden" th:value="${movie.movieID}" th:name="movieID" th:id="movieID" class="form-control"
                  required readonly />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Percentage : </label>
+        <label class="col-4 col-form-label">Update Title : </label>
         <div class="col-8">
-          <input type="number" th:value="${promotion.percentage}" th:name="percentage" th:id="percentage" class="form-control"
+          <input type="string" th:value="${movie.title}" th:name="title" th:id="title" class="form-control"
                  required />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">code : </label>
+        <label class="col-4 col-form-label">Update Cast : </label>
         <div class="col-8">
-          <input type="string" th:value="${promotion.code}" th:name="code" th:id="code" class="form-control"
+          <input type="string" th:value="${movie.cast}" th:name="cast" th:id="cast" class="form-control"
                  required />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">description : </label>
+        <label class="col-4 col-form-label">Update Director : </label>
         <div class="col-8">
-          <input type="string" th:value="${promotion.description}" th:name="description" th:id="description" class="form-control"
+          <input type="string" th:value="${movie.director}" th:name="director" th:id="director" class="form-control"
                  required />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Start Date : </label>
+        <label class="col-4 col-form-label">Update Producer : </label>
         <div class="col-8">
-          <input type="date" th:value="${promotion.startStringDate}" th:name="startStringDate" th:id="startStringDate" class="form-control"
+          <input type="string" th:value="${movie.producer}" th:name="producer" th:id="producer" class="form-control"
+                 required />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Update Trailer : </label>
+        <div class="col-8">
+          <input type="string" th:value="${movie.trailer}" th:name="trailer" th:id="trailer" class="form-control"
+                 required />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Update Synopsis : </label>
+        <div class="col-8">
+          <input type="string" th:value="${movie.synopsis}" th:name="synopsis" th:id="synopsis" class="form-control"
+                 required />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Rating:</label>
+        <div class="col-8">
+          <select type="string" th:value="${movie.rating}" th:name="rating" th:id="rating" class="col-4 form-control" required>
+            <option selected></option>
+            <option>G</option>
+            <option>PG</option>
+            <option>PG-13</option>
+            <option>R</option>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Showing Date : </label>
+        <div class="col-8">
+          <input type="date" th:value="${showing.stringDate}" th:name="stringDate" th:id="stringDate" class="form-control"
                  required />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Start Time : </label>
+        <label class="col-4 col-form-label">Showing Time : </label>
         <div class="col-8">
-          <input type="time" th:value="${promotion.startStringTime}" th:name="startStringTime" th:id="startStringTime" class="form-control"
-                 required />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-4 col-form-label">End Date : </label>
-        <div class="col-8">
-          <input type="date" th:value="${promotion.endStringDate}" th:name="endStringDate" th:id="endStringDate" class="form-control"
-                 required />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-4 col-form-label">End Time : </label>
-        <div class="col-8">
-          <input type="time" th:value="${promotion.endStringTime}" th:name="endStringTime" th:id="endStringTime" class="form-control"
+          <input type="time" th:value="${showing.stringTime}" th:name="stringTime" th:id="stringTime" class="form-control"
                  required />
         </div>
       </div>
 
 
-
-        <div>
-          <button type="submit" class="btn btn-primary">Confirm</button>
-        </div>
-      </form>
-
+      <div>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+      </div>
     </form>
+
+  </form>
   </form>
 </div>
 </body>
