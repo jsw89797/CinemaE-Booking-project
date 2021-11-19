@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -214,6 +215,58 @@ public class AppController {
         return "promo-sent";
     }
 
+    @GetMapping("/promotion-form")
+    public String promotionForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        model.addAttribute("promotion", new Promotion());
+
+        return "promotion-form";
+        //}
+    }
+
+    @PostMapping("/process_addPromotion")
+    public String processAddPromotion(Promotion promo, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException, ParseException {
+
+
+        //promo.setPercentage(50L);
+
+        /**
+        Date date = new Date();
+        promo.setStartTime(date);
+        promo.setStartDate(date);
+        */
+
+
+        /**
+        Date date2 = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date2);
+        c.add(Calendar.DATE, 1);
+        date2 = c.getTime();
+
+        promo.setEndTime(date2);
+        promo.setEndDate(date2);
+         */
+
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(promo.getStartStringDate());
+        Date date2=new SimpleDateFormat("HH:mm").parse(promo.getStartStringTime());
+        //promo.setStartTime(date);
+        promo.setStartDate(date);
+        promo.setStartTime(date2);
+
+        Date date3=new SimpleDateFormat("yyyy-MM-dd").parse(promo.getEndStringDate());
+        Date date4=new SimpleDateFormat("HH:mm").parse(promo.getEndStringTime());
+
+        promo.setEndDate(date3);
+        promo.setEndTime(date4);
+
+        Promotion savedPromo = promoRepo.save(promo);
+
+        return "redirect:/manage-promotions";
+    }
+
     @GetMapping("/movie-form")
     public String movieForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -230,7 +283,7 @@ public class AppController {
 
 
     @PostMapping("/process_addMovie")
-    public String processRegister(Movie movie, MovieShowing showing, Review review, HttpServletRequest request)
+    public String processRegisterMovie(Movie movie, MovieShowing showing, Review review, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException, ParseException {
 
 /** this will be for review
