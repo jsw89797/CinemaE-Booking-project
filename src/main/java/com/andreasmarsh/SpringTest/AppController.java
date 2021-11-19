@@ -230,26 +230,6 @@ public class AppController {
             throws UnsupportedEncodingException, MessagingException, ParseException {
 
 
-        //promo.setPercentage(50L);
-
-        /**
-        Date date = new Date();
-        promo.setStartTime(date);
-        promo.setStartDate(date);
-        */
-
-
-        /**
-        Date date2 = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date2);
-        c.add(Calendar.DATE, 1);
-        date2 = c.getTime();
-
-        promo.setEndTime(date2);
-        promo.setEndDate(date2);
-         */
-
         Date date=new SimpleDateFormat("yyyy-MM-dd").parse(promo.getStartStringDate());
         Date date2=new SimpleDateFormat("HH:mm").parse(promo.getStartStringTime());
         //promo.setStartTime(date);
@@ -263,6 +243,39 @@ public class AppController {
         promo.setEndTime(date4);
 
         Promotion savedPromo = promoRepo.save(promo);
+
+        return "redirect:/manage-promotions";
+    }
+
+    @GetMapping("/edit-promotion/{id}")
+    public String showEditPromotionForm(@PathVariable("id") Integer id, Model model) {
+        System.out.println(id);
+        Promotion promo = promoRepo.findById(Long.valueOf(id)).get();
+
+        model.addAttribute("promotion", promo);
+
+        System.out.println("here");
+
+        return "edit-promotion-page";
+    }
+
+    @PostMapping("/edit-promotion-process")
+    public String processEditPromotion(Promotion promo, HttpServletRequest request, Model model)
+            throws UnsupportedEncodingException, MessagingException, ParseException {
+
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(promo.getStartStringDate());
+        Date date2=new SimpleDateFormat("HH:mm").parse(promo.getStartStringTime());
+        //promo.setStartTime(date);
+        promo.setStartDate(date);
+        promo.setStartTime(date2);
+
+        Date date3=new SimpleDateFormat("yyyy-MM-dd").parse(promo.getEndStringDate());
+        Date date4=new SimpleDateFormat("HH:mm").parse(promo.getEndStringTime());
+
+        promo.setEndDate(date3);
+        promo.setEndTime(date4);
+
+        promoRepo.save(promo);
 
         return "redirect:/manage-promotions";
     }
@@ -306,6 +319,11 @@ public class AppController {
 
         //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(showing.getStringDate());
         //showing.setDate(date1);
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(showing.getStringDate());
+        Date date2=new SimpleDateFormat("HH:mm").parse(showing.getStringTime());
+        //promo.setStartTime(date);
+        showing.setDate(date);
+        showing.setTime(date2);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {

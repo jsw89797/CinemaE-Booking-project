@@ -36,12 +36,10 @@ public class MovieServices {
 
         movie.setNowShowing(true);
         movie.setRating("PG-13");
-        //MovieShowing showing = new MovieShowing();
-        //Date date = new Date();
+
         showing.setMovie(movie);
         showing.setTheaterID(1L);
-        //showing.setDate(date);
-        //showing.setTime(date);
+
 
         List<MovieShowing> showings = new ArrayList<>();
         showings.add(showing);
