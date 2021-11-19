@@ -200,6 +200,8 @@ public class AppController {
         }});
 
         model.addAttribute("listSearchResults", listSearchResults);
+        String search2 = "";
+        model.addAttribute("search", search2);
         if (listSearchResults.size() > 0) {
             return "search-results";
         } else {
@@ -208,7 +210,9 @@ public class AppController {
     }
 
     @GetMapping("/error")
-    public String showErrorPage() {
+    public String showErrorPage(Model model) {
+        String search = "";
+        model.addAttribute("search", search);
         return "error";
     }
 
@@ -216,6 +220,8 @@ public class AppController {
     public String showProfilePage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         User user = (User) repo.findByEmail(currentUser.getUsername());
         model.addAttribute("currentUser", user);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "profile";
     }
@@ -224,6 +230,8 @@ public class AppController {
     public String showAdminPortal(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         User user = (User) repo.findByEmail(currentUser.getUsername());
         model.addAttribute("currentUser", user);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "admin-portal";
     }
@@ -232,6 +240,8 @@ public class AppController {
     public String listMovies(Model model) {
         List<Movie> listMovies = movieRepo.findAll();
         model.addAttribute("listMovies", listMovies);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "manage-movies";
     }
@@ -240,14 +250,18 @@ public class AppController {
     public String listPromotions(Model model) {
         List<Promotion> listPromotions = promoRepo.findAll();
         model.addAttribute("listPromotions", listPromotions);
+        String search = "";
+        model.addAttribute("search", search);
 
-        return "promo-sent";
+        return "manage-promotions";
     }
 
     @GetMapping("/promo-sent")
     public String listPromotions2(Model model) {
         List<Promotion> listPromotions = promoRepo.findAll();
         model.addAttribute("listPromotions", listPromotions);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "promo-sent";
     }
@@ -257,6 +271,8 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
         model.addAttribute("promotion", new Promotion());
+        String search = "";
+        model.addAttribute("search", search);
 
         return "promotion-form";
         //}
@@ -313,6 +329,8 @@ public class AppController {
         model.addAttribute("creditcard", new CreditCard());
         model.addAttribute("movie", new Movie());
         model.addAttribute("movieshowing", new MovieShowing());
+        String search = "";
+        model.addAttribute("search", search);
 
         return "movie-form";
         //}
@@ -353,7 +371,10 @@ public class AppController {
     }
 
     @GetMapping("/update-info")
-    public String showEditForm() {
+    public String showEditForm(Model model) {
+        String search = "";
+        model.addAttribute("search", search);
+
         return "update-info";
     }
 
@@ -365,6 +386,8 @@ public class AppController {
             model.addAttribute("user", new User());
             model.addAttribute("address", new Address());
             model.addAttribute("creditcard", new CreditCard());
+            String search = "";
+            model.addAttribute("search", search);
             return "signup_form";
         }
 
@@ -374,6 +397,8 @@ public class AppController {
     @GetMapping("/reset")
     public String showResetForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String search = "";
+        model.addAttribute("search", search);
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "reset_form";
         }
@@ -385,6 +410,8 @@ public class AppController {
     public String showMovieDetails(@PathVariable("id") Integer id, Model model) {
         Movie movie = movieRepo.findById(Long.valueOf(id)).get();
         model.addAttribute("movie", movie);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "view-movie";
     }
@@ -396,6 +423,8 @@ public class AppController {
         model.addAttribute("user", user);
 
         model.addAttribute("address", user.getAddress());
+        String search = "";
+        model.addAttribute("search", search);
 
         return "edit_form";
     }
@@ -405,6 +434,8 @@ public class AppController {
         //System.out.println(id);
         Promotion promo = promoRepo.findById(Long.valueOf(id)).get();
         model.addAttribute("promo", promo);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "delete-promotion";
     }
@@ -421,6 +452,8 @@ public class AppController {
         //System.out.println(id);
         Promotion promo = promoRepo.findById(Long.valueOf(id)).get();
         model.addAttribute("promo", promo);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "send-promo";
     }
@@ -438,6 +471,8 @@ public class AppController {
         //System.out.println(id);
         Movie movie = movieRepo.findById(Long.valueOf(id)).get();
         model.addAttribute("movie", movie);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "delete-movie";
     }
@@ -453,6 +488,8 @@ public class AppController {
     public String showEditProfileFormFailure(User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("address", user.getAddress());
+        String search = "";
+        model.addAttribute("search", search);
 
         return "edit_form_failure";
     }
@@ -461,12 +498,16 @@ public class AppController {
     public String listUsers(Model model) {
         List<User> listUsers = userRepo.findAll();
         model.addAttribute("listUsers", listUsers);
+        String search = "";
+        model.addAttribute("search", search);
 
         return "users";
     }
 
     @GetMapping("/verify")
-    public String verifyUser(@Param("code") String code) {
+    public String verifyUser(@Param("code") String code, Model model) {
+        String search = "";
+        model.addAttribute("search", search);
         if (service.verify(code)) {
             return "verify_success";
         } else {
@@ -477,6 +518,8 @@ public class AppController {
     @GetMapping("/login")
     public String loginPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String search = "";
+        model.addAttribute("search", search);
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         }
@@ -487,6 +530,8 @@ public class AppController {
     @GetMapping("/login_error")
     public String loginFailurePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String search = "";
+        model.addAttribute("search", search);
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login_error";
         }
