@@ -23,6 +23,12 @@ public class Promotion {
     @Temporal(TemporalType.DATE)
     private java.util.Date startDate;
 
+    private String startStringDate; //originally, it's stored as a string, then converted to Date
+    private String startStringTime;
+
+    private String endStringDate;
+    private String endStringTime;
+
     @Temporal(TemporalType.TIME)
     private java.util.Date startTime;
 
@@ -120,4 +126,37 @@ public class Promotion {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public String getStartStringDate() {
+        return startStringDate;
+    }
+
+    public void setStartStringDate(String date) {
+        this.startStringDate = date;
+    }
+
+    public String getStartStringTime() {
+        return startStringTime;
+    }
+
+    public void setStartStringTime(String time) {
+        this.startStringTime = time;
+    }
+
+    public String getEndStringDate() {
+        return endStringDate;
+    }
+
+    public void setEndStringDate(String date) {
+        this.endStringDate = date;
+    }
+
+    public String getEndStringTime() {
+        return endStringTime;
+    }
+
+    public void setEndStringTime(String time) {
+        this.endStringTime = time;
+    }
+
 }
