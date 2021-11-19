@@ -70,6 +70,7 @@
 </header>
 <div class="container text-center">
     <div>
+        <br>
         <h3>General Account Info</h3>
     </div>
     <form th:action="@{/process_edit}"
@@ -131,6 +132,7 @@
                 </div>
             </div>
 
+            <br>
             <h3>Address Info</h3>
 
             <div class="form-group row">
@@ -175,6 +177,7 @@
                     <input type="hidden" name="cardID" th:value="${creditcard.cardID}"/>
                     <input type="hidden" name="userID" th:value="${user.id}"/>
                     <!-- Credit card form content -->
+                    <br>
                     <h3>Payment Method #[[${status.count}]]</h3>
 
                     <div class="form-group row">
@@ -235,6 +238,8 @@
                 <div>
                     <button type="submit" class="btn btn-primary">Confirm</button>
                 </div>
+                <br>
+                <br>
             </form>
 
         </form>

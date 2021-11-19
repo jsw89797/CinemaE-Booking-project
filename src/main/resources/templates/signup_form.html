@@ -70,8 +70,10 @@
 </header>
 <div class="container text-center">
     <div>
+        <br>
         <h1>User Registration - Sign Up</h1>
         <p>* fields are required</p>
+        <br>
         <h3>General Account Info</h3>
     </div>
     <form th:action="@{/process_register}"
@@ -121,7 +123,7 @@
                     </label>
                 </div>
             </div>
-
+            <br>
             <h3>Address Info</h3>
 
             <div class="form-group row">
@@ -163,6 +165,7 @@
             <form role="form">
                 <th:block th:if="${user.id == null}">
                     <!-- Credit card form content -->
+                    <br>
                     <h3>Payment Method 1</h3>
 
                     <div class="form-group row">
@@ -216,6 +219,7 @@
                     </div> <!-- End -->
 
                     <!-- Credit card form content -->
+                    <br>
                     <h3>Payment Method 2</h3>
 
                     <div class="form-group row">
@@ -269,6 +273,7 @@
                     </div> <!-- End -->
 
                     <!-- Credit card form content -->
+                    <br>
                     <h3>Payment Method 3</h3>
 
                     <div class="form-group row">
@@ -389,6 +394,8 @@
                 <div>
                     <button type="submit" class="btn btn-primary">Confirm</button>
                 </div>
+                <br>
+                <br>
             </form>
 
         </form>

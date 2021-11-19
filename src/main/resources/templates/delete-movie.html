@@ -70,7 +70,9 @@
 </header>
 <div class="container text-center">
     <div>
+        <br>
         <h3 th:text="'Are you sure you want to delete Movie #' + ${movie.movieID}  + ' with name ' + ${movie.title} + '?'"></h3>
+        <br>
     </div>
     <form th:action="@{/process_delete_movie}"
           method="post" style="max-width: 600px; margin: 0 auto;">

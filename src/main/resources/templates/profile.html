@@ -72,12 +72,13 @@
 <main>
 
     <div class="profile text-center">
+        <br>
         <h1 class="header">Welcome [[${#request.userPrincipal.principal.fullName}]]!</h1>
-
+        <br>
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" th:action="@{/profile}"
              style="justify-content: center; display: flex;">
 
-                <div class="btn-group" role="group" aria-label="First group">
+            <div class="col-6 text-left">
                     <div sec:authorize="isAuthenticated()">
                         <a class="btn btn-primary"
                            th:href="@{'/edit-profile/' + ${currentUser.id}}">Update
@@ -85,7 +86,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group" role="group" aria-label="Second group">
+            <div class="col-6 text-right">
                     <div sec:authorize="isAuthenticated()">
                         <a class="btn btn-primary" th:href="@{/purchase-history}">Purchase History</a>
                     </div>

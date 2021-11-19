@@ -67,9 +67,21 @@
     </nav>
 </header>
 <div class="container text-center">
+    <br>
     <h1 class="header">Welcome Admin [[${#request.userPrincipal.principal.fullName}]]!</h1>
-    <h4><a th:href="@{/manage-movies}">Click here to Manage Movies</a></h4>
-    <h4><a th:href="@{/manage-promotions}">Click here to Manage Promotions</a></h4>
+    <br>
+    <div class="btn-group" role="group" aria-label="First group">
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-primary"
+               th:href="@{/manage-movies}">Manage Movies</a>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Second group">
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-primary" th:href="@{/manage-promotions}">Manage Promotions</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

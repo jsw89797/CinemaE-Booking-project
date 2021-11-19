@@ -74,7 +74,9 @@
 </header>
 <div class="container text-center">
     <div>
+        <br>
         <h1>Login to Cinema E-Booking</h1>
+        <br>
         <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;">
             <input type="hidden" name="_csrf" value="bd254102-0593-4d71-93c7-72f2e9725ea2"/>
             <p>
@@ -89,10 +91,18 @@
         </form>
     </div>
     <div>
+        <br>
         <h2>Forgot your password?</h2>
-        <h3><a th:href="@{/reset}">Reset Here</a></h3>
+        <br>
+        <a class="btn btn-primary"
+           th:href="@{/reset}">Reset Here</a>
+        <br>
+        <br>
         <h2>Need an Account?</h2>
-        <h3><a th:href="@{/register}">Register Here</a></h3>
+        <br>
+        <a class="btn btn-primary"
+           th:href="@{/register}">Register Here</a>
+        <br>
     </div>
 </div>
 </body>

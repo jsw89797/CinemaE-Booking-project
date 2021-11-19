@@ -70,9 +70,12 @@
 </header>
 <div class="container text-center">
     <div>
+        <br>
         <h1>Password Reset</h1>
+        <br>
         <p>Fill in your valid email and an email will be sent containing a new password.</p>
         <p>Login in with your new password and update your password from within your account page.</p>
+        <br>
     </div>
     <form th:action="@{/process_reset}"
           method="post" style="max-width: 600px; margin: 0 auto;">
@@ -84,7 +87,7 @@
                            required/>
                 </div>
             </div>
-
+            <br>
             <div>
                 <button type="submit" class="btn btn-primary">Reset</button>
             </div>
