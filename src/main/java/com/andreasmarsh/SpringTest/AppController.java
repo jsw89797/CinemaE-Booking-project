@@ -430,6 +430,8 @@ public class AppController {
         model.addAttribute("movie", movie);
         String search = "";
         model.addAttribute("search", search);
+        List<MovieShowing> showingList = movie.getMovieShowings();
+        model.addAttribute("showingList", showingList);
 
         return "view-movie";
     }
