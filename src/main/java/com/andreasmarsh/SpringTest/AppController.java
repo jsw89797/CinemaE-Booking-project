@@ -40,6 +40,9 @@ public class AppController {
     private PromotionRepository promoRepo;
 
     @Autowired
+    private CategoryRepository categoryRepo;
+
+    @Autowired
     private UserServices service;
 
     @Autowired
@@ -160,14 +163,48 @@ public class AppController {
     @Autowired
     private UserRepository userRepo;
 
+    @GetMapping("/no-movies")
+    public String viewNoMovies(Model model) {
+        List<Movie> listMoviesNowShowing = movieRepo.findByNowShowing(true);
+        List<Movie> listMoviesComingSoon = movieRepo.findByNowShowing(false);
+        String search = "";
+
+        model.addAttribute("listMoviesNowShowing", listMoviesNowShowing);
+        model.addAttribute("listMoviesComingSoon", listMoviesComingSoon);
+        model.addAttribute("search", search);
+        return "no-movies";
+    }
+
     @GetMapping("")
     public String viewHomePage(Model model) {
         List<Movie> listMoviesNowShowing = movieRepo.findByNowShowing(true);
         List<Movie> listMoviesComingSoon = movieRepo.findByNowShowing(false);
+        String search = "";
 
         model.addAttribute("listMoviesNowShowing", listMoviesNowShowing);
         model.addAttribute("listMoviesComingSoon", listMoviesComingSoon);
+        model.addAttribute("search", search);
         return "homepage";
+    }
+
+    @PostMapping("/process_search")
+    public String viewSearch(Model model, String search) {
+        String modifiedSearch = "%" + search + "%";
+        List<Movie> listSearchResults = movieRepo.findBySearch(modifiedSearch);
+
+        List<Movie> allMovies = movieRepo.findAll();
+
+        allMovies.forEach(movie -> {
+            if (movie.getCategories().contains(categoryRepo.findByCategory(search))) {
+            listSearchResults.add(movie);
+        }});
+
+        model.addAttribute("listSearchResults", listSearchResults);
+        if (listSearchResults.size() > 0) {
+            return "search-results";
+        } else {
+            return "redirect:/no-movies";
+        }
     }
 
     @GetMapping("/error")

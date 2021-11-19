@@ -12,4 +12,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query("SELECT u FROM Movie u WHERE u.nowShowing = ?1")
     public List<Movie> findByNowShowing(Boolean nowShowing);
+
+    @Query("SELECT u FROM Movie u WHERE u.title LIKE ?1")
+    public List<Movie> findBySearch(String search);
 }

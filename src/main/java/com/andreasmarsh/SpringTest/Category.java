@@ -43,4 +43,8 @@ public class Category {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String toString(){//overriding the toString() method
+        return categoryID + " " + category;
+    }
 }
