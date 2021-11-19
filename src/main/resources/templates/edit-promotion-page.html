@@ -67,7 +67,7 @@
 </header>
 <div class="container text-center">
   <div>
-    <h3>General Account Info</h3>
+    <h3>Edit promotions</h3>
   </div>
   <form th:action="@{/edit-promotion-process}"
         method="post" style="max-width: 600px; margin: 0 auto;">
@@ -84,7 +84,7 @@
         <label class="col-4 col-form-label">Percentage : </label>
         <div class="col-8">
           <input type="number" th:value="${promotion.percentage}" th:name="percentage" th:id="percentage" class="form-control"
-                 required />
+                 required min="0" max="100"/>
         </div>
       </div>
 

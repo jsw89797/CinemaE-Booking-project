@@ -113,7 +113,7 @@
                 <label class="col-4 col-form-label">Percentage* : </label>
                 <div class="col-8">
                     <input type="number" th:value="${promotion.percentage}" th:name="percentage" th:id="percentage" class="form-control"
-                    />
+                           min="0" max="100"/>
                 </div>
             </div>
 
