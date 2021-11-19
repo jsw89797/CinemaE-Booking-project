@@ -81,7 +81,7 @@
                 <label class="col-4 col-form-label">Start Date* : </label>
                 <div class="col-8">
                     <input type="date" th:value="${promotion.startStringDate}" th:name="startStringDate" th:id="startStringDate" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
                 <label class="col-4 col-form-label">Start Time* : </label>
                 <div class="col-8">
                     <input type="time" th:value="${promotion.startStringTime}" th:name="startStringTime" th:id="startStringTime" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                 <label class="col-4 col-form-label">End Date* : </label>
                 <div class="col-8">
                     <input type="date" th:value="${promotion.endStringDate}" th:name="endStringDate" th:id="endStringDate" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@
                 <label class="col-4 col-form-label">End Time* : </label>
                 <div class="col-8">
                     <input type="time" th:value="${promotion.endStringTime}" th:name="endStringTime" th:id="endStringTime" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
@@ -113,7 +113,7 @@
                 <label class="col-4 col-form-label">Percentage* : </label>
                 <div class="col-8">
                     <input type="number" th:value="${promotion.percentage}" th:name="percentage" th:id="percentage" class="form-control"
-                           min="0" max="100"/>
+                           required min="0" max="100"/>
                 </div>
             </div>
 
@@ -121,7 +121,7 @@
                 <label class="col-4 col-form-label">Code* : </label>
                 <div class="col-8">
                     <input type="text" th:value="${promotion.code}" th:name="code" th:id="code" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
@@ -129,7 +129,7 @@
                 <label class="col-4 col-form-label">Description* : </label>
                 <div class="col-8">
                     <input type="text" th:value="${promotion.description}" th:name="description" th:id="description" class="form-control"
-                    />
+                           required/>
                 </div>
             </div>
 
