@@ -73,7 +73,9 @@
     </div>
     <br>
 
-    <h5><a th:href="@{/promotion-form}">Add Promotion</a></h5>
+    <a class="btn btn-primary" th:href="@{/promotion-form}">Add Movie</a>
+
+    <br>
     <br>
 
     <div>
@@ -101,9 +103,9 @@
                 <td th:text="${promotion.startDate}">Start Date</td>
                 <td th:text="${promotion.endTime}">End Time</td>
                 <td th:text="${promotion.endDate}">End Date</td>
-                <td><a th:href="@{'/edit-promotion/' + ${promotion.promotionID}}">Update</a></td>
-                <td><a th:href="@{'/send-promotion/' + ${promotion.promotionID}}">Send Promo</a></td>
-                <td><a th:href="@{'/delete-promotion/' + ${promotion.promotionID}}">Delete</a></td>
+                <td><a class="btn btn-secondary" th:href="@{'/edit-promotion/' + ${promotion.promotionID}}">Update</a></td>
+                <td><a class="btn btn-secondary" th:href="@{'/send-promotion/' + ${promotion.promotionID}}">Send Promo</a></td>
+                <td><a class="btn btn-secondary" th:href="@{'/delete-promotion/' + ${promotion.promotionID}}">Delete</a></td>
             </tr>
             </tbody>
         </table>

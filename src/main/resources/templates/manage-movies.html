@@ -73,7 +73,9 @@
   </div>
   <br>
 
-  <h5><a th:href="@{/movie-form}">Add Movie</a></h5>
+  <a class="btn btn-primary" th:href="@{/movie-form}">Add Movie</a>
+
+  <br>
   <br>
 
   <div>
@@ -90,8 +92,8 @@
       <tr th:each="movie: ${listMovies}">
         <td th:text="${movie.movieID}">Movie ID</td>
         <td th:text="${movie.title}">Movie Title</td>
-        <td><a th:href="@{'/edit-movie/' + ${movie.movieID}}">Update</a></td>
-        <td><a th:href="@{'/delete-movie/' + ${movie.movieID}}">Delete</a></td>
+        <td><a class="btn btn-secondary" th:href="@{'/edit-movie/' + ${movie.movieID}}">Update</a></td>
+        <td><a class="btn btn-secondary" th:href="@{'/delete-movie/' + ${movie.movieID}}">Delete</a></td>
       </tr>
       </tbody>
     </table>
