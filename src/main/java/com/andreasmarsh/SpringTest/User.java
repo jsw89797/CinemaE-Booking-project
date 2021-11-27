@@ -20,10 +20,10 @@ public class User {
 
     private boolean enabled;
 
-    @Column(nullable = false, unique = true, updatable = false, length = 45)
+    @Column(nullable = true, unique = true, updatable = false, length = 45)
     private String email;
 
-    @Column(nullable = false, length = 64)
+    @Column(nullable = true, length = 64)
     private String password;
 
     private boolean adminStatus;
@@ -31,7 +31,7 @@ public class User {
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 20)
+    @Column(name = "last_name", nullable = true, length = 20)
     private String lastName;
 
     private boolean promotions;
@@ -40,6 +40,11 @@ public class User {
     @JoinColumn(name = "address_addressID", nullable = true, referencedColumnName = "addressID")
     @NotFound(action = NotFoundAction.IGNORE)
     private Address address;
+
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "bookings_bookingID", nullable = false, referencedColumnName = "bookingID")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Booking booking;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -122,6 +127,14 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public List<CreditCard> getCreditCards() {

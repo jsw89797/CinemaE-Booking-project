@@ -34,6 +34,9 @@ public class UserServices {
     private MovieRepository movieRepo;
 
     @Autowired
+    private BookingRepository bookingRepo;
+
+    @Autowired
     private MovieShowingRepository movieShowingRepo;
 
     @Autowired
@@ -59,6 +62,8 @@ public class UserServices {
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
 
+        Booking booking = new Booking();
+        user.setBooking(booking);
         user.setAddress(address);
 
         repo.save(user);

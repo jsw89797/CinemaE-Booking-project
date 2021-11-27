@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Cart</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+  <style>.iframe-embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+  .iframe-embed-wrapper {
+    position: relative;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+  .iframe-embed-responsive-16by9 {
+    padding-bottom: 56.25%;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Create two equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 70%;
+    padding: 10px;
+  }
+
+  .column2 {
+    float: left;
+    width: 30%;
+    padding: 10px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+    .column2 {
+      width: 100%;
+    }
+  }
+  </style>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Cinema E-Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/}">Home</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/register}">Register</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMIN')">
+          <a class="btn btn-success" th:href="@{/admin-portal}">Admin Portal</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+        </div>
+
+        <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+          <input type="submit" value="Logout" />
+        </form>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+        <div style="float:left;">
+          <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
+                 id="inputSearch" placeholder="Search">
+        </div>
+        <div style="float:left;">
+          <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+        </div>
+      </form>
+    </div>
+  </nav>
+</header>
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+    <div class="container">
+      <br>
+      <div class="row text-center">
+        <h1>Showings</h1>
+        <br>
+        <br>
+        <br>
+        <th:block th:each="allBookedShowings: ${allBookedShowings}">
+          <div class="col">
+            <a th:text="${allBookedShowings.getTime()} + ' on ' + ${allBookedShowings.getDate()}"></a>
+          </div>
+          <br>
+          <br>
+        </th:block>
+      </div>
+      <br>
+
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="column2" style="background-color:#bbb;">
+    <br>
+  </div>
+</div>
+</div>
+</div>
+</body>
+</html>

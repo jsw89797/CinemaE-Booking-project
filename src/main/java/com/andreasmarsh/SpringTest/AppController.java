@@ -35,10 +35,19 @@ public class AppController {
     private MovieRepository movieRepo;
 
     @Autowired
+    private MovieShowingRepository movieShowingRepo;
+
+    @Autowired
     private PromotionRepository promoRepo;
 
     @Autowired
     private CategoryRepository categoryRepo;
+
+    @Autowired
+    private BookingRepository bookingRepo;
+
+    @Autowired
+    private BookedShowingRepository bookedShowingRepo;
 
     @Autowired
     private UserServices service;
@@ -174,7 +183,20 @@ public class AppController {
     }
 
     @GetMapping("")
-    public String viewHomePage(Model model) {
+    public String viewHomePage(Model model, @AuthenticationPrincipal UserDetails currentUser, HttpServletRequest request) {
+
+        try {
+
+            User theUser = repo.findByEmail(currentUser.getUsername());
+            model.addAttribute("theUser", theUser);
+        } catch (NullPointerException npe){
+            //if no one is logged in, they will be tempUser
+            User theUser = repo.findByEmail("temp@gmail.com");
+            model.addAttribute("theUser", theUser);
+            //nothing :p
+        }
+
+
         List<Movie> listMoviesNowShowing = movieRepo.findByNowShowing(true);
         List<Movie> listMoviesComingSoon = movieRepo.findByNowShowing(false);
         String search = "";
@@ -585,6 +607,117 @@ public class AppController {
         //System.out.println(promotion.getPromotionID());
         service.deleteMovie(movie);
         return "redirect:/manage-movies";
+    }
+
+    @GetMapping("/book-movie/{id}")
+    public String bookMovie(@PathVariable("id") Integer id, Model model) {
+        MovieShowing showing = movieShowingRepo.findById(Long.valueOf(id)).get(); //get the specific showing
+        Movie movie = showing.getMovie();
+        model.addAttribute("movie", movie);
+        model.addAttribute("showing", showing); //the movie showing
+        String search = "";
+        model.addAttribute("search", search);
+        List<MovieShowing> showingList = movie.getMovieShowings();
+        model.addAttribute("showingList", showingList);
+
+        return "book-movie";
+    }
+
+    @GetMapping("/booking-process/{id}")
+    public String bookingProcess(@PathVariable("id") Integer id, @AuthenticationPrincipal UserDetails currentUser)
+            throws UnsupportedEncodingException, MessagingException, ParseException {
+        MovieShowing showing = movieShowingRepo.findById(Long.valueOf(id)).get(); //get the specific showing
+        Movie movie = showing.getMovie();
+
+
+        // now, we just need to save it to the user's booking.
+        // If no user is signed in, it's saved to the session.
+        User user = repo.findByEmail(currentUser.getUsername());
+
+        Booking booking = user.getBooking();
+
+        //Use the showing info
+        bookedShowing bookedShow = new bookedShowing(booking, movie, showing.getDate(), showing.getTime());
+
+
+        List<bookedShowing> showings = new ArrayList<>(); //make an empty list to be filled
+        System.out.println(showings.size());
+        if (booking.getBookedShowings() != null) {
+            //if it's not null, take the other showings into account.
+            showings = booking.getBookedShowings();
+
+        }
+
+
+
+        showings.add(bookedShow); //save it to the showings
+
+        booking.setBookedShowings(showings);
+        user.setBooking(booking);
+        booking.setUser(user);
+
+        System.out.println(showings.size());
+
+        //create the booked showing
+        bookedShowingRepo.save(bookedShow);
+
+        bookingRepo.save(booking);
+        repo.save(user);
+
+
+        System.out.println(booking.getBookingID() +" " +movie.getTitle() +" "+ showing.getDate() +" "+ showing.getTime());
+        System.out.println(bookedShow.getBookedShowingID() +" " +bookedShow.getDate() +" ");
+
+        return "redirect:/cart";
+        //return "homepage";
+        //return "redirect:/homepage";
+    }
+
+    @GetMapping("/cart")
+    public String cart(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+
+        User user = new User();
+
+        try {
+            user = repo.findByEmail(currentUser.getUsername());
+            model.addAttribute("currentUser", user);
+        } catch (NullPointerException npe) {
+            user = repo.findByEmail("temp@gmail.com");
+            model.addAttribute("currentUser", user);
+        }
+
+        bookedShowing bookedShowing = new bookedShowing();
+
+        //get booking
+
+        Booking booking = user.getBooking();
+        bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
+
+        List<bookedShowing> allBookedShowings = bookedShowingRepo.findAll();
+
+        for (int i = 0; i < allBookedShowings.size(); i++) {
+            if (allBookedShowings.get(i).getBooking().getBookingID() != booking.getBookingID()) {
+                allBookedShowings.remove(i);
+                i--;
+            }
+        }
+
+        for (int i = 0; i < allBookedShowings.size(); i++) {
+            System.out.println(allBookedShowings.get(i).getDate());
+
+        }
+
+        model.addAttribute("allBookedShowings", allBookedShowings);
+
+        bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
+
+        model.addAttribute("booking", booking);
+
+
+
+
+
+        return "cart";
     }
 
     @GetMapping("/edit-profile-failure")
