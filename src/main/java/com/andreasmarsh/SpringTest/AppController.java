@@ -774,4 +774,15 @@ public class AppController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/seat-select/{id}")
+    public String showSeatPage(@PathVariable("id") Integer id,Model model) {
+        MovieShowing showing = movieShowingRepo.findById(Long.valueOf(id)).get(); //get the specific showing
+        model.addAttribute("showing", showing); //the movie showing
+        String search = "";
+        model.addAttribute("search", search);
+        Seat seat = new Seat();
+        model.addAttribute("seat", seat);
+        return "seat-selection";
+    }
 }
