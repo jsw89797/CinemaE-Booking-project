@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Cinema E-Booking</title>
+
+    <link rel="icon" type="image/png" href="img/fav.png">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/newstyle.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+</head>
+<body class="seat-format">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Cinema E-Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-success" th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                </div>
+
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                </div>
+
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+                <div style="float:left;">
+                    <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
+                           id="inputSearch" placeholder="Search">
+                </div>
+                <div style="float:left;">
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                </div>
+        </form>
+    </div>
+</nav>
+</header>
+<main>
+    <h2>Choose your seats here!</h2>
+    <ul class="theatre">
+        <li>
+            <div class="seat reserved"></div>
+            <small>Reserved</small>
+        </li>
+        <li>
+            <div class="seat selected"></div>
+            <small>Selected</small>
+        </li>
+        <li>
+            <div class="seat"></div>
+            <small>Available</small>
+        </li>
+    </ul>
+    <div class="holder">
+        <div class="theatreScreen"></div>
+        <form th:action="@{/process_seat_select}" method="post">
+            <div class="row">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class ="seat" value="1">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="2"></input>
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="3">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="4">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="5">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="6">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="7">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="8">
+            </div>
+            <div class="row">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="9">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="10"></input>
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="11">
+                <input  th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" type="checkbox" class="seat" value="12">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="13">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="14">
+                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="15">
+                <input  th:checked="${seat.reserved}"   th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="16">
+            </div>
+            <div class="row">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="17">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="18"></input>
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="19">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="20">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="21">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="22">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="23">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="24">
+            </div>
+            <div class="row">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="25">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="26"></input>
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="27">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="28">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="29">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="30">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="31">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="32">
+            </div>
+            <div class="row">
+                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="33">
+                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="34"></input>
+                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}"  name="seatID" type="checkbox" class="seat" value="35">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="36">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="37">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="38">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="39">
+                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="40">
+            </div>
+
+
+            <input type="submit" value="Continue">
+        </form>
+
+    </div>
+</main>
+
+</body>
+</html>

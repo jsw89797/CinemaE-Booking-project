@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/edit-movie").hasAuthority("ADMIN")
                 .antMatchers("/edit-promotion").hasAuthority("ADMIN")
                 .antMatchers("/send-promotion").hasAuthority("ADMIN")
+                .antMatchers("/seat-select").hasAuthority("ADMIN")
 
                 .anyRequest().permitAll()
                 .and()

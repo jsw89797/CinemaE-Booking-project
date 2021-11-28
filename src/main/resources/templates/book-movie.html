@@ -5,6 +5,7 @@
     <meta charset="ISO-8859-1">
     <title th:text="${movie.title}"></title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/newstyle.css"/>
     <style>.iframe-embed {
         position: absolute;
         top: 0;
@@ -142,7 +143,7 @@
             -->
 
             <div>
-            <a th:text="' Book Showing '" th:href="@{'/booking-process/' + ${showing.getShowID()}}" class="btn btn-primary"></a>
+            <a th:text="' Book Showing '" th:href="@{'/seat-select/' + ${showing.getShowID()}}" class="btn btn-primary"></a>
 
             </div>
 
