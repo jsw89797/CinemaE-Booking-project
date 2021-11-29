@@ -13,9 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.UnsupportedEncodingException;
@@ -57,6 +55,9 @@ public class AppController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SeatRepository seatRepo;
 
     @PostMapping("/process_register")
     public String processRegister(User user, Address address, HttpServletRequest request)
@@ -780,9 +781,41 @@ public class AppController {
         MovieShowing showing = movieShowingRepo.findById(Long.valueOf(id)).get(); //get the specific showing
         model.addAttribute("showing", showing); //the movie showing
         String search = "";
-        model.addAttribute("search", search);
-        Seat seat = new Seat();
-        model.addAttribute("seat", seat);
+        model.addAttribute("seat", new Seat());
+        model.addAttribute("user", new User());
+        model.addAttribute("seatList", new SeatList());
+        Boolean[] check = new Boolean[41];
+        check[0] = false;
+        Long checker2 = new Long(id);
+        for(int i = 0; i < 41; i ++){
+            String holder= Integer.toString(i);
+            holder+=Long.toString(id);
+           Long checker = new Long(Long.parseLong(holder));
+            if( i != 0 && !(seatRepo.findBySeatID(checker) == null)){
+                check[i] = true;
+            } else { check[i] = false;}
+        }
+        model.addAttribute("check",check);
         return "seat-selection";
+    }
+
+
+
+    @PostMapping("/process_seat_select")
+    public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        String[] reserved = null;
+        reserved=request.getParameterValues("seatID");
+        if(reserved==null){
+            return "redirect:/" ;
+        }
+        for (int i = 0; i < reserved.length; i++) {
+            if (!reserved[i].equals("")) {
+                seats.addBookedSeats(Long.parseLong(reserved[i] + showID), showID, 1L);
+            } else {
+                seats.addBookedSeats(null, null, null);
+            }
+        }
+        service.bookSeats(seats);
+        return "cart";
     }
 }

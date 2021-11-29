@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTf-8">
     <title>Home - Cinema E-Booking</title>
 
     <link rel="icon" type="image/png" href="img/fav.png">
@@ -50,10 +50,10 @@
                 </div>
 
                 <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                    <a class="btn btn-secondary" href="javascript: logoutform.submit();">Logout</a>
                 </div>
 
-                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                <form name="logoutform" th:hidden="true" method="post" th:action="@{/doLogout}">
                     <input type="submit" value="Logout" />
                 </form>
             </ul>
@@ -73,74 +73,64 @@
 </header>
 <main>
     <h2>Choose your seats here!</h2>
-    <ul class="theatre">
-        <li>
-            <div class="seat reserved"></div>
-            <small>Reserved</small>
-        </li>
-        <li>
-            <div class="seat selected"></div>
-            <small>Selected</small>
-        </li>
-        <li>
-            <div class="seat"></div>
-            <small>Available</small>
-        </li>
-    </ul>
     <div class="holder">
         <div class="theatreScreen"></div>
-        <form th:action="@{/process_seat_select}" method="post">
+        <form th:action="@{/process_seat_select}" method="POST">
             <div class="row">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class ="seat" value="1">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="2"></input>
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="3">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="4">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="5">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="6">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="7">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="8">
+                <input th:name="seatID"  th:disabled="${check[1]}"  type="checkbox" class="form-check-input seat" value="1">
+                <input th:name="seatID"  th:disabled="${check[2]}"  type="checkbox" class="form-check-input seat" value="2"></input>
+                <input th:name="seatID"  th:disabled="${check[3]}"  type="checkbox" class="form-check-input seat" value="3">
+                <input th:name="seatID"  th:disabled="${check[4]}"  type="checkbox" class="form-check-input seat" value="4">
+                <input th:name="seatID"  th:disabled="${check[5]}"  type="checkbox" class="form-check-input seat" value="5">
+                <input th:name="seatID"  th:disabled="${check[6]}"  type="checkbox" class="form-check-input seat" value="6">
+                <input th:name="seatID"  th:disabled="${check[7]}"  type="checkbox" class="form-check-input seat" value="7">
+                <input th:name="seatID"  th:disabled="${check[8]}"  type="checkbox" class="form-check-input seat" value="8">
             </div>
             <div class="row">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="9">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="10"></input>
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="11">
-                <input  th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" type="checkbox" class="seat" value="12">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="13">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="14">
-                <input  th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="15">
-                <input  th:checked="${seat.reserved}"   th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="16">
+                <input th:name="seatID"  th:disabled="${check[9]}"  type="checkbox" class="form-check-input seat" value="9">
+                <input th:name="seatID"  th:disabled="${check[10]}"  type="checkbox" class="form-check-input seat" value="10"></input>
+                <input th:name="seatID"  th:disabled="${check[11]}"  type="checkbox" class="form-check-input seat" value="11">
+                <input th:name="seatID"  th:disabled="${check[12]}"  type="checkbox" class="form-check-input seat" value="12">
+                <input th:name="seatID"  th:disabled="${check[13]}"  type="checkbox" class="form-check-input seat" value="13">
+                <input th:name="seatID"  th:disabled="${check[14]}"  type="checkbox" class="form-check-input seat" value="14">
+                <input th:name="seatID"  th:disabled="${check[15]}"  type="checkbox" class="form-check-input seat" value="15">
+                <input th:name="seatID"  th:disabled="${check[16]}"  type="checkbox" class="form-check-input seat" value="16">
             </div>
             <div class="row">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="17">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="18"></input>
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="19">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="20">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="21">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="22">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="23">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="24">
+                <input th:name="seatID"  th:disabled="${check[17]}"  type="checkbox" class="form-check-input seat" value="17">
+                <input th:name="seatID"  th:disabled="${check[18]}"  type="checkbox" class="form-check-input seat" value="18"></input>
+                <input th:name="seatID"  th:disabled="${check[19]}"  type="checkbox" class="form-check-input seat" value="19">
+                <input th:name="seatID"  th:disabled="${check[20]}"  type="checkbox" class="form-check-input seat" value="20">
+                <input th:name="seatID"  th:disabled="${check[21]}"  type="checkbox" class="form-check-input seat" value="21">
+                <input th:name="seatID"  th:disabled="${check[22]}"  type="checkbox" class="form-check-input seat" value="22">
+                <input th:name="seatID"  th:disabled="${check[23]}"  type="checkbox" class="form-check-input seat" value="23">
+                <input th:name="seatID"  th:disabled="${check[24]}"  type="checkbox" class="form-check-input seat" value="24">
             </div>
             <div class="row">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="25">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="26"></input>
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="27">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="28">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="29">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="30">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="31">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="32">
+                <input th:name="seatID"  th:disabled="${check[25]}"  type="checkbox" class="form-check-input seat" value="25">
+                <input th:name="seatID"  th:disabled="${check[26]}"  type="checkbox" class="form-check-input seat" value="26"></input>
+                <input th:name="seatID"  th:disabled="${check[27]}"  type="checkbox" class="form-check-input seat" value="27">
+                <input th:name="seatID"  th:disabled="${check[28]}"  type="checkbox" class="form-check-input seat" value="28">
+                <input th:name="seatID"  th:disabled="${check[29]}"  type="checkbox" class="form-check-input seat" value="29">
+                <input th:name="seatID"  th:disabled="${check[30]}"  type="checkbox" class="form-check-input seat" value="30">
+                <input th:name="seatID"  th:disabled="${check[31]}"  type="checkbox" class="form-check-input seat" value="31">
+                <input th:name="seatID"  th:disabled="${check[32]}"  type="checkbox" class="form-check-input seat" value="32">
             </div>
             <div class="row">
-                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="33">
-                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="34"></input>
-                <input th:checked="${seat.reserved}" th:disabled="${seat.isReserved}"  name="seatID" type="checkbox" class="seat" value="35">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="36">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="37">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="38">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="39">
-                <input th:checked="${seat.reserved}"  th:disabled="${seat.isReserved}" name="seatID" type="checkbox" class="seat" value="40">
+                <input th:name="seatID"  th:disabled="${check[33]}"  type="checkbox" class="form-check-input seat" value="33">
+                <input th:name="seatID"  th:disabled="${check[34]}"  type="checkbox" class="form-check-input seat" value="34"></input>
+                <input th:name="seatID"  th:disabled="${check[35]}"  type="checkbox" class="form-check-input seat" value="35">
+                <input th:name="seatID"  th:disabled="${check[36]}"  type="checkbox" class="form-check-input seat" value="36">
+                <input th:name="seatID"  th:disabled="${check[37]}"  type="checkbox" class="form-check-input seat" value="37">
+                <input th:name="seatID"  th:disabled="${check[38]}"  type="checkbox" class="form-check-input seat" value="38">
+                <input th:name="seatID"  th:disabled="${check[39]}"  type="checkbox" class="form-check-input seat" value="39">
+                <input th:name="seatID"  th:disabled="${check[40]}"  type="checkbox" class="form-check-input seat" value="40">
             </div>
 
+
+            <input type="tel" name="showID" style="display:none;"
+                   th:value="${showing.showID}" class="form-control"
+                   minlength="1" maxlength="3">
 
             <input type="submit" value="Continue">
         </form>

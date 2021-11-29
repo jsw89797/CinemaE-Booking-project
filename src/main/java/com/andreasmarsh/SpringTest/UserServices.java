@@ -45,6 +45,13 @@ public class UserServices {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private SeatListRepository seatRepo;
+
+    @Autowired
+    private static SeatListRepository seatRepo2;
+
+
     public List<User> listAll() {
         return repo.findAll();
     }
@@ -70,6 +77,30 @@ public class UserServices {
         repo2.save(address);
 
         sendVerificationEmail(user, siteURL);
+    }
+
+    public void bookSeats(SeatList seats)
+            throws UnsupportedEncodingException, MessagingException {
+           /** seat.setSeatId(seatID);
+            seat.setShowId(showID);
+            seat.setReserved(reserved);*/
+            seatRepo.save(seats);
+    }
+
+    public static boolean isReserved(Long showID, Long seatID){
+        try {
+            if(showID.toString() == seatRepo2.findByShowId(showID).toString() && seatID.toString() == seatRepo2.findByShowId(seatID).toString()){
+                return true;
+            } else{
+                return false;
+            }
+        } catch (NullPointerException npe){
+            if(showID.toString() == seatRepo2.findByShowId(showID).toString() && seatID.toString() == seatRepo2.findByShowId(seatID).toString()){
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
 
     public void reset(String email, String siteURL)
