@@ -44,7 +44,7 @@ public class Movie {
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true,fetch = FetchType.EAGER)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<MovieShowing> movieShowings = new ArrayList<>();
 

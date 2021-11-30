@@ -217,8 +217,8 @@ public class AppController {
 
         allMovies.forEach(movie -> {
             if (movie.getCategories().contains(categoryRepo.findByCategory(search))) {
-            listSearchResults.add(movie);
-        }});
+                listSearchResults.add(movie);
+            }});
 
         model.addAttribute("listSearchResults", listSearchResults);
         String search2 = "";
@@ -686,15 +686,15 @@ public class AppController {
             user = repo.findByEmail("temp@gmail.com");
             model.addAttribute("currentUser", user);
         }
-
+        /*
         bookedShowing bookedShowing = new bookedShowing();
 
         //get booking
 
-        Booking booking = user.getBooking();
-        bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
+        //Booking booking = user.getBooking();
+        //bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
 
-        List<bookedShowing> allBookedShowings = bookedShowingRepo.findAll();
+        //List<bookedShowing> allBookedShowings = bookedShowingRepo.findAll();
 
         for (int i = 0; i < allBookedShowings.size(); i++) {
             if (allBookedShowings.get(i).getBooking().getBookingID() != booking.getBookingID()) {
@@ -712,7 +712,7 @@ public class AppController {
 
         bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
 
-        model.addAttribute("booking", booking);
+        model.addAttribute("booking", booking);*/
 
 
 
@@ -790,7 +790,7 @@ public class AppController {
         for(int i = 0; i < 41; i ++){
             String holder= Integer.toString(i);
             holder+=Long.toString(id);
-           Long checker = new Long(Long.parseLong(holder));
+            Long checker = new Long(Long.parseLong(holder));
             if( i != 0 && !(seatRepo.findBySeatID(checker) == null)){
                 check[i] = true;
             } else { check[i] = false;}

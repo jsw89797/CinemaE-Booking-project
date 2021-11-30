@@ -12,6 +12,7 @@ import java.util.List;
 public class SeatList {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "ticketid")
     private Long ticketID;
 
     private Long seatID;

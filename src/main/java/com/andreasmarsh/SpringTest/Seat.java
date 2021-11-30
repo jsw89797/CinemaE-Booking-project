@@ -13,7 +13,8 @@ public class Seat {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "ticketid")
     private Long ticketID;
 
     private Long showID;
