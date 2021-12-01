@@ -20,12 +20,12 @@ public interface MovieShowingRepository extends JpaRepository<MovieShowing, Long
     @Modifying
     @Query(
             value =
-                    "insert into booked_seats (showid, seatid) values (:showID, 1), (:showID, 2), (:showID, 3), (:showID, 4), (:showID, 5), " +
-                            "(:showID, 6), (:showID, 7), (:showID, 8), (:showID, 9), (:showID, 10), (:showID, 11), (:showID, 12), (:showID, 13), " +
-                            "(:showID, 14), (:showID, 15), (:showID, 16), (:showID, 17), (:showID, 18), (:showID, 19), (:showID, 20), (:showID, 21), " +
-                            "(:showID, 22), (:showID, 23), (:showID, 24), (:showID, 25), (:showID, 26), (:showID, 27), (:showID, 28), (:showID, 29), " +
-                            "(:showID, 30), (:showID, 31), (:showID, 32), (:showID, 33), (:showID, 34), (:showID, 35), (:showID, 36), (:showID, 37), " +
-                            "(:showID, 38), (:showID, 39), (:showID, 40)",
+                    "insert into booked_seats (showid, seatid, reserved) values (:showID, 1, 0), (:showID, 2, 0), (:showID, 3, 0), (:showID, 4, 0), (:showID, 5, 0), " +
+                            "(:showID, 6, 0), (:showID, 7, 0), (:showID, 8, 0), (:showID, 9, 0), (:showID, 10, 0), (:showID, 11, 0), (:showID, 12, 0), (:showID, 13, 0), " +
+                            "(:showID, 14, 0), (:showID, 15, 0), (:showID, 16, 0), (:showID, 17, 0), (:showID, 18, 0), (:showID, 19, 0), (:showID, 20, 0), (:showID, 21, 0), " +
+                            "(:showID, 22, 0), (:showID, 23, 0), (:showID, 24, 0), (:showID, 25, 0), (:showID, 26, 0), (:showID, 27, 0), (:showID, 28, 0), (:showID, 29, 0), " +
+                            "(:showID, 30, 0), (:showID, 31, 0), (:showID, 32, 0), (:showID, 33, 0), (:showID, 34, 0), (:showID, 35, 0), (:showID, 36, 0), (:showID, 37, 0), " +
+                            "(:showID, 38, 0), (:showID, 39, 0), (:showID, 40, 0)",
             nativeQuery = true)
     void fillTheater(@Param("showID") Long showID);
 
