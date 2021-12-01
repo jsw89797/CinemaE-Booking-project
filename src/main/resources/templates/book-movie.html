@@ -6,6 +6,8 @@
     <title th:text="${movie.title}"></title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/newstyle.css"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+
     <style>.iframe-embed {
         position: absolute;
         top: 0;
@@ -143,7 +145,11 @@
             -->
 
             <div>
-            <a th:text="' Book Showing '" th:href="@{'/seat-select/' + ${showing.getShowID()}}" class="btn btn-primary"></a>
+<!--            <a th:text="' Book Showing '" th:href="@{'/seat-select/' + ${showing.getShowID()}}" class="btn btn-primary"></a>-->
+                <button class="btn btn-primary" id="book" disabled="true"
+                        th:onclick="|window.location.href='@{'/seat-select/' + ${showing.getShowID()}}'|">
+                    Book Showing
+                </button>
 
             </div>
 
@@ -151,7 +157,7 @@
             <br>
         </div>
     </div>
-    <div class="column2" style="background-color:#bbb;">
+    <div class="column2">
         <br>
         <div class="row text-center">
             <h1>Select Seats and Ages</h1>
@@ -159,9 +165,84 @@
 
 
         </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <i class="fa fa-plus-circle" aria-hidden="true" onclick="increaseSeats('child_seats')"></i>
+                    <label>Child</label>
+                    <i class="fa fa-minus-circle" aria-hidden="true" onclick="decreaseSeats('child_seats')"></i>
+                    <input type="number" id="child_seats" value="0" onkeydown="return false"/>
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-plus-circle" aria-hidden="true" onclick="increaseSeats('adult_seats')"></i>
+                    <label>Adult</label>
+                    <i class="fa fa-minus-circle" aria-hidden="true" onclick="decreaseSeats('adult_seats')"></i>
+                    <input type="number" id="adult_seats" value="0" onkeydown="return false" />
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-plus-circle" aria-hidden="true" onclick="increaseSeats('senior_seats')"></i>
+                    <label>Senior</label>
+                    <i class="fa fa-minus-circle" aria-hidden="true" onclick="decreaseSeats('senior_seats')"></i>
+                    <input type="number" id="senior_seats" value="0" onkeydown="return false" />
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 </div>
 </div>
+
+
+<!-- script to increase or decrease -->
+
+
+<script th:inline="javascript">
+
+    var totalSeats=0;
+
+    function increaseSeats(id){
+
+   document.getElementById('book').disabled=false;
+
+
+     var value = parseInt(document.getElementById(id).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+
+    // limit the seats to 5
+    if(value !== 6){
+    document.getElementById(id).value = value;
+    }
+    else {
+      alert('You can select upto 5 seats only')
+    }
+
+     totalSeats= totalSeats+1;
+
+
+
+ }
+
+
+ function decreaseSeats(id){
+     var value = parseInt(document.getElementById(id).value, 10);
+   value = isNaN(value) ? 0 : value;
+   value < 1 ? value = 1 : '';
+   value--;
+   document.getElementById(id).value = value;
+   totalSeats= +totalSeats-1;
+
+   if(totalSeats===0){
+   document.getElementById('book').disabled=true;
+   }
+ }
+  </script>
 </body>
+
+
+
+
+
 </html>
