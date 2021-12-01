@@ -799,7 +799,7 @@ public class AppController {
             String holder= Integer.toString(i);
             holder+=Long.toString(id);
             Long checker = new Long(Long.parseLong(holder));
-            if( i != 0 && !(seatRepo.findBySeatID(checker) == null)){
+            if( i != 0 && !(seatRepo.findBySeatID(checker).getReserved() == 0)){
                 check[i] = true;
             } else { check[i] = false;}
         }
@@ -813,7 +813,15 @@ public class AppController {
     public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         String[] reserved = null;
         reserved=request.getParameterValues("seatID");
-        if(reserved==null){
+        for(int i = 0; i < reserved.length; i++){
+            reserved[i] = reserved[i] + showID;
+            System.out.println(reserved[i]);
+            Seat s = new Seat();
+            s = seatRepo.findBySeatID(Long.parseLong(reserved[i]));
+            s.setReserved(1L);
+            seatRepo.save(s);
+        }
+        /**if(reserved==null){
             return "redirect:/" ;
         }
         for (int i = 0; i < reserved.length; i++) {
@@ -823,7 +831,7 @@ public class AppController {
                 seats.addBookedSeats(null, null, null);
             }
         }
-        service.bookSeats(seats);
+        service.bookSeats(seats);*/
         return "cart";
     }
 }
