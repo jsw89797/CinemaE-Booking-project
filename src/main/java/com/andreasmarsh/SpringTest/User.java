@@ -41,10 +41,14 @@ public class User {
     @NotFound(action = NotFoundAction.IGNORE)
     private Address address;
 
+
+    /**
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "bookings_bookingID", nullable = false, referencedColumnName = "bookingID")
+    @JoinColumn(name = "bookings_bookingID", nullable = true, referencedColumnName = "bookingID")
     @NotFound(action = NotFoundAction.IGNORE)
     private Booking booking;
+     */
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -129,13 +133,16 @@ public class User {
         this.address = address;
     }
 
+
+    /**
     public Booking getBooking() {
         return booking;
     }
 
     public void setBooking(Booking booking) {
         this.booking = booking;
-    }
+    } */
+
 
     public List<CreditCard> getCreditCards() {
         return creditCards;

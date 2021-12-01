@@ -69,8 +69,8 @@ public class UserServices {
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
 
-        Booking booking = new Booking();
-        user.setBooking(booking);
+        //Booking booking = new Booking();
+        //user.setBooking(booking);
         user.setAddress(address);
 
         repo.save(user);
@@ -114,6 +114,7 @@ public class UserServices {
 
         User user = repo.findByEmail(email);
         user.setId(repo.findByEmail(user.getEmail()).getId());
+        //user.setBooking(repo.findByEmail(user.getEmail()).getBooking());
         Address address = repo2.findByAddressID(user.getAddress().getAddressID());
 
         if(user.isEnabled() == true) {
@@ -135,6 +136,8 @@ public class UserServices {
             throws MessagingException, UnsupportedEncodingException {
         System.out.println(user.getEmail());
         user.setId(repo.findByEmail(user.getEmail()).getId());
+        //user.setId(repo.findByEmail(user.getEmail()).getId());
+        //user.setBooking(repo.findByEmail(user.getEmail()).getBooking());
         repo.deleteById(user.getId());
 
         user.setAddress(address);

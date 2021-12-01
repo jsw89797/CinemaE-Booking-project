@@ -21,6 +21,7 @@ public class Booking {
     @NotFound(action = NotFoundAction.IGNORE)
     private List<bookedShowing> bookedShowings = new ArrayList<>();
 
+
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "user_userID", nullable = true, referencedColumnName = "userID")
     @NotFound(action = NotFoundAction.IGNORE)
@@ -35,11 +36,13 @@ public class Booking {
         return bookingID;
     }
 
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user){ this.user = user; }
+
 
     public void setMovieID(Long movieID) {
         this.bookingID = movieID;

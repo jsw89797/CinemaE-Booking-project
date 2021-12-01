@@ -412,6 +412,7 @@ public class AppController {
                 movieShowing.setTime(date2);
                 movieShowing.setMovie(movie);
 
+
                 showings.add(movieShowing);
             }
         }
@@ -490,6 +491,16 @@ public class AppController {
         System.out.println(movie.getCategories().toString());
         // save movie
         Movie saved = movieRepo.save(movie);
+
+        //fill the db with showings
+        List<MovieShowing> allShowings = saved.getMovieShowings();
+
+        for (int i = 0; i < allShowings.size(); i++) {
+
+            //for each showing, the database will have 40 seats avaliable
+            movieShowingRepo.fillTheater(allShowings.get(i).getShowID());
+
+        }
 
         return "redirect:/manage-movies";
     }
@@ -635,7 +646,7 @@ public class AppController {
         // If no user is signed in, it's saved to the session.
         User user = repo.findByEmail(currentUser.getUsername());
 
-        Booking booking = user.getBooking();
+        Booking booking = new Booking(); //user.getBooking();
 
         //Use the showing info
         bookedShowing bookedShow = new bookedShowing(booking, movie, showing.getDate(), showing.getTime());
@@ -654,7 +665,7 @@ public class AppController {
         showings.add(bookedShow); //save it to the showings
 
         booking.setBookedShowings(showings);
-        user.setBooking(booking);
+        //user.setBooking(booking);
         booking.setUser(user);
 
         System.out.println(showings.size());
@@ -690,9 +701,6 @@ public class AppController {
         bookedShowing bookedShowing = new bookedShowing();
 
         //get booking
-
-        //Booking booking = user.getBooking();
-        //bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
 
         //List<bookedShowing> allBookedShowings = bookedShowingRepo.findAll();
 
