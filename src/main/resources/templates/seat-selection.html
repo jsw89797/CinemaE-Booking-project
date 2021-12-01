@@ -77,54 +77,54 @@
         <div class="theatreScreen"></div>
         <form th:action="@{/process_seat_select}" method="POST">
             <div class="row">
-                <input th:name="seatID"  th:disabled="${check[1]}"  type="checkbox" class="form-check-input seat" value="1">
-                <input th:name="seatID"  th:disabled="${check[2]}"  type="checkbox" class="form-check-input seat" value="2"></input>
-                <input th:name="seatID"  th:disabled="${check[3]}"  type="checkbox" class="form-check-input seat" value="3">
-                <input th:name="seatID"  th:disabled="${check[4]}"  type="checkbox" class="form-check-input seat" value="4">
-                <input th:name="seatID"  th:disabled="${check[5]}"  type="checkbox" class="form-check-input seat" value="5">
-                <input th:name="seatID"  th:disabled="${check[6]}"  type="checkbox" class="form-check-input seat" value="6">
-                <input th:name="seatID"  th:disabled="${check[7]}"  type="checkbox" class="form-check-input seat" value="7">
-                <input th:name="seatID"  th:disabled="${check[8]}"  type="checkbox" class="form-check-input seat" value="8">
+                <input th:name="seatID"  th:disabled="${check[1]}" onclick="selects(1)" type="checkbox" class="form-check-input seat" value="1">
+                <input th:name="seatID"  th:disabled="${check[2]}" onclick="selects(2)" type="checkbox" class="form-check-input seat" value="2"></input>
+                <input th:name="seatID"  th:disabled="${check[3]}" onclick="selects(3)" type="checkbox" class="form-check-input seat" value="3">
+                <input th:name="seatID"  th:disabled="${check[4]}" onclick="selects(4)" type="checkbox" class="form-check-input seat" value="4">
+                <input th:name="seatID"  th:disabled="${check[5]}" onclick="selects(5)" type="checkbox" class="form-check-input seat" value="5">
+                <input th:name="seatID"  th:disabled="${check[6]}" onclick="selects(6)" type="checkbox" class="form-check-input seat" value="6">
+                <input th:name="seatID"  th:disabled="${check[7]}" onclick="selects(7)" type="checkbox" class="form-check-input seat" value="7">
+                <input th:name="seatID"  th:disabled="${check[8]}" onclick="selects(8)" type="checkbox" class="form-check-input seat" value="8">
             </div>
             <div class="row">
-                <input th:name="seatID"  th:disabled="${check[9]}"  type="checkbox" class="form-check-input seat" value="9">
-                <input th:name="seatID"  th:disabled="${check[10]}"  type="checkbox" class="form-check-input seat" value="10"></input>
-                <input th:name="seatID"  th:disabled="${check[11]}"  type="checkbox" class="form-check-input seat" value="11">
-                <input th:name="seatID"  th:disabled="${check[12]}"  type="checkbox" class="form-check-input seat" value="12">
-                <input th:name="seatID"  th:disabled="${check[13]}"  type="checkbox" class="form-check-input seat" value="13">
-                <input th:name="seatID"  th:disabled="${check[14]}"  type="checkbox" class="form-check-input seat" value="14">
-                <input th:name="seatID"  th:disabled="${check[15]}"  type="checkbox" class="form-check-input seat" value="15">
-                <input th:name="seatID"  th:disabled="${check[16]}"  type="checkbox" class="form-check-input seat" value="16">
+                <input th:name="seatID"  th:disabled="${check[9]}" onclick="selects(9)" type="checkbox" class="form-check-input seat" value="9">
+                <input th:name="seatID"  th:disabled="${check[10]}" onclick="selects(10)" type="checkbox" class="form-check-input seat" value="10"></input>
+                <input th:name="seatID"  th:disabled="${check[11]}" onclick="selects(11)" type="checkbox" class="form-check-input seat" value="11">
+                <input th:name="seatID"  th:disabled="${check[12]}" onclick="selects(12)" type="checkbox" class="form-check-input seat" value="12">
+                <input th:name="seatID"  th:disabled="${check[13]}" onclick="selects(13)" type="checkbox" class="form-check-input seat" value="13">
+                <input th:name="seatID"  th:disabled="${check[14]}" onclick="selects(14)" type="checkbox" class="form-check-input seat" value="14">
+                <input th:name="seatID"  th:disabled="${check[15]}" onclick="selects(15)" type="checkbox" class="form-check-input seat" value="15">
+                <input th:name="seatID"  th:disabled="${check[16]}" onclick="selects(16)" type="checkbox" class="form-check-input seat" value="16">
             </div>
             <div class="row">
-                <input th:name="seatID"  th:disabled="${check[17]}"  type="checkbox" class="form-check-input seat" value="17">
-                <input th:name="seatID"  th:disabled="${check[18]}"  type="checkbox" class="form-check-input seat" value="18"></input>
-                <input th:name="seatID"  th:disabled="${check[19]}"  type="checkbox" class="form-check-input seat" value="19">
-                <input th:name="seatID"  th:disabled="${check[20]}"  type="checkbox" class="form-check-input seat" value="20">
-                <input th:name="seatID"  th:disabled="${check[21]}"  type="checkbox" class="form-check-input seat" value="21">
-                <input th:name="seatID"  th:disabled="${check[22]}"  type="checkbox" class="form-check-input seat" value="22">
-                <input th:name="seatID"  th:disabled="${check[23]}"  type="checkbox" class="form-check-input seat" value="23">
-                <input th:name="seatID"  th:disabled="${check[24]}"  type="checkbox" class="form-check-input seat" value="24">
+                <input th:name="seatID"  th:disabled="${check[17]}" onclick="selects(17)" type="checkbox" class="form-check-input seat" value="17">
+                <input th:name="seatID"  th:disabled="${check[18]}" onclick="selects(18)" type="checkbox" class="form-check-input seat" value="18"></input>
+                <input th:name="seatID"  th:disabled="${check[19]}" onclick="selects(19)" type="checkbox" class="form-check-input seat" value="19">
+                <input th:name="seatID"  th:disabled="${check[20]}" onclick="selects(20)" type="checkbox" class="form-check-input seat" value="20">
+                <input th:name="seatID"  th:disabled="${check[21]}" onclick="selects(21)" type="checkbox" class="form-check-input seat" value="21">
+                <input th:name="seatID"  th:disabled="${check[22]}" onclick="selects(22)" type="checkbox" class="form-check-input seat" value="22">
+                <input th:name="seatID"  th:disabled="${check[23]}" onclick="selects(23)" type="checkbox" class="form-check-input seat" value="23">
+                <input th:name="seatID"  th:disabled="${check[24]}" onclick="selects(24)" type="checkbox" class="form-check-input seat" value="24">
             </div>
             <div class="row">
-                <input th:name="seatID"  th:disabled="${check[25]}"  type="checkbox" class="form-check-input seat" value="25">
-                <input th:name="seatID"  th:disabled="${check[26]}"  type="checkbox" class="form-check-input seat" value="26"></input>
-                <input th:name="seatID"  th:disabled="${check[27]}"  type="checkbox" class="form-check-input seat" value="27">
-                <input th:name="seatID"  th:disabled="${check[28]}"  type="checkbox" class="form-check-input seat" value="28">
-                <input th:name="seatID"  th:disabled="${check[29]}"  type="checkbox" class="form-check-input seat" value="29">
-                <input th:name="seatID"  th:disabled="${check[30]}"  type="checkbox" class="form-check-input seat" value="30">
-                <input th:name="seatID"  th:disabled="${check[31]}"  type="checkbox" class="form-check-input seat" value="31">
-                <input th:name="seatID"  th:disabled="${check[32]}"  type="checkbox" class="form-check-input seat" value="32">
+                <input th:name="seatID"  th:disabled="${check[25]}" onclick="selects(25)" type="checkbox" class="form-check-input seat" value="25">
+                <input th:name="seatID"  th:disabled="${check[26]}" onclick="selects(26)" type="checkbox" class="form-check-input seat" value="26"></input>
+                <input th:name="seatID"  th:disabled="${check[27]}" onclick="selects(27)" type="checkbox" class="form-check-input seat" value="27">
+                <input th:name="seatID"  th:disabled="${check[28]}" onclick="selects(28)" type="checkbox" class="form-check-input seat" value="28">
+                <input th:name="seatID"  th:disabled="${check[29]}" onclick="selects(29)" type="checkbox" class="form-check-input seat" value="29">
+                <input th:name="seatID"  th:disabled="${check[30]}" onclick="selects(30)" type="checkbox" class="form-check-input seat" value="30">
+                <input th:name="seatID"  th:disabled="${check[31]}" onclick="selects(31)" type="checkbox" class="form-check-input seat" value="31">
+                <input th:name="seatID"  th:disabled="${check[32]}" onclick="selects(32)" type="checkbox" class="form-check-input seat" value="32">
             </div>
             <div class="row">
-                <input th:name="seatID"  th:disabled="${check[33]}"  type="checkbox" class="form-check-input seat" value="33">
-                <input th:name="seatID"  th:disabled="${check[34]}"  type="checkbox" class="form-check-input seat" value="34"></input>
-                <input th:name="seatID"  th:disabled="${check[35]}"  type="checkbox" class="form-check-input seat" value="35">
-                <input th:name="seatID"  th:disabled="${check[36]}"  type="checkbox" class="form-check-input seat" value="36">
-                <input th:name="seatID"  th:disabled="${check[37]}"  type="checkbox" class="form-check-input seat" value="37">
-                <input th:name="seatID"  th:disabled="${check[38]}"  type="checkbox" class="form-check-input seat" value="38">
-                <input th:name="seatID"  th:disabled="${check[39]}"  type="checkbox" class="form-check-input seat" value="39">
-                <input th:name="seatID"  th:disabled="${check[40]}"  type="checkbox" class="form-check-input seat" value="40">
+                <input th:name="seatID"  th:disabled="${check[33]}" onclick="selects(33)" type="checkbox" class="form-check-input seat" value="33">
+                <input th:name="seatID"  th:disabled="${check[34]}" onclick="selects(34)" type="checkbox" class="form-check-input seat" value="34"></input>
+                <input th:name="seatID"  th:disabled="${check[35]}" onclick="selects(35)" type="checkbox" class="form-check-input seat" value="35">
+                <input th:name="seatID"  th:disabled="${check[36]}" onclick="selects(36)" type="checkbox" class="form-check-input seat" value="36">
+                <input th:name="seatID"  th:disabled="${check[37]}" onclick="selects(37)" type="checkbox" class="form-check-input seat" value="37">
+                <input th:name="seatID"  th:disabled="${check[38]}" onclick="selects(38)" type="checkbox" class="form-check-input seat" value="38">
+                <input th:name="seatID"  th:disabled="${check[39]}" onclick="selects(39)" type="checkbox" class="form-check-input seat" value="39">
+                <input th:name="seatID"  th:disabled="${check[40]}" onclick="selects(40)" type="checkbox" class="form-check-input seat" value="40">
             </div>
 
 
@@ -132,11 +132,49 @@
                    th:value="${showing.showID}" class="form-control"
                    minlength="1" maxlength="3">
 
-            <input type="submit" value="Continue">
+            <!--<input type="submit" value="Continue">-->
+
+            <button class="btn btn-primary" id="process" disabled="true"
+                    type="submit">
+                Continue to checkout
+            </button>
         </form>
 
     </div>
 </main>
+<script th:inline="javascript">
 
+    const totalSeats = sessionStorage.getItem("totalSeats");
+    let totalSelects = 0;
+    let array = new Array();
+
+    function selects(id){
+        if(array.length > 0) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] == id) {
+                    array.splice(i);
+                    totalSelects = totalSelects - 1;
+                    if(totalSelects != totalSeats){
+                        document.getElementById('process').disabled=true;
+                    } else if(totalSelects == totalSeats){
+                        document.getElementById('process').disabled=false;
+                    }
+                    return;
+                }
+            }
+            array[array.length] = id;
+            totalSelects = totalSelects + 1;
+        } else {
+            array[0] = id;
+            totalSelects = totalSelects +1;
+        }
+        if(totalSelects != totalSeats){
+            document.getElementById('process').disabled=true;
+        } else if(totalSelects == totalSeats){
+            document.getElementById('process').disabled=false;
+        }
+    }
+
+</script>
 </body>
 </html>

@@ -220,7 +220,7 @@
     }
 
      totalSeats= totalSeats+1;
-
+    sessionStorage.setItem("totalSeats", totalSeats);
 
 
  }
@@ -237,7 +237,10 @@
    if(totalSeats===0){
    document.getElementById('book').disabled=true;
    }
+     sessionStorage.setItem("totalSeats", totalSeats);
  }
+
+ //sessionStorage.setItem("totalSeats", totalSeats);
   </script>
 </body>
 
