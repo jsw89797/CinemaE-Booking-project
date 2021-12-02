@@ -13,6 +13,18 @@ body{
     margin:0;
 }
 
+.buttonColor{
+    background-color:#59A5D8;
+    color:white;
+    border-color:#989898;
+}
+.buttonColor:hover{
+    background-color:#989898;
+    border-color:#FE5F55;
+}
+
+
+
 .container{
     margin-bottom:25px;
 }

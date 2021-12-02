@@ -22,39 +22,39 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <div sec:authorize="isAuthenticated() || isAnonymous()">
-                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/}">Home</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated() || isAnonymous()">
-                    <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/categories}">Categories</a>
                 </div>
 
                 <div sec:authorize="isAnonymous()">
-                    <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/login}">Login</a>
                 </div>
 
                 <div sec:authorize="isAnonymous()">
-                    <a class="btn btn-success" th:href="@{/register}">Register</a>
+                    <a class="btn btn-success buttonColor" th:href="@{/register}">Register</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated() || isAnonymous()">
-                    <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/cart}">Cart</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
                 </div>
 
                 <div sec:authorize="hasAuthority('ADMIN')">
-                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                    <a class="btn btn-secondary buttonColor" th:href="@{/admin-portal}">Admin Portal</a>
                 </div>
 
                 <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                    <a class="btn btn-secondary buttonColor" href="javascript: logoutForm.submit();">Logout</a>
                 </div>
 
                 <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
-                    <input type="submit" value="Logout" />
+                    <input class="buttonColor" type="submit" value="Logout" />
                 </form>
             </ul>
         </div>
@@ -65,7 +65,7 @@
                            id="inputSearch" placeholder="Search">
                 </div>
                 <div style="float:left;">
-                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0 buttonColor">Search</button>
                 </div>
             </form>
         </div>
@@ -85,12 +85,12 @@
                 <!-- panel-footer -->
                 <div class="col-6 text-left">
                     <div class="previous">
-                        <a class="btn btn-secondary" th:href="@{/manage-promotions}">Cancel</a>
+                        <a class="btn btn-secondary buttonColor" th:href="@{/manage-promotions}">Cancel</a>
                     </div>
                 </div>
                 <div class="col-6 text-right">
                     <div class="next">
-                        <button type="submit" class="btn btn-danger">Confirm
+                        <button type="submit" class="btn btn-danger buttonColor">Confirm
                             <span class=""></span>
                         </button>
                     </div>
