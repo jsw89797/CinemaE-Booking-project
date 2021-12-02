@@ -80,13 +80,15 @@
         <br>
         <h1>Login to Cinema E-Booking</h1>
         <br>
-        <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;"><input type="hidden" name="_csrf">
-            <p>
-                E-mail: <input type="email" name="username" required />
-            </p>
-            <p>
-                Password: <input type="password" name="password" required />
-            </p>
+        <form th:action="@{/login}" method="post" style=" max-width: 400px; margin: 0 auto;"><input type="hidden" name="_csrf">
+            <div style="text-align:right; margin-right:7.5vw;">
+                <p>
+                    E-mail: <input type="email" name="username" required />
+                </p>
+                <p>
+                    Password: <input type="password" name="password" required />
+                </p>
+            </div>
             <p>
                 <input type="submit" value="Login" />
             </p>
