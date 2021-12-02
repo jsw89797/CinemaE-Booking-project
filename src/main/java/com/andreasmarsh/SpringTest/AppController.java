@@ -807,20 +807,47 @@ public class AppController {
         return "seat-selection";
     }
 
+    @PostMapping("/process_checkout")
+    public String checkout(HttpServletRequest request){
+        String[] holder =request.getParameterValues("seatID");
+        //System.out.print(holder[0]);
+        int size = 0;
+        for(int i = 0; i < holder[0].length(); i++){
+            if(holder[0].charAt(i) == ','){
+                size++;
+            }
+        }
+        String[] reserved = new String[size];
 
+        int previousIndex = 0;
+        int count = 0;
+        for(int i = 0; i < holder[0].length(); i++){
 
-    @PostMapping("/process_seat_select")
-    public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        String[] reserved = null;
-        reserved=request.getParameterValues("seatID");
+            if(holder[0].charAt(i) == ',' && count <=size-1){
+                String holder2 = holder[0].substring(previousIndex,i);
+                reserved[count] = holder2;
+                previousIndex = i+1;
+                count = count+1;
+
+            }
+        }
+
         for(int i = 0; i < reserved.length; i++){
-            reserved[i] = reserved[i] + showID;
-            System.out.println(reserved[i]);
             Seat s = new Seat();
             s = seatRepo.findBySeatID(Long.parseLong(reserved[i]));
             s.setReserved(1L);
             seatRepo.save(s);
         }
+        return "checkout_verification";
+    }
+
+
+
+    @PostMapping("/process_seat_select")
+    public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        //String[] reserved = null;
+        //reserved=request.getParameterValues("seatID");
+
         /**if(reserved==null){
             return "redirect:/" ;
         }

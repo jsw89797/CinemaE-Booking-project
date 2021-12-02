@@ -75,7 +75,7 @@
     <h2>Choose your seats here!</h2>
     <div class="holder">
         <div class="theatreScreen"></div>
-        <form th:action="@{/process_seat_select}" method="POST">
+        <form th:action="@{/cart}">
             <div class="row">
                 <input th:name="seatID"  th:disabled="${check[1]}" onclick="selects(1)" type="checkbox" class="form-check-input seat" value="1">
                 <input th:name="seatID"  th:disabled="${check[2]}" onclick="selects(2)" type="checkbox" class="form-check-input seat" value="2"></input>
@@ -128,13 +128,13 @@
             </div>
 
 
-            <input type="tel" name="showID" style="display:none;"
+            <input type="tel" name="showID" id="showID" style="display:none;"
                    th:value="${showing.showID}" class="form-control"
                    minlength="1" maxlength="3">
 
             <!--<input type="submit" value="Continue">-->
 
-            <button class="btn btn-primary" id="process" disabled="true"
+            <button class="btn btn-primary" id="process" onclick="storeSeats()" disabled="true"
                     type="submit">
                 Continue to checkout
             </button>
@@ -147,7 +147,9 @@
     const totalSeats = sessionStorage.getItem("totalSeats");
     let totalSelects = 0;
     let array = new Array();
-
+    sessionStorage.setItem("seatArray", array);
+    let showID = document.getElementById('showID').value;
+    let seatString = "";
     function selects(id){
         if(array.length > 0) {
             for (let i = 0; i < array.length; i++) {
@@ -173,6 +175,13 @@
         } else if(totalSelects == totalSeats){
             document.getElementById('process').disabled=false;
         }
+    }
+
+    function storeSeats(){
+        for(let i = 0; i < array.length; i++){
+            seatString+=array[i] + showID +",";
+        }
+        sessionStorage.setItem("seatString",seatString);
     }
 
 </script>

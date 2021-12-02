@@ -190,10 +190,15 @@
           <input type="text">
           <button type="button" class="btn btn-primary">Apply promo code</button>
         </span>
+        <form th:action="@{/process_checkout}" method="POST">
+          <input type="tel" name="seatID" id="seatID" style="display:none;"
+                 class="form-control"
+                 minlength="1">
 
-        <div class="btn-group btns-cart">
-          <button type="button" class="btn btn-primary">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-        </div>
+          <div class="btn-group btns-cart">
+            <button onclick ="setValue()" class="btn btn-primary" type="submit" >Checkout <i class="fa fa-arrow-circle-right" ></i></button>
+          </div>
+        </form>
 
       </div>
     </div>
@@ -201,6 +206,15 @@
   </div>
 </div>
 
+<script th:inline="javascript">
+  let seatString = sessionStorage.getItem("seatString")
+  var inputF = document.getElementById("seatID");
+  function setValue() {
+    inputF.value = seatString;
+  }
+
+
+</script>
 
 </body>
 </html>
