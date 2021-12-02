@@ -832,7 +832,7 @@ public class AppController {
     }
 
     @PostMapping("/process_checkout")
-    public String checkout(HttpServletRequest request){
+    public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser){
         String[] holder =request.getParameterValues("seatID");
         //System.out.print(holder[0]);
         int size = 0;
@@ -856,10 +856,34 @@ public class AppController {
             }
         }
 
+        //Make a booking
+        Booking book = new Booking();
+        Seat seat = seatRepo.findBySeatID(Long.parseLong(reserved[1])); //find a specific seat
+
+        //fill booking
+        //book.setCardNumber(cardNum);
+        Long showID = seat.getShowId();
+        MovieShowing showing = movieShowingRepo.findByShowingID(showID);
+        book.setDate(showing.getDate());
+        book.setTime(showing.getTime());
+        book.setMovieTitle(showing.getMovie().getTitle());
+
+        //attach a user
+        User theUser = repo.findByEmail(currentUser.getUsername());
+        book.setUser(theUser);
+
+        Booking booking = bookingRepo.save(book);
+
+        Long id = booking.getBookingID();
+        System.out.println(id);
+
         for(int i = 0; i < reserved.length; i++){
             Seat s = new Seat();
             s = seatRepo.findBySeatID(Long.parseLong(reserved[i]));
             s.setReserved(1L);
+
+            s.setBookingID(id); //make sure the seat can be associated with the order
+
             seatRepo.save(s);
         }
         return "checkout_verification";

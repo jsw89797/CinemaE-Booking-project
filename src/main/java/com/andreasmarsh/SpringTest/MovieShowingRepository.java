@@ -6,10 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface MovieShowingRepository extends JpaRepository<MovieShowing, Long> {
 
     @Query("SELECT u FROM MovieShowing u WHERE u.movie = ?1")
     public Iterable<? extends MovieShowing> findByMovie(Movie movie);
+
+    @Query("SELECT u FROM MovieShowing u WHERE u.showID = ?1")
+    public MovieShowing findByShowingID(Long id);
 
     /**
     @Query("INSERT INTO booked_seats")
