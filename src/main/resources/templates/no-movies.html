@@ -27,10 +27,6 @@
                     <a class="btn btn-secondary buttonColor" th:href="@{/}">Home</a>
                 </div>
 
-                <div sec:authorize="isAuthenticated() || isAnonymous()">
-                    <a class="btn btn-secondary buttonColor" th:href="@{/categories}">Categories</a>
-                </div>
-
                 <div sec:authorize="isAnonymous()">
                     <a class="btn btn-secondary buttonColor" th:href="@{/login}">Login</a>
                 </div>
