@@ -858,7 +858,7 @@ public class AppController {
 
         //Make a booking
         Booking book = new Booking();
-        Seat seat = seatRepo.findBySeatID(Long.parseLong(reserved[1])); //find a specific seat
+        Seat seat = seatRepo.findBySeatID(Long.parseLong(reserved[0])); //find a specific seat
 
         //fill booking
         //book.setCardNumber(cardNum);
