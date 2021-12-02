@@ -30,6 +30,13 @@ public class Seat {
     @Column(name = "reserved")
     private Long reserved;
 
+    //The seats for a specific showing will have an associated booking
+    //starts as null
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "booking_bookingID", nullable = true, referencedColumnName = "bookingID")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Booking booking;
+
     public Long getSeatId() {
         return seatID;
     }
@@ -76,5 +83,15 @@ public class Seat {
         this.seats = seats;
     }
 
+    //getter and setter for booking
+    public Booking getBooking() {
+        return booking;
+    }
 
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 }
+
+
+

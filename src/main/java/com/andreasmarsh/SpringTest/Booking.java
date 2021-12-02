@@ -4,10 +4,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "booking")
@@ -26,6 +23,22 @@ public class Booking {
     @JoinColumn(name = "user_userID", nullable = true, referencedColumnName = "userID")
     @NotFound(action = NotFoundAction.IGNORE)
     private User user;
+
+    //needs to hold the ticketID
+    @Column(name = "ticketID")
+    private Long ticketID;
+
+    @Column(name = "movie_title")
+    private String movieTitle;
+
+    @Temporal(TemporalType.DATE)
+    private java.util.Date date;
+
+    @Temporal(TemporalType.TIME)
+    private java.util.Date time;
+
+    @Column(name = "cardNumber", length = 16)
+    private Long cardNumber;
 
     @Override
     public int hashCode() {
@@ -56,4 +69,40 @@ public class Booking {
         this.bookedShowings = bookedShowings;
     }
 
+    public Long getTicketID() {
+        return this.ticketID;
+    }
+
+    public void setTicketID(Long ticketID) {
+        this.ticketID = ticketID;
+    }
+
+    public String getMovieTitle() { return this.movieTitle; }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public Long getCardNumber() { return this.cardNumber; }
+
+    public void setCardNumber(Long cardNumber) { this.cardNumber = cardNumber;}
+
 }
+
+
