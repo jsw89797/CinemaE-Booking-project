@@ -139,7 +139,7 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Rating* :</label>
                 <div class="col-8">
-                    <select class="col-4 form-control" name="parentalguidancerating" required>
+                    <select th:id="parentalguidancerating" class="col-4 form-control" name="parentalguidancerating" required>
                         <option selected></option>
                         <option>G</option>
                         <option>PG</option>
@@ -248,6 +248,9 @@
 
             <br>
             <br>
+            <input type="tel" name="movieID" id="movieID" style="display:none;"
+                   th:value="${movieID}" class="form-control"
+                   minlength="1" maxlength="3">
             <div>
                 <button type="submit" class="btn btn-primary">Update Movie</button>
             </div>

@@ -15,4 +15,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query("SELECT u FROM Movie u WHERE u.title LIKE ?1")
     public List<Movie> findBySearch(String search);
+
+    @Query("SELECT u FROM Movie u WHERE u.movieID = ?1")
+    public Movie findByMovieId(Long id);
 }

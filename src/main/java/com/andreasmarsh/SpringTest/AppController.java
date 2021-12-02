@@ -378,6 +378,7 @@ public class AppController {
         model.addAttribute("reviews", reviews);
         String search = "";
         model.addAttribute("search", search);
+        model.addAttribute("movieID", id);
 
         return "edit-movie-form";
     }
@@ -841,24 +842,31 @@ public class AppController {
         return "checkout_verification";
     }
 
+    @PostMapping("/process_editMovie")
+    public String editMovie(HttpServletRequest request){
+        String[] title = request.getParameterValues("title");
+        String[] cast = request.getParameterValues("cast");
+        String[] director = request.getParameterValues("director");
+        String[] producer = request.getParameterValues("producer");
+        String[] synopsis = request.getParameterValues("synopsis");
+        String[] trailer = request.getParameterValues("trailer");
+        String[] rating = request.getParameterValues("parentalguidancerating");
+        String[] movieID = request.getParameterValues("movieID");
+        Movie movie = movieRepo.findByMovieId(Long.parseLong(movieID[0]));
+        movie.setTitle(title[0]);
+        movie.setCast(cast[0]);
+        movie.setDirector(director[0]);
+        movie.setProducer(producer[0]);
+        movie.setSynopsis(synopsis[0]);
+        movie.setTrailer(trailer[0]);
+        movie.setRating(rating[0]);
+        movieRepo.save(movie);
 
+        return "redirect:/";
+    }
 
     @PostMapping("/process_seat_select")
     public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        //String[] reserved = null;
-        //reserved=request.getParameterValues("seatID");
-
-        /**if(reserved==null){
-            return "redirect:/" ;
-        }
-        for (int i = 0; i < reserved.length; i++) {
-            if (!reserved[i].equals("")) {
-                seats.addBookedSeats(Long.parseLong(reserved[i] + showID), showID, 1L);
-            } else {
-                seats.addBookedSeats(null, null, null);
-            }
-        }
-        service.bookSeats(seats);*/
         return "cart";
     }
 }
