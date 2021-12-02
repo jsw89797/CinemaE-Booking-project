@@ -59,6 +59,9 @@ public class AppController {
     @Autowired
     private SeatRepository seatRepo;
 
+    @Autowired
+    private PriceRepository priceRepo;
+
     @PostMapping("/process_register")
     public String processRegister(User user, Address address, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
@@ -767,7 +770,27 @@ public class AppController {
         String search = "";
         model.addAttribute("search", search);
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            if(priceRepo.findByTicketType("ADULT") == null) {
+                Price adult = new Price();
+                Price child = new Price();
+                Price senior = new Price();
+
+                adult.setTicketType("ADULT");
+                child.setTicketType("CHILD");
+                senior.setTicketType("SENIOR");
+                adult.setTicketPrice(13.69);
+                child.setTicketPrice(10.69);
+                senior.setTicketPrice(12.69);
+                adult.setBookingFee(1.42);
+                child.setBookingFee(1.42);
+                senior.setBookingFee(1.42);
+
+                priceRepo.save(adult);
+                priceRepo.save(child);
+                priceRepo.save(senior);
+            }
             return "login";
+
         }
 
         return "redirect:/";
@@ -869,4 +892,44 @@ public class AppController {
     public String bookSeat(SeatList seats, Long showID, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         return "cart";
     }
+
+    @GetMapping("/manage-prices")
+    public String editPrices(Model model) {
+        Price adult = priceRepo.findByTicketType("ADULT");
+        Price child = priceRepo.findByTicketType("CHILD");
+        Price senior = priceRepo.findByTicketType("SENIOR");
+
+        model.addAttribute("adult",adult);
+        model.addAttribute("child",child);
+        model.addAttribute("senior",senior);
+
+        return "edit_prices";
+    }
+    @PostMapping("/process_editPrices")
+    public String processPriceEdit(HttpServletRequest request){
+        String[] adultPrice = request.getParameterValues("adultPrice");
+        String[] childPrice = request.getParameterValues("childPrice");
+        String[] seniorPrice = request.getParameterValues("seniorPrice");
+        String[] bookingFee = request.getParameterValues("bookingFee");
+
+        Price adult = priceRepo.findByTicketType("ADULT");
+        Price child = priceRepo.findByTicketType("CHILD");
+        Price senior = priceRepo.findByTicketType("SENIOR");
+
+        adult.setTicketPrice(Double.parseDouble(adultPrice[0]));
+        child.setTicketPrice(Double.parseDouble(childPrice[0]));
+        senior.setTicketPrice(Double.parseDouble(seniorPrice[0]));
+        adult.setBookingFee(Double.parseDouble(bookingFee[0]));
+        child.setBookingFee(Double.parseDouble(bookingFee[0]));
+        senior.setBookingFee(Double.parseDouble(bookingFee[0]));
+
+        priceRepo.save(adult);
+        priceRepo.save(child);
+        priceRepo.save(senior);
+
+
+
+        return "admin-portal";
+    }
+
 }

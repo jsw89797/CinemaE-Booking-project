@@ -79,14 +79,6 @@ public class UserServices {
         sendVerificationEmail(user, siteURL);
     }
 
-    public void bookSeats(SeatList seats)
-            throws UnsupportedEncodingException, MessagingException {
-           /** seat.setSeatId(seatID);
-            seat.setShowId(showID);
-            seat.setReserved(reserved);*/
-            seatRepo.save(seats);
-    }
-
     public static boolean isReserved(Long showID, Long seatID){
         try {
             if(showID.toString() == seatRepo2.findByShowId(showID).toString() && seatID.toString() == seatRepo2.findByShowId(seatID).toString()){
