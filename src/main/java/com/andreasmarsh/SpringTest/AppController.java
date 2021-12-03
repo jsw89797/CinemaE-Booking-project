@@ -690,7 +690,7 @@ public class AppController {
     }
 
     @GetMapping("/cart")
-    public String cart(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String cart(Model model, @AuthenticationPrincipal UserDetails currentUser, @RequestParam Integer showID) {
 
         User user = new User();
 
@@ -701,32 +701,21 @@ public class AppController {
             user = repo.findByEmail("temp@gmail.com");
             model.addAttribute("currentUser", user);
         }
-        /*
-        bookedShowing bookedShowing = new bookedShowing();
-
-        //get booking
-
-        //List<bookedShowing> allBookedShowings = bookedShowingRepo.findAll();
-
-        for (int i = 0; i < allBookedShowings.size(); i++) {
-            if (allBookedShowings.get(i).getBooking().getBookingID() != booking.getBookingID()) {
-                allBookedShowings.remove(i);
-                i--;
-            }
-        }
-
-        for (int i = 0; i < allBookedShowings.size(); i++) {
-            System.out.println(allBookedShowings.get(i).getDate());
-
-        }
-
-        model.addAttribute("allBookedShowings", allBookedShowings);
-
-        bookedShowing = bookedShowingRepo.getById(booking.getBookingID());
-
-        model.addAttribute("booking", booking);*/
 
 
+
+        MovieShowing showing = movieShowingRepo.findById(Long.valueOf(showID)).get();
+        System.out.println("The showing is" + showing.getShowID());
+        //get the specific showing
+        model.addAttribute("showing", showing); //the movie showing
+        Price adultPrice = priceRepo.findByTicketType("ADULT");
+        model.addAttribute("adultPrice", adultPrice);
+        Price childPrice = priceRepo.findByTicketType("CHILD");
+        model.addAttribute("childPrice", childPrice);
+        Price seniorPrice = priceRepo.findByTicketType("SENIOR");
+        model.addAttribute("seniorPrice", seniorPrice);
+        Price bookingFee = priceRepo.findByTicketType("ADULT");
+        model.addAttribute("bookingFee", bookingFee);
 
 
 

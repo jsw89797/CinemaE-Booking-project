@@ -200,6 +200,26 @@
 
     var totalSeats=0;
 
+    function makeTicketTypeArray() {
+        console.log('hello!');
+        let ticketTypeArray = new Array();
+        let totalChildSeats = parseInt(document.getElementById("child_seats").value);
+        let totalAdultSeats = parseInt(document.getElementById("adult_seats").value);
+        let totalSeniorSeats = parseInt(document.getElementById("senior_seats").value);
+        for (let i = 0; i < totalChildSeats; i += 1) {
+            ticketTypeArray.push('c');
+        }
+
+        for (let i = 0; i < totalAdultSeats; i += 1) {
+            ticketTypeArray.push('a');
+        }
+
+        for (let i = 0; i < totalSeniorSeats; i += 1) {
+            ticketTypeArray.push('s');
+        }
+        sessionStorage.setItem("ticketTypeArray", ticketTypeArray);
+    }
+
     function increaseSeats(id){
 
    document.getElementById('book').disabled=false;
@@ -220,6 +240,7 @@
      totalSeats= totalSeats+1;
     sessionStorage.setItem("totalSeats", totalSeats);
 
+    makeTicketTypeArray();
 
  }
 
@@ -236,6 +257,8 @@
    document.getElementById('book').disabled=true;
    }
      sessionStorage.setItem("totalSeats", totalSeats);
+
+     makeTicketTypeArray();
  }
   </script>
 </body>
