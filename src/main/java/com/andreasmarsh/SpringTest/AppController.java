@@ -765,6 +765,7 @@ public class AppController {
         format3 = df.format(seniorCartPrice);
         format4 = df.format(tax);
         format5 = df.format(total);
+
         model.addAttribute("adultCartPrice",format1);
         model.addAttribute("childCartPrice",format2);
         model.addAttribute("seniorCartPrice",format3);

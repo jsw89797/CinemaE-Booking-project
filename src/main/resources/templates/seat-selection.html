@@ -73,7 +73,7 @@
     <h2>Choose your seats here!</h2>
     <div class="holder">
         <div class="theatreScreen"></div>
-        <form th:action="@{/cart}">
+        <form th:action="@{/cart}" method="POST">
             <div class="row">
                 <input th:name="seatID"  th:disabled="${check[1]}" onclick="selects(1)" type="checkbox" class="form-check-input seat" value="1">
                 <input th:name="seatID"  th:disabled="${check[2]}" onclick="selects(2)" type="checkbox" class="form-check-input seat" value="2"></input>
@@ -131,6 +131,9 @@
                    minlength="1" maxlength="3">
 
             <!--<input type="submit" value="Continue">-->
+            <input type="tel" name="ticketTypes" id="ticketTypes" style="display:none;"
+                   class="form-control"
+                   minlength="1">
 
             <button class="btn btn-primary buttonColor" id="process" onclick="storeSeats()" disabled="true"
                     type="submit">
@@ -148,6 +151,13 @@
     sessionStorage.setItem("seatArray", array);
     let showID = document.getElementById('showID').value;
     let seatString = "";
+    let ticketTypes = sessionStorage.getItem("ticketTypes");
+
+    var inputF = document.getElementById("ticketTypes");
+    function setValue() {
+        inputF.value = ticketTypes;
+    }
+
     function selects(id){
         if(array.length > 0) {
             for (let i = 0; i < array.length; i++) {
