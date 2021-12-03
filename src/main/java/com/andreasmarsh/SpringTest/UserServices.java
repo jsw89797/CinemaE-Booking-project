@@ -179,7 +179,7 @@ public class UserServices {
         cali1.setTime(day);
         Date time = movieShowingRepo.findByShowingID(Long.parseLong(showID)).getTime();
         cali2.setTime(time);
-        String pattern = "yyyy-mm-dd";
+        String pattern = "MM-dd-yyyy";
         String pattern2 = "HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
         DateFormat df2 = new SimpleDateFormat(pattern2);
