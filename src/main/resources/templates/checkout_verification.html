@@ -67,11 +67,43 @@
     <br>
     <h3>Your purchase was successful!</h3>
     <br>
-    <p>Please check your email to view your receipt!</p>
+    <p id="firstMessage"></p>
+    <br><br>
+    <p id = "secondMessage"></p>
+    <br><br>
+    <p>Check your email for more details!</p>
     <br>
-    <a class="btn btn-primary"
-       th:href="@{/}">Home</a>
+    <p>Thank you for your order, see you soon!</p>
+    <br>
+    <a class="btn btn-primary" th:href="@{/}">Home</a>
+
+    <input type="tel" name="movieTitle" th:value="${movieTitle}" id="movieTitle" style="display:none;"
+           class="form-control"
+           minlength="1">
+    <input type="tel" name="ticketCount" th:value="${ticketCount}" id="ticketCount" style="display:none;"
+           class="form-control"
+           minlength="1">
+
+    <input type="tel" name="total" th:value="${total}" id="total" style="display:none;"
+           class="form-control"
+           minlength="1">
+
 </div>
 
+
+
+<script th:inline="javascript">
+    let total = document.getElementById("total").value;
+    let ticketCount = document.getElementById("ticketCount").value;
+    let movieTitle = document.getElementById("movieTitle").value;
+    let showID = sessionStorage.getItem("showID");
+
+    let message = "This is to confirm your booking of " + movieTitle + " for showing " + showID + ".";
+    let message2 = "You have purchased " + ticketCount + " tickets for $" + total + ".";
+    document.getElementById("firstMessage").innerHTML = message;
+    document.getElementById("secondMessage").innerHTML = message2;
+
+</script>
 </body>
+
 </html>

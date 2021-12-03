@@ -920,7 +920,7 @@ public class AppController {
     }
 
     @PostMapping("/process_checkout")
-    public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser) throws UnsupportedEncodingException, MessagingException{
+    public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser, Model model) throws UnsupportedEncodingException, MessagingException{
         String[] holder =request.getParameterValues("seatID");
 
         User theUser = repo.findByEmail(currentUser.getUsername());
@@ -1006,7 +1006,7 @@ public class AppController {
 
         //attach a user
         book.setUser(theUser);
-        service.sendCheckoutEmail(theUser,price,movieTitle,reserved, getSiteURL(request));
+        service.sendCheckoutEmail(theUser,price,movieTitle,reserved,showIDs[0], getSiteURL(request));
         Booking booking = bookingRepo.save(book);
 
         Long id = booking.getBookingID();
@@ -1021,6 +1021,10 @@ public class AppController {
 
             seatRepo.save(s);
         }
+        model.addAttribute("movieTitle", movieTitle[0]);
+        model.addAttribute("total", price[0]);
+        model.addAttribute("ticketCount",ticketCount[0]);
+        model.addAttribute("showRepo", movieShowingRepo);
         return "checkout_verification";
     }
 

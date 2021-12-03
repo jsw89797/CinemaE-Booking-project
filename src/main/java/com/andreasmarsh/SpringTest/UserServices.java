@@ -1,6 +1,10 @@
 package com.andreasmarsh.SpringTest;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -140,7 +144,7 @@ public class UserServices {
         sendEditEmail(user, siteURL);
     }
 
-    public void sendCheckoutEmail(User user, String[] price, String[] movieTitle, String[] seats, String siteURL ) throws MessagingException, UnsupportedEncodingException {
+    public void sendCheckoutEmail(User user, String[] price, String[] movieTitle, String[] seats,String showID, String siteURL ) throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "CinemaE-Booking@gmail.com";
         String senderName = "Cinema E-Booking";
@@ -148,6 +152,8 @@ public class UserServices {
         String content = "Dear [[name]], <br>"
                 +"You have booked the following seats: [[seats]]<br>"
                 +"for the following movie: [[mT]]<br>"
+                +"SHOWING DATE: [[date]]<br>"
+                +"SHOWING TIME: [[time]]<br>"
                 +"TOTAL: [[total]]<br><br>"
                 +"Thank you for using the  Team A6 Cinema E-Booking system!";
 
@@ -167,9 +173,27 @@ public class UserServices {
                seatString +=seats[i];
             }
         }
+        Calendar cali1 = Calendar.getInstance();
+        Calendar cali2 =Calendar.getInstance();
+        Date day = movieShowingRepo.findByShowingID(Long.parseLong(showID)).getDate();
+        cali1.setTime(day);
+        Date time = movieShowingRepo.findByShowingID(Long.parseLong(showID)).getTime();
+        cali2.setTime(time);
+        String pattern = "yyyy-mm-dd";
+        String pattern2 = "HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        DateFormat df2 = new SimpleDateFormat(pattern2);
+        Date today = Calendar.getInstance().getTime();
+
+        String date = df.format(day);
+        String showtime = df2.format(time);
+
+
         content = content.replace("[[seats]]",seatString);
         content = content.replace("[[mT]]",movieTitle[0]);
         content = content.replace("[[total]]",price[0]);
+        content = content.replace("[[date]]",date);
+        content = content.replace("[[time]]",showtime);
 
         helper.setText(content, true);
 
