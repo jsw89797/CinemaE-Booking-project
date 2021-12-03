@@ -213,6 +213,19 @@
               <button type="submit" onclick = "setValuePromo()" name ="promoCode" class="btn btn-primary buttonColor">Apply promo code</button>
             </span>
         </form>
+
+        <br>
+        <h4>Choose payment card:</h4>
+        <div class="col-lg-3" th:object="${user.creditCards}">
+          <select class="form-control" id="creditCards" name="creditCards" required>
+            <option value="paymentCard">Select CreditCard</option>
+            <option th:each="creditCard : ${user.creditCards}"
+                    th:value="${creditCard.cardType}"
+                    th:text="${creditCard.cardType}"></option>
+          </select>
+        </div>
+
+
         <form th:action="@{/process_checkout}" method="POST">
           <input type="tel" name="seatID" id="seatID" style="display:none;"
                  class="form-control"

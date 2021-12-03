@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Cart</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/newstyle.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
+    <style>.iframe-embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        border: 0;
+    }
+    .iframe-embed-wrapper {
+        position: relative;
+        display: block;
+        padding: 0;
+        overflow: hidden;
+    }
+    .iframe-embed-responsive-16by9 {
+        padding-bottom: 56.25%;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 70%;
+        padding: 10px;
+    }
+
+    .column2 {
+        float: left;
+        width: 30%;
+        padding: 10px;
+    }
+
+    .light {
+        color: #ddd;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+        .column {
+            width: 100%;
+        }
+        .column2 {
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Cinema E-Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary buttonColor" th:href="@{/}">Home</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary buttonColor" th:href="@{/login}">Login</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-success buttonColor" th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary buttonColor" th:href="@{/cart}">Cart</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary buttonColor" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                </div>
+
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-secondary buttonColor" th:href="@{/admin-portal}">Admin Portal</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary buttonColor" href="javascript: logoutForm.submit();">Logout</a>
+                </div>
+
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                    <input class="buttonColor" type="submit" value="Logout" />
+                </form>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+                <div style="float:left;">
+                    <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
+                           id="inputSearch" placeholder="Search">
+                </div>
+                <div style="float:left;">
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0 buttonColor">Search</button>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<!--        <th:block th:each="allBookedShowings: ${allBookedShowings}">
+          <div class="col">
+            <a th:text="${allBookedShowings.getTime()} + ' on ' + ${allBookedShowings.getDate()}"></a>
+          </div>
+          <br>
+          <br>
+        </th:block>-->
+
+<div class="container bootdey">
+    <div class="row bootstrap snippets">
+
+        <div class="clearfix visible-sm"></div>
+
+        <!-- Cart -->
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="col-lg-12 col-sm-12">
+                <span class="title">SHOPPING CART</span>
+            </div>
+            <div class="col-lg-12 col-sm-12 hero-feature">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Ticket Type</th>
+                            <th>Movie Name</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td >ADULT</td>
+                            <td th:text="${movieTitle}">MOVIE NAME</td>
+                            <td th:text="${adultCount}"></td>
+                            <td th:text="${'$' + adultCartPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td>CHILD</td>
+                            <td th:text="${movieTitle}">MOVIE NAME</td>
+                            <td th:text="${childCount}"></td>
+                            <td th:text="${'$' + childCartPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td>SENIOR</td>
+                            <td th:text="${movieTitle}">MOVIE NAME</td>
+                            <td th:text="${seniorCount}"></td>
+                            <td th:text="${'$' + seniorCartPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td>ONLINE BOOKING FEE</td>
+                            <td style="border:none;"></td>
+                            <td style="border:none;"></td>
+                            <td th:text="${ '$' +adultPrice.getBookingFee()}"></td>
+                        </tr>
+                        <tr>
+                            <td> SALES TAX</td>
+                            <td style="border:none;"></td>
+                            <td style="border:none;"></td>
+                            <td th:text="${ '$' +tax}"></td>
+                        </tr>
+                        <tr>
+                            <td> SALES TOTAL</td>
+                            <td style="border:none;"></td>
+                            <td style="border:none;"></td>
+                            <td th:text="${ '$' + total}"></td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <form th:action="@{/cart}" method="POST">
+            <span>
+              <h4>Promo code:</h4>
+              <input type="text" name="promoCode">
+               <input type="tel" name="showID" id="showID" style="display:none;"
+                      class="form-control"
+                      minlength="1" maxlength="3">
+
+                <!--<input type="submit" value="Continue">-->
+            <input type="tel" name="ticketTypes" id="ticketTypes" style="display:none;"
+                   class="form-control"
+                   minlength="1">
+
+            <input type="tel" name="movieTitle" id="movieTitle" style="display:none;"
+                   class="form-control"
+                   minlength="1">
+              <button type="submit" onclick = "setValuePromo()" name ="promoCode" class="btn btn-primary buttonColor">Apply promo code</button>
+            </span>
+                </form>
+
+                <br>
+                <h4>You have no connected card. Enter a card here:</h4>
+               <!-- <form role="form"> -->
+                        <!-- Credit card form content -->
+                        <br>
+                        <h3>Payment Method 1</h3>
+
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label">Card Type:</label>
+                            <div class="col-8">
+                                <select class="col-4 form-control" name="cardType" id="cardType" required>
+                                    <option selected></option>
+                                    <option>Visa</option>
+                                    <option>MasterCard</option>
+                                    <option>AmericanExpress</option>
+                                    <option>Discover</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <!-- credit card info-->
+                            <div class="tab-pane fade show active pt-3">
+                                <div class="form-group">
+                                    <label data-toggle="tooltip"
+                                           title="Input 16 digits with no spaces or -'s found on front of card">Card number
+                                        :</label>
+                                    <div class="input-group">
+                                        <input type="tel" name="cardNumber" id="cardNumber"
+                                               placeholder="Valid card number (no spaces or -'s)" class="form-control"
+                                               minlength="16" maxlength="16" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group"><label><span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span></label>
+                                            <div class="input-group">
+                                                <input type="number" name="expMonth" placeholder="MM" class="form-control"
+                                                       minlength="1" maxlength="2" min="1" max="12" required>
+                                                <input type="tel" name="expYear" placeholder="YY" class="form-control"
+                                                       minlength="2" maxlength="2" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group mb-4"><label data-toggle="tooltip"
+                                                                            title="Three digit CV code on the back of your card">
+                                            <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                        </label> <input type="tel" name="cvv" placeholder="123" class="form-control"
+                                                        minlength="3" maxlength="3" required></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End -->
+
+
+                <form th:action="@{/process_checkout}" method="POST">
+                    <input type="tel" name="seatID" id="seatID" style="display:none;"
+                           class="form-control"
+                           minlength="1">
+
+                    <div class="btn-group btns-cart">
+                        <button onclick ="setValue()" class="btn btn-primary buttonColor" type="submit" >Checkout <i class="fa fa-arrow-circle-right" ></i></button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- End Cart -->
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let seatString = sessionStorage.getItem("seatString")
+    var inputF = document.getElementById("seatID");
+    var inputG = document.getElementById("showID");
+    var inputH = document.getElementById("ticketTypes");
+    var inputI = document.getElementById("movieTitle");
+    function setValue() {
+        inputF.value = seatString;
+
+
+        seatString = "";
+        sessionStorage.clear();
+    }
+
+    function setValuePromo(){
+        inputG.value = sessionStorage.getItem("showID");
+        inputH.value = sessionStorage.getItem("ticketTypes");
+        inputI.value = sessionStorage.getItem("movieTitle");
+    }
+
+
+</script>
+
+</body>
+</html>

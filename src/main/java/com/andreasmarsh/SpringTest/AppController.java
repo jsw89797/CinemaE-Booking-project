@@ -699,11 +699,12 @@ public class AppController {
 
         try {
             user = repo.findByEmail(currentUser.getUsername());
-            model.addAttribute("currentUser", user);
+            model.addAttribute("user", user);
         } catch (NullPointerException npe) {
             user = repo.findByEmail("temp@gmail.com");
-            model.addAttribute("currentUser", user);
+            model.addAttribute("user", user);
         }
+
 
 
         String[] ticketTypes = request.getParameterValues("ticketTypes");
@@ -785,6 +786,22 @@ public class AppController {
         model.addAttribute("seniorCartPrice",format3);
         model.addAttribute("tax",format4);
         model.addAttribute("total", format5);
+
+
+        //check if they have a card
+        List<CreditCard> cards = new ArrayList<>();
+        cards = user.getCreditCards();
+
+        int count = 0;
+        for (int i = 0; i < 3; i++) {
+            if (cards.get(i).getCardType() == null) {
+                count++; //card i is null
+            }
+        }
+
+        if (count == 3) {
+            return "cart_NoCard";
+        }
 
 
 
@@ -892,7 +909,14 @@ public class AppController {
     @PostMapping("/process_checkout")
     public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser){
         String[] holder =request.getParameterValues("seatID");
-        //System.out.print(holder[0]);
+        User theUser = repo.findByEmail(currentUser.getUsername());
+
+        String[] ctype =request.getParameterValues("cardType");
+        String type = ctype[0];
+        String[] cNum =request.getParameterValues("cardNumber");
+        String cardNumber = cNum[0];
+
+
         int size = 0;
         for(int i = 0; i < holder[0].length(); i++){
             if(holder[0].charAt(i) == ','){
@@ -927,7 +951,6 @@ public class AppController {
         book.setMovieTitle(showing.getMovie().getTitle());
 
         //attach a user
-        User theUser = repo.findByEmail(currentUser.getUsername());
         book.setUser(theUser);
 
         Booking booking = bookingRepo.save(book);
