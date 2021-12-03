@@ -1095,4 +1095,16 @@ public class AppController {
         return "admin-portal";
     }
 
+    @GetMapping("/purchase-history")
+    public String purchaseHistory(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User theUser = repo.findByEmail(currentUser.getUsername());
+
+        List<Booking> allOrders = bookingRepo.findByUser(theUser);
+        model.addAttribute("allOrders", allOrders);
+        String search = "";
+        model.addAttribute("search", search);
+
+        return "purchase-history";
+    }
+
 }

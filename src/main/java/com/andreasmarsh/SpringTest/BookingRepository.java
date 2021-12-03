@@ -9,4 +9,7 @@ import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
+    @Query("SELECT u FROM Booking u WHERE u.user = ?1")
+    public List<Booking> findByUser(User user);
+
 }
