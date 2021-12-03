@@ -233,7 +233,7 @@
           <h4>Choose payment card:</h4>
           <div class="col-lg-3" th:object="${user.creditCards}">
             <select class="col-4 form-control" th:id="creditCards" name="creditCards" required>
-              <option value="paymentCard">Select CreditCard</option>
+             <!-- <option value="paymentCard">Select CreditCard</option> -->
               <option th:each="creditCard : ${user.creditCards}"
                       th:value="${creditCard.cardType}"
                       th:text="${creditCard.cardType}"></option>
