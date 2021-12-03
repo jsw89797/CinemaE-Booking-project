@@ -165,6 +165,12 @@
             <br>
         </div>
     </div>
+    <input type="tel" name="movieTitle" id="movieTitle" th:value="${movie.getTitle()}" style="display:none;"
+           class="form-control"
+           minlength="1">
+    <input type="tel" name="showID" id="showID" th:value="${id}" style="display:none;"
+           class="form-control"
+           minlength="1">
     <div class="column2" style="background-color:#bbb;">
         <br>
         <div class="row text-center">
@@ -174,7 +180,7 @@
             <br>
         <th:block th:each="showing: ${showingList}">
             <div sec:authorize=isAuthenticated() class="col">
-                <a th:text="${showing.getTime()} + ' on ' + ${showing.getDate()}" th:href="@{'/book-movie/' + ${showing.getShowID()}}" class="btn btn-primary buttonColor"></a>
+                <a onclick ="onClick()" th:text="${showing.getTime()} + ' on ' + ${showing.getDate()}" th:href="@{'/book-movie/' + ${showing.getShowID()}}" class="btn btn-primary buttonColor"></a>
             </div>
             <div sec:authorize="isAnonymous()">
                 <a th:text="${showing.getTime()} + ' on ' + ${showing.getDate()}" th:href="@{'/login/'}" class="btn btn-primary buttonColor"></a>
@@ -187,5 +193,13 @@
 </div>
 </div>
 </div>
+<script th:inline="javascript">
+    let movieTitle = document.getElementById('movieTitle').value;
+    let showID = document.getElementById('showID').value;
+    function onClick() {
+        sessionStorage.setItem("movieTitle", movieTitle);
+        sessionStorage.setItem("showID", showID);
+    }
+</script>
 </body>
 </html>

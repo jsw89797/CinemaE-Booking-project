@@ -155,19 +155,19 @@
             <tbody>
             <tr>
               <td >ADULT</td>
-              <td >MOVIE NAME</td>
+              <td th:text="${movieTitle}">MOVIE NAME</td>
               <td th:text="${adultCount}"></td>
               <td th:text="${'$' + adultCartPrice}"></td>
             </tr>
             <tr>
               <td>CHILD</td>
-              <td>MOVIE NAME</td>
+              <td th:text="${movieTitle}">MOVIE NAME</td>
               <td th:text="${childCount}"></td>
               <td th:text="${'$' + childCartPrice}"></td>
             </tr>
             <tr>
               <td>SENIOR</td>
-              <td>MOVIE NAME</td>
+              <td th:text="${movieTitle}">MOVIE NAME</td>
               <td th:text="${seniorCount}"></td>
               <td th:text="${'$' + seniorCartPrice}"></td>
             </tr>
@@ -194,12 +194,25 @@
             </tbody>
           </table>
         </div>
+        <form th:action="@{/cart}" method="POST">
+            <span>
+              <h4>Promo code:</h4>
+              <input type="text" name="promoCode">
+               <input type="tel" name="showID" id="showID" style="display:none;"
+                       class="form-control"
+                      minlength="1" maxlength="3">
 
-        <span>
-          <h4>Promo code:</h4>
-          <input type="text">
-          <button type="button" class="btn btn-primary buttonColor">Apply promo code</button>
-        </span>
+              <!--<input type="submit" value="Continue">-->
+            <input type="tel" name="ticketTypes" id="ticketTypes" style="display:none;"
+                   class="form-control"
+                   minlength="1">
+
+            <input type="tel" name="movieTitle" id="movieTitle" style="display:none;"
+                   class="form-control"
+                   minlength="1">
+              <button type="submit" onclick = "setValuePromo()" name ="promoCode" class="btn btn-primary buttonColor">Apply promo code</button>
+            </span>
+        </form>
         <form th:action="@{/process_checkout}" method="POST">
           <input type="tel" name="seatID" id="seatID" style="display:none;"
                  class="form-control"
@@ -219,10 +232,21 @@
 <script th:inline="javascript">
   let seatString = sessionStorage.getItem("seatString")
   var inputF = document.getElementById("seatID");
+  var inputG = document.getElementById("showID");
+  var inputH = document.getElementById("ticketTypes");
+  var inputI = document.getElementById("movieTitle");
   function setValue() {
     inputF.value = seatString;
+
+
     seatString = "";
     sessionStorage.clear();
+  }
+
+  function setValuePromo(){
+    inputG.value = sessionStorage.getItem("showID");
+    inputH.value = sessionStorage.getItem("ticketTypes");
+    inputI.value = sessionStorage.getItem("movieTitle");
   }
 
 

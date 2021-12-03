@@ -135,6 +135,10 @@
                    class="form-control"
                    minlength="1">
 
+            <input type="tel" name="movieTitle" id="movieTitle" style="display:none;"
+                   class="form-control"
+                   minlength="1">
+
             <button class="btn btn-primary buttonColor" id="process" onclick="storeSeats()" disabled="true"
                     type="submit">
                 Continue to checkout
@@ -151,10 +155,13 @@
     let showID = document.getElementById('showID').value;
     let seatString = "";
     let ticketTypes = sessionStorage.getItem("ticketTypes");
+    let movieTitle = sessionStorage.getItem("movieTitle");
 
     var inputF = document.getElementById("ticketTypes");
+    var inputG = document.getElementById("movieTitle");
     function setValue() {
         inputF.value = ticketTypes;
+        inputG.value = movieTitle;
     }
 
     function selects(id){

@@ -705,7 +705,9 @@ public class AppController {
             model.addAttribute("currentUser", user);
         }
 
+
         String[] ticketTypes = request.getParameterValues("ticketTypes");
+        String[] movieTitle = request.getParameterValues("movieTitle");
         int size = 0;
         int adultCount = 0;
         int childCount = 0;
@@ -730,7 +732,7 @@ public class AppController {
         model.addAttribute("adultCount",adultCount);
         model.addAttribute("childCount",childCount);
         model.addAttribute("seniorCount",seniorCount);
-
+        model.addAttribute("movieTitle",movieTitle[0]);
 
         MovieShowing showing = movieShowingRepo.findById(Long.valueOf(showID)).get();
         System.out.println("The showing is" + showing.getShowID());
@@ -749,11 +751,22 @@ public class AppController {
         double seniorCartPrice =seniorPrice.getTicketPrice() * seniorCount;
 
 
+
+
         DecimalFormat df = new DecimalFormat("###.##");
         double total = adultCartPrice + childCartPrice + seniorCartPrice;
         double tax = total *0.04;
         total += tax;
         total+= adultPrice.getBookingFee();
+        if(request.getParameterValues("promoCode") != null){
+            String[] promotion = request.getParameterValues("promoCode");
+            if(promoRepo.findByCode(promotion[0]) != null){
+                total = total * ((promoRepo.findByCode(promotion[0]).getPercentage()).doubleValue()/100);
+                System.out.println(promotion[0]);
+                System.out.println(promoRepo.findByCode(promotion[0]).getPercentage());
+            }
+
+        }
         String format1 = "";
         String format2 = "";
         String format3 = "";
@@ -765,6 +778,7 @@ public class AppController {
         format3 = df.format(seniorCartPrice);
         format4 = df.format(tax);
         format5 = df.format(total);
+
 
         model.addAttribute("adultCartPrice",format1);
         model.addAttribute("childCartPrice",format2);
