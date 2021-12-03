@@ -148,7 +148,6 @@
     const totalSeats = sessionStorage.getItem("totalSeats");
     let totalSelects = 0;
     let array = new Array();
-    sessionStorage.setItem("seatArray", array);
     let showID = document.getElementById('showID').value;
     let seatString = "";
     let ticketTypes = sessionStorage.getItem("ticketTypes");
@@ -189,7 +188,16 @@
         for(let i = 0; i < array.length; i++){
             seatString+=array[i] + showID +",";
         }
-        sessionStorage.setItem("seatString",seatString);
+        if(sessionStorage.getItem("seatString") == null) {
+            sessionStorage.setItem("seatString", seatString);
+            setValue();
+        } else {
+            let oldSeatString = sessionStorage.getItem("seatString");
+            oldSeatString += seatString;
+            sessionStorage.setItem("seatString",oldSeatString);
+            setValue();
+
+        }
     }
 
 </script>
