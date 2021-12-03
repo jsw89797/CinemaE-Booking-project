@@ -202,22 +202,22 @@
 
     function makeTicketTypeArray() {
         console.log('hello!');
-        let ticketTypeArray = new Array();
+        let ticketTypes = "";
         let totalChildSeats = parseInt(document.getElementById("child_seats").value);
         let totalAdultSeats = parseInt(document.getElementById("adult_seats").value);
         let totalSeniorSeats = parseInt(document.getElementById("senior_seats").value);
         for (let i = 0; i < totalChildSeats; i += 1) {
-            ticketTypeArray.push('c');
+            ticketTypes += "c";
         }
 
         for (let i = 0; i < totalAdultSeats; i += 1) {
-            ticketTypeArray.push('a');
+            ticketTypes +="a";
         }
 
         for (let i = 0; i < totalSeniorSeats; i += 1) {
-            ticketTypeArray.push('s');
+            ticketTypes +="s";
         }
-        sessionStorage.setItem("ticketTypeArray", ticketTypeArray);
+        sessionStorage.setItem("ticketTypes", ticketTypes);
     }
 
     function increaseSeats(id){

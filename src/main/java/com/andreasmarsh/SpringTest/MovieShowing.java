@@ -82,5 +82,6 @@ public class MovieShowing {
     public void setTime(Date time) {
         this.time = time;
     }
+
 }
 

@@ -3,6 +3,7 @@ package com.andreasmarsh.SpringTest;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import java.text.DecimalFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -61,6 +62,8 @@ public class AppController {
 
     @Autowired
     private PriceRepository priceRepo;
+
+
 
     @PostMapping("/process_register")
     public String processRegister(User user, Address address, HttpServletRequest request)
@@ -689,8 +692,8 @@ public class AppController {
         //return "redirect:/homepage";
     }
 
-    @GetMapping("/cart")
-    public String cart(Model model, @AuthenticationPrincipal UserDetails currentUser, @RequestParam Integer showID) {
+    @PostMapping("/cart")
+    public String cart(Model model, @AuthenticationPrincipal UserDetails currentUser, @RequestParam Integer showID, HttpServletRequest request) {
 
         User user = new User();
 
@@ -702,6 +705,31 @@ public class AppController {
             model.addAttribute("currentUser", user);
         }
 
+        String[] ticketTypes = request.getParameterValues("ticketTypes");
+        int size = 0;
+        int adultCount = 0;
+        int childCount = 0;
+        int seniorCount = 0;
+        for(int i = 0; i < ticketTypes[0].length(); i++){
+            if(ticketTypes[0].charAt(i) == 'a'){
+                adultCount++;
+            } else if(ticketTypes[0].charAt(i) == 'c'){
+                childCount++;
+            } else if(ticketTypes[0].charAt(i) == 's'){
+                seniorCount++;
+            }
+        }
+        if(childCount > 0){
+            size++;
+        } else if (adultCount > 0) {
+            size++;
+        } else if(seniorCount > 0) {
+            size++;
+        }
+
+        model.addAttribute("adultCount",adultCount);
+        model.addAttribute("childCount",childCount);
+        model.addAttribute("seniorCount",seniorCount);
 
 
         MovieShowing showing = movieShowingRepo.findById(Long.valueOf(showID)).get();
@@ -716,6 +744,32 @@ public class AppController {
         model.addAttribute("seniorPrice", seniorPrice);
         Price bookingFee = priceRepo.findByTicketType("ADULT");
         model.addAttribute("bookingFee", bookingFee);
+        double adultCartPrice = adultPrice.getTicketPrice() * adultCount;
+        double childCartPrice = childPrice.getTicketPrice() * childCount;
+        double seniorCartPrice =seniorPrice.getTicketPrice() * seniorCount;
+
+
+        DecimalFormat df = new DecimalFormat("###.##");
+        double total = adultCartPrice + childCartPrice + seniorCartPrice;
+        double tax = total *0.04;
+        total += tax;
+        total+= adultPrice.getBookingFee();
+        String format1 = "";
+        String format2 = "";
+        String format3 = "";
+        String format4 = "";
+        String format5 = "";
+
+        format1 = df.format(adultCartPrice);
+        format2 = df.format(childCartPrice);
+        format3 = df.format(seniorCartPrice);
+        format4 = df.format(tax);
+        format5 = df.format(total);
+        model.addAttribute("adultCartPrice",format1);
+        model.addAttribute("childCartPrice",format2);
+        model.addAttribute("seniorCartPrice",format3);
+        model.addAttribute("tax",format4);
+        model.addAttribute("total", format5);
 
 
 
