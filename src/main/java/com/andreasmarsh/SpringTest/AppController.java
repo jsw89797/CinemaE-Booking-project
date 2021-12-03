@@ -995,9 +995,13 @@ public class AppController {
         // cardNum   cardType   cardCVV
         book.setCardNumber(cardNum);
         book.setCardType(cardType);
+
+        CreditCardServices cardServices = new CreditCardServices();
+        cardCVV = cardServices.secretCardEncoder(cardCVV); //encrpyt it before storing
         book.setCardCVV(cardCVV);
         Long showID = seat.getShowId();
-        MovieShowing showing = movieShowingRepo.findByShowingID(showID);
+        MovieShowing showing = movieShowingRepo.findByShowingID(Long.parseLong(showIDs[0]));
+        //MovieShowing showing = movieShowingRepo.findByShowingID(showID);
         book.setDate(showing.getDate());
         book.setTime(showing.getTime());
         book.setPromoCode(promo[0]);

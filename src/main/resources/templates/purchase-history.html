@@ -85,10 +85,13 @@
             <tr th:each="Booking: ${allOrders}">
                 <td th:text="${Booking.getBookingID()}"> Booking ID</td>
                 <td th:text="${Booking.movieTitle}">Movie Title</td>
-                <td th:text="${Booking.getDate()}">Showing Date</td>
+                <td th:text="${Booking.getDate()} + ' at ' + ${Booking.getTime()}">Showing Date </td>
 
                 <td th:text="${Booking.getPrice()}">Total price</td>
                 <td th:text="${Booking.getCardType()}"> Card type</td>
+
+                <td th:text="${Booking.getPromoCode()}">Total price</td>
+
 
             </tr>
             </tbody>
