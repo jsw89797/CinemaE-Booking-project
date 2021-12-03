@@ -197,7 +197,7 @@
         <form th:action="@{/cart}" method="POST">
             <span>
               <h4>Promo code:</h4>
-              <input type="text" name="promoCode">
+              <input type="text" name="promoCode" id="promoCode" >
                <input type="tel" name="showID" id="showID" style="display:none;"
                        class="form-control"
                       minlength="1" maxlength="3">
@@ -218,6 +218,17 @@
                  class="form-control"
                  minlength="1">
 
+          <input type="text" name="promoCode" id="promo" style="display:none;">
+          <input type="tel" th:value="${total}" name="price" style="display:none;"
+                 class="form-control"
+                 minlength="1" maxlength="3">
+          <input type="text" name="ticketCount" th:value="${ticketCount}" id="tC" style="display:none;">
+          <input type="tel" name="showID2" id="sID" style="display:none;"
+                 class="form-control"
+                 minlength="1" maxlength="3">
+          <input type="text" th:value="${movieTitle}" name="movieTitle" id="mT" style="display:none;">
+
+
           <div class="btn-group btns-cart">
             <button onclick ="setValue()" class="btn btn-primary buttonColor" type="submit" >Checkout <i class="fa fa-arrow-circle-right" ></i></button>
           </div>
@@ -235,15 +246,25 @@
   var inputG = document.getElementById("showID");
   var inputH = document.getElementById("ticketTypes");
   var inputI = document.getElementById("movieTitle");
+  var inputJ = document.getElementById("promo");
+  var inputK = document.getElementById("sID");
+  
   function setValue() {
     inputF.value = seatString;
+    inputK.value = sessionStorage.getItem("showID");
+    if(sessionStorage.getItem("promoCode") != null){
+      inputJ.value = sessionStorage.getItem("promoCode");
+    }
+
 
 
     seatString = "";
-    sessionStorage.clear();
+    sessionStorage.setItem("seatString",seatString);
   }
 
   function setValuePromo(){
+    let promoCode = document.getElementById("promoCode").value;
+    sessionStorage.setItem("promoCode", promoCode);
     inputG.value = sessionStorage.getItem("showID");
     inputH.value = sessionStorage.getItem("ticketTypes");
     inputI.value = sessionStorage.getItem("movieTitle");

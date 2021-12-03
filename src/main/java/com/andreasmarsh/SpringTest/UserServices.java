@@ -140,6 +140,44 @@ public class UserServices {
         sendEditEmail(user, siteURL);
     }
 
+    public void sendCheckoutEmail(User user, String[] price, String[] movieTitle, String[] seats, String siteURL ) throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "CinemaE-Booking@gmail.com";
+        String senderName = "Cinema E-Booking";
+        String subject = "YOUR ORDER CONFIRMATION" ;
+        String content = "Dear [[name]], <br>"
+                +"You have booked the following seats: [[seats]]<br>"
+                +"for the following movie: [[mT]]<br>"
+                +"TOTAL: [[total]]<br><br>"
+                +"Thank you for using the  Team A6 Cinema E-Booking system!";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getFullName());
+        String seatString ="";
+        for(int i = 0; i < seats.length; i++){
+           if(i<seats.length-1) {
+               seatString += seats[i] + ", ";
+           } if(i == seats.length-1){
+               seatString +=seats[i];
+            }
+        }
+        content = content.replace("[[seats]]",seatString);
+        content = content.replace("[[mT]]",movieTitle[0]);
+        content = content.replace("[[total]]",price[0]);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+        System.out.println("Email has been sent");
+    }
+
     private void sendVerificationEmail(User user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();

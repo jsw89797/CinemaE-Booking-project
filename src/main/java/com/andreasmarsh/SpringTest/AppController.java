@@ -750,7 +750,8 @@ public class AppController {
         double childCartPrice = childPrice.getTicketPrice() * childCount;
         double seniorCartPrice =seniorPrice.getTicketPrice() * seniorCount;
 
-
+        int ticketCount = adultCount + childCount + seniorCount;
+        model.addAttribute("ticketCount", ticketCount);
 
 
         DecimalFormat df = new DecimalFormat("###.##");
@@ -890,8 +891,14 @@ public class AppController {
     }
 
     @PostMapping("/process_checkout")
-    public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser){
+    public String checkout(HttpServletRequest request, @AuthenticationPrincipal UserDetails currentUser) throws UnsupportedEncodingException, MessagingException{
         String[] holder =request.getParameterValues("seatID");
+        String[] promo =  request.getParameterValues("promoCode");
+        String[] price = request.getParameterValues("price");
+        String[] ticketCount = request.getParameterValues("ticketCount");
+        String[] showIDs= request.getParameterValues("showID2");
+        String[] movieTitle = request.getParameterValues("movieTitle");
+        request.getParameterValues("seatID");
         //System.out.print(holder[0]);
         int size = 0;
         for(int i = 0; i < holder[0].length(); i++){
@@ -915,6 +922,7 @@ public class AppController {
         }
 
         //Make a booking
+        double dPrice = Double.parseDouble(price[0]);
         Booking book = new Booking();
         Seat seat = seatRepo.findBySeatID(Long.parseLong(reserved[0])); //find a specific seat
 
@@ -924,12 +932,14 @@ public class AppController {
         MovieShowing showing = movieShowingRepo.findByShowingID(showID);
         book.setDate(showing.getDate());
         book.setTime(showing.getTime());
+        book.setPromoCode(promo[0]);
+        book.setPrice(dPrice);
         book.setMovieTitle(showing.getMovie().getTitle());
 
         //attach a user
         User theUser = repo.findByEmail(currentUser.getUsername());
         book.setUser(theUser);
-
+        service.sendCheckoutEmail(theUser,price,movieTitle,reserved, getSiteURL(request));
         Booking booking = bookingRepo.save(book);
 
         Long id = booking.getBookingID();

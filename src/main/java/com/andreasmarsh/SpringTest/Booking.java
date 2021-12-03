@@ -40,6 +40,28 @@ public class Booking {
     @Column(name = "cardNumber", length = 16)
     private Long cardNumber;
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+
+    @Column(name="price")
+    private Double price;
+
+    @Column(name="promotionCode")
+    private String promoCode;
+
     @Override
     public int hashCode() {
         return getClass().hashCode();
