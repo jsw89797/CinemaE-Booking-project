@@ -54,7 +54,7 @@ public class User {
     @NotFound(action = NotFoundAction.IGNORE)
     private List<CreditCard> creditCards = new ArrayList<>();
 
-    public void addCreditCard(String cardType, Long cardNumber, Long expMonth, Long expYear, Long cvv){
+    public void addCreditCard(String cardType, Long cardNumber, Long expMonth, Long expYear, String cvv){
         this.creditCards.add(new CreditCard(cardType, cardNumber, expMonth, expYear, cvv, this));
     }
 
@@ -152,7 +152,7 @@ public class User {
         this.creditCards = creditCards;
     }
 
-    public void setCreditCard(Long id, String cardType, Long cardNumber, Long expMonth, Long expYear, Long cvv) {
+    public void setCreditCard(Long id, String cardType, Long cardNumber, Long expMonth, Long expYear, String cvv) {
         this.creditCards.add(new CreditCard(id, cardType, cardNumber, expMonth, expYear, cvv, this));
     }
 

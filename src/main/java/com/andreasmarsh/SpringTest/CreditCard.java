@@ -26,8 +26,8 @@ public class CreditCard {
     @Column(name = "expYear", length = 2)
     private Long expYear;
 
-    @Column(name = "cvv", length = 3)
-    private Long cvv;
+    @Column(name = "cvv")
+    private String cvv;
 
     @Override
     public boolean equals(Object o) {
@@ -45,22 +45,36 @@ public class CreditCard {
 
     }
 
-    public CreditCard(Long id, String cardType, Long cardNumber, Long expMonth, Long expYear, Long cvv, User user) {
+    public CreditCard(Long id, String cardType, Long cardNumber, Long expMonth, Long expYear, String cvv, User user) {
+
+        String ecvv = ""; //encoded cvv
+        if (cvv != null) {
+            CreditCardServices service = new CreditCardServices();
+            ecvv = service.secretCardEncoder(cvv);
+        }
+
         this.cardID = id;
         this.cardType = cardType;
         this.cardNumber = cardNumber;
         this.expMonth = expMonth;
         this.expYear = expYear;
-        this.cvv = cvv;
+        this.cvv = ecvv;
         this.user = user;
     }
 
-    public CreditCard(String cardType, Long cardNumber, Long expMonth, Long expYear, Long cvv, User user) {
+    public CreditCard(String cardType, Long cardNumber, Long expMonth, Long expYear, String cvv, User user) {
+
+        String ecvv = ""; //encoded cvv
+        if (cvv != null) {
+            CreditCardServices service = new CreditCardServices();
+            ecvv = service.secretCardEncoder(cvv);
+        }
+
         this.cardType = cardType;
         this.cardNumber = cardNumber;
         this.expMonth = expMonth;
         this.expYear = expYear;
-        this.cvv = cvv;
+        this.cvv = ecvv;
         this.user = user;
     }
 
@@ -112,11 +126,13 @@ public class CreditCard {
         this.expYear = expYear;
     }
 
-    public Long getCvv() {
-        return cvv;
+    public String getCvv() {
+        CreditCardServices service = new CreditCardServices();
+        String str = service.secretCardDecoder(this.cvv);
+        return str;
     }
 
-    public void setCvv(Long cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 }

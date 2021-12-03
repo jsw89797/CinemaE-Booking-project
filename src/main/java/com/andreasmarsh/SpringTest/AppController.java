@@ -77,7 +77,7 @@ public class AppController {
         for (int i = 0; i < 3; i++) {
             System.out.println(cardNumbers[i]);
             if (!cardNumbers[i].equals("")) {
-                user.addCreditCard(cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), Long.parseLong(cardCvvs[i]));
+                user.addCreditCard(cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), cardCvvs[i]);
             } else {
                 user.addCreditCard(null, null, null, null, null);
             }
@@ -139,7 +139,7 @@ public class AppController {
         for (int i = 0; i < 3; i++) {
             System.out.println(cardNumbers[i]);
             if (!cardNumbers[i].equals("")) {
-                user.setCreditCard(Long.parseLong(cardIDs[i]), cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), Long.parseLong(cardCvvs[i]));
+                user.setCreditCard(Long.parseLong(cardIDs[i]), cardTypes[i], Long.parseLong(cardNumbers[i]), Long.parseLong(cardMonths[i]), Long.parseLong(cardYears[i]), cardCvvs[i]);
             } else {
                 user.setCreditCard(Long.parseLong(cardIDs[i]), null, null, null, null, null);
             }
