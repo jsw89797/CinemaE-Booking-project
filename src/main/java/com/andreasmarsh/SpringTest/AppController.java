@@ -775,7 +775,7 @@ public class AppController {
         if(request.getParameterValues("promoCode") != null){
             String[] promotion = request.getParameterValues("promoCode");
             if(promoRepo.findByCode(promotion[0]) != null){
-                total = total * ((promoRepo.findByCode(promotion[0]).getPercentage()).doubleValue()/100);
+                total = total - (total * ((promoRepo.findByCode(promotion[0]).getPercentage()).doubleValue()/100));
                 System.out.println(promotion[0]);
                 System.out.println(promoRepo.findByCode(promotion[0]).getPercentage());
             }
