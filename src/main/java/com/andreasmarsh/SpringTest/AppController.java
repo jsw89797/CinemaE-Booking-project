@@ -63,6 +63,10 @@ public class AppController {
     @Autowired
     private PriceRepository priceRepo;
 
+    @Autowired
+    private CreditCardRepository cardRepo;
+
+
 
 
     @PostMapping("/process_register")
@@ -703,7 +707,13 @@ public class AppController {
         } catch (NullPointerException npe) {
             user = repo.findByEmail("temp@gmail.com");
             model.addAttribute("user", user);
+
         }
+
+        String type = "";
+        model.addAttribute("type", type);
+        Long num = 0L;
+        model.addAttribute("num", num);
 
 
 
@@ -737,6 +747,8 @@ public class AppController {
 
         MovieShowing showing = movieShowingRepo.findById(Long.valueOf(showID)).get();
         System.out.println("The showing is" + showing.getShowID());
+
+
         //get the specific showing
         model.addAttribute("showing", showing); //the movie showing
         Price adultPrice = priceRepo.findByTicketType("ADULT");
@@ -912,12 +924,37 @@ public class AppController {
         String[] holder =request.getParameterValues("seatID");
 
         User theUser = repo.findByEmail(currentUser.getUsername());
+        Long cardNum = 0L;
+        String cardType = "";
+        String cardCVV = "";
 
-        /**
-        String[] ctype =request.getParameterValues("cardType");
-        String type = ctype[0];
-        String[] cNum =request.getParameterValues("cardNumber");
-        String cardNumber = cNum[0]; */
+        //first try for cart-noCard
+        try {
+            String[] ctype = request.getParameterValues("cardType");
+            cardType = ctype[0];
+            String[] cNum = request.getParameterValues("cardNumber");
+            cardNum = Long.parseLong(cNum[0]);
+
+            String[] cvv = request.getParameterValues("cvv");
+            cardCVV = cvv[0];
+        } catch (NullPointerException npe) {
+
+            //if here, the user used a card that they already had
+            String[] type = request.getParameterValues("creditCards");
+            List<CreditCard> cards = cardRepo.findAll();
+            CreditCard card = new CreditCard();
+            card = cardRepo.findByType(type[0]);
+            cardNum = card.getCardNumber();
+            cardType = card.getCardType();
+            cardCVV = card.getCvv();
+
+
+        } //try-catch
+
+        System.out.println(cardNum);
+        System.out.println(cardType);
+        System.out.println(cardCVV);
+// cardNum   cardType   cardCVV
 
 
         String[] promo =  request.getParameterValues("promoCode");
@@ -955,7 +992,10 @@ public class AppController {
         Seat seat = seatRepo.findBySeatID(Long.parseLong(reserved[0])); //find a specific seat
 
         //fill booking
-        //book.setCardNumber(cardNum);
+        // cardNum   cardType   cardCVV
+        book.setCardNumber(cardNum);
+        book.setCardType(cardType);
+        book.setCardCVV(cardCVV);
         Long showID = seat.getShowId();
         MovieShowing showing = movieShowingRepo.findByShowingID(showID);
         book.setDate(showing.getDate());

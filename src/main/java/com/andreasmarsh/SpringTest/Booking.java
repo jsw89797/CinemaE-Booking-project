@@ -37,6 +37,12 @@ public class Booking {
     @Temporal(TemporalType.TIME)
     private java.util.Date time;
 
+    @Column(name = "cardCVV")
+    private String cardCVV;
+
+    @Column(name = "cardType")
+    private String cardType;
+
     @Column(name = "cardNumber", length = 16)
     private Long cardNumber;
 
@@ -125,6 +131,19 @@ public class Booking {
 
     public void setCardNumber(Long cardNumber) { this.cardNumber = cardNumber;}
 
+    public String getCardCVV() {
+        return cardCVV;
+    }
+
+    public void setCardCVV(String cvv) {
+        this.cardCVV = cvv;
+    }
+
+    public String getCardType () { return this.cardType;}
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
 }
 
 

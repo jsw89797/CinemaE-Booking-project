@@ -211,16 +211,6 @@
             </span>
         </form>
 
-        <br>
-        <h4>Choose payment card:</h4>
-        <div class="col-lg-3" th:object="${user.creditCards}">
-          <select class="form-control" id="creditCards" name="creditCards" required>
-            <option value="paymentCard">Select CreditCard</option>
-            <option th:each="creditCard : ${user.creditCards}"
-                    th:value="${creditCard.cardType}"
-                    th:text="${creditCard.cardType}"></option>
-          </select>
-        </div>
 
 
         <form th:action="@{/process_checkout}" method="POST">
@@ -238,6 +228,17 @@
                  minlength="1" maxlength="3">
           <input type="text" th:value="${movieTitle}" name="movieTitle" id="mT" style="display:none;">
 
+
+          <br>
+          <h4>Choose payment card:</h4>
+          <div class="col-lg-3" th:object="${user.creditCards}">
+            <select class="col-4 form-control" th:id="creditCards" name="creditCards" required>
+              <option value="paymentCard">Select CreditCard</option>
+              <option th:each="creditCard : ${user.creditCards}"
+                      th:value="${creditCard.cardType}"
+                      th:text="${creditCard.cardType}"></option>
+            </select>
+          </div>
 
           <div class="btn-group btns-cart">
             <button onclick ="setValue()" class="btn btn-primary buttonColor" type="submit" >Checkout <i class="fa fa-arrow-circle-right" ></i></button>
@@ -258,6 +259,7 @@
   var inputI = document.getElementById("movieTitle");
   var inputJ = document.getElementById("promo");
   var inputK = document.getElementById("sID");
+  var inputL = document.getElementById("creditCards");
   
   function setValue() {
     inputF.value = seatString;
